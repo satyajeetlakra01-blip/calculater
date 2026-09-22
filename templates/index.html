@@ -1,0 +1,2701 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Voice AI Calculator | Liquid Glass Studio</title>
+    <meta name="description" content="Apple-designed 3D Voice AI Calculator with Liquid Glass refraction, iPhone Duo Dynamic Island loading animation, full live color customization, resizable dock panels, and natural speech interaction.">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- SVG Real Optical Liquid Glass Refraction Filter Definition -->
+    <svg style="display: none;">
+        <defs>
+            <filter id="liquid-refraction" x="-20%" y="-20%" width="140%" height="140%" filterUnits="objectBoundingBox">
+                <feTurbulence type="fractalNoise" baseFrequency="0.012 0.012" numOctaves="2" result="noise" />
+                <feDisplacementMap in="SourceGraphic" in2="noise" scale="16" xChannelSelector="R" yChannelSelector="G" result="displaced" />
+                <feSpecularLighting in="noise" surfaceScale="4" specularConstant="1.3" specularExponent="35" lighting-color="#ffffff" result="specular">
+                    <feDistantLight azimuth="225" elevation="45" />
+                </feSpecularLighting>
+                <feComposite in="specular" in2="displaced" operator="in" result="specular-cut" />
+                <feBlend in="specular-cut" in2="displaced" mode="screen" />
+            </filter>
+        </defs>
+    </svg>
+
+    <style>
+        /* ==========================================================================
+           DYNAMIC APPLE DESIGN SYSTEM & LIQUID GLASS REFRACTION THEME
+           ========================================================================== */
+        :root {
+            --ui-scale: 1;
+            --glass-blur: 32px;
+            --glass-opacity: 0.68;
+            --keypad-size: 38px;
+            --sidebar-left-width: 280px;
+            --sidebar-right-width: 320px;
+            --apple-ease: cubic-bezier(0.16, 1, 0.3, 1);
+            --apple-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+            --bg-color-1: #0c1833;
+            --bg-color-2: #030712;
+            
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+            
+            --accent-primary: #00ffaa;
+            --accent-secondary: #00d2ff;
+            --accent-glow: rgba(0, 255, 170, 0.3);
+            
+            --glass-bg: rgba(13, 22, 40, var(--glass-opacity));
+            --glass-bg-hover: rgba(20, 32, 58, 0.85);
+            --glass-card: rgba(16, 26, 48, 0.75);
+            --glass-border: rgba(0, 255, 170, 0.22);
+            --glass-border-focus: rgba(0, 255, 204, 0.65);
+            --glass-shadow: 0 24px 60px rgba(0, 0, 0, 0.7), inset 0 1.5px 1.5px rgba(255, 255, 255, 0.25), inset 0 -1.5px 1.5px rgba(0, 0, 0, 0.4);
+
+            --user-msg-bg: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+            --user-msg-border: rgba(147, 197, 253, 0.4);
+            --ai-msg-bg: rgba(15, 23, 42, 0.92);
+            --ai-msg-border: var(--glass-border);
+            
+            --keypad-bg: rgba(15, 23, 42, 0.65);
+            --key-bg: rgba(30, 41, 59, 0.78);
+            --key-hover: rgba(51, 65, 85, 0.95);
+            --key-accent: rgba(0, 255, 170, 0.15);
+            --key-accent-text: var(--accent-primary);
+
+            --mic-idle: var(--accent-secondary);
+            --mic-active: #ff3b30;
+            --resizer-hover: var(--glass-border-focus);
+            --refraction-glow: rgba(0, 255, 170, 0.15);
+        }
+
+        :root[data-theme="dark"] {
+            --bg-gradient: radial-gradient(circle at 50% 20%, var(--bg-color-1) 0%, var(--bg-color-2) 65%, #010206 100%);
+        }
+
+        :root[data-theme="light"] {
+            --bg-gradient: radial-gradient(circle at 50% 20%, #f0f6ff 0%, #e2e8f0 60%, #cbd5e1 100%);
+            --glass-bg: rgba(255, 255, 255, var(--glass-opacity));
+            --glass-bg-hover: rgba(255, 255, 255, 0.92);
+            --glass-card: rgba(255, 255, 255, 0.88);
+            --glass-border: rgba(37, 99, 235, 0.25);
+            --glass-border-focus: rgba(37, 99, 235, 0.65);
+            --glass-shadow: 0 24px 50px rgba(31, 38, 135, 0.14), inset 0 1.5px 1.5px rgba(255, 255, 255, 0.95), inset 0 -1.5px 1.5px rgba(0, 0, 0, 0.08);
+            
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --text-muted: #94a3b8;
+            
+            --accent-primary: #2563eb;
+            --accent-secondary: #0284c7;
+            --accent-glow: rgba(37, 99, 235, 0.25);
+            
+            --keypad-bg: rgba(241, 245, 249, 0.78);
+            --key-bg: rgba(255, 255, 255, 0.92);
+            --key-hover: rgba(226, 232, 240, 1);
+            --key-accent: rgba(37, 99, 235, 0.14);
+            --key-accent-text: #1d4ed8;
+
+            --mic-idle: #2563eb;
+        }
+
+        /* Reset & Base Styling */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            user-select: none;
+            -webkit-user-select: none;
+            transition: background 0.3s var(--apple-ease), color 0.3s var(--apple-ease), border-color 0.3s var(--apple-ease);
+        }
+
+        html {
+            font-size: calc(16px * var(--ui-scale));
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+            background: var(--bg-gradient);
+            color: var(--text-primary);
+            height: 100vh;
+            width: 100vw;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Background Canvas */
+        #bgCanvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* ==========================================================================
+           1. IPHONE DUO DYNAMIC ISLAND LIQUID GLASS LOADING SPLASH SCREEN
+           ========================================================================== */
+        .liquid-loader-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 99999;
+            background: radial-gradient(circle at 50% 30%, rgba(12, 24, 50, 0.96) 0%, rgba(3, 7, 18, 0.98) 75%);
+            backdrop-filter: blur(45px) saturate(200%);
+            -webkit-backdrop-filter: blur(45px) saturate(200%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            perspective: 1200px;
+            transition: opacity 0.8s var(--apple-ease), visibility 0.8s;
+        }
+
+        .liquid-loader-screen.fade-out {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        /* Dynamic Island iPhone Duo Capsule Notch */
+        .dynamic-island-duo {
+            background: #000;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 100px;
+            padding: 10px 24px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            box-shadow: 
+                0 12px 45px rgba(0, 0, 0, 0.95),
+                0 0 35px var(--accent-glow),
+                inset 0 1px 2px rgba(255, 255, 255, 0.5);
+            animation: islandMorph 1.2s var(--apple-spring) forwards;
+            margin-bottom: 24px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .dynamic-island-duo .duo-camera {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: #050b14;
+            border: 2px solid var(--accent-primary);
+            box-shadow: 0 0 14px var(--accent-primary);
+            position: relative;
+        }
+
+        .dynamic-island-duo .duo-camera::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 5px;
+            height: 5px;
+            background: var(--accent-primary);
+            border-radius: 50%;
+        }
+
+        .dynamic-island-duo .duo-sensor {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.25);
+        }
+
+        .dynamic-island-duo .duo-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--accent-primary);
+            letter-spacing: 1.2px;
+            text-transform: uppercase;
+        }
+
+        @keyframes islandMorph {
+            0% { transform: scale(0.3) translateY(-100px); opacity: 0; width: 120px; }
+            50% { transform: scale(1.1) translateY(10px); width: 340px; }
+            100% { transform: scale(1) translateY(0); opacity: 1; width: 310px; }
+        }
+
+        /* Liquid Refraction Glass Card */
+        .liquid-glass-card {
+            background: rgba(15, 26, 48, 0.65);
+            border: 1px solid rgba(255, 255, 255, 0.35);
+            border-radius: 40px;
+            padding: 48px 40px;
+            max-width: 540px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 
+                0 40px 120px rgba(0, 0, 0, 0.85),
+                0 0 80px var(--accent-glow),
+                inset 0 2px 3px rgba(255, 255, 255, 0.5),
+                inset 0 -2px 3px rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(40px) saturate(210%);
+            -webkit-backdrop-filter: blur(40px) saturate(210%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 22px;
+            position: relative;
+            overflow: hidden;
+            animation: cardRefractionPop 1.3s var(--apple-spring) forwards;
+        }
+
+        @keyframes cardRefractionPop {
+            0% {
+                opacity: 0;
+                transform: scale(0.7) translateY(60px) rotateX(20deg);
+                filter: blur(25px);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1) translateY(0px) rotateX(0deg);
+                filter: blur(0px);
+            }
+        }
+
+        /* Glass Refraction Sweep Glare */
+        .liquid-glass-card::before {
+            content: '';
+            position: absolute;
+            top: -60%;
+            left: -60%;
+            width: 220%;
+            height: 220%;
+            background: radial-gradient(circle at 35% 35%, rgba(255, 255, 255, 0.25) 0%, var(--accent-glow) 40%, transparent 70%);
+            pointer-events: none;
+            animation: liquidRefractionSweep 10s infinite linear;
+        }
+
+        @keyframes liquidRefractionSweep {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .liquid-logo-badge {
+            width: 84px;
+            height: 84px;
+            border-radius: 30px;
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Outfit', sans-serif;
+            font-size: 38px;
+            font-weight: 800;
+            color: #000;
+            box-shadow: 0 0 50px var(--accent-glow), inset 0 2px 4px rgba(255, 255, 255, 0.7);
+            position: relative;
+            animation: floatGlow 3s infinite ease-in-out alternate;
+        }
+
+        @keyframes floatGlow {
+            0% { transform: translateY(0px) scale(1); box-shadow: 0 0 35px var(--accent-glow); }
+            100% { transform: translateY(-10px) scale(1.06); box-shadow: 0 0 65px var(--accent-primary); }
+        }
+
+        .liquid-headline-badge {
+            font-family: 'Outfit', sans-serif;
+            font-size: 30px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            background: linear-gradient(135deg, #ffffff 0%, var(--accent-primary) 50%, var(--accent-secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 30px var(--accent-glow);
+            margin-bottom: 2px;
+        }
+
+        .liquid-headline-tagline {
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--text-primary);
+            background: rgba(0, 0, 0, 0.4);
+            padding: 8px 20px;
+            border-radius: 100px;
+            border: 1px solid var(--glass-border-focus);
+            box-shadow: 0 0 20px var(--accent-glow);
+        }
+
+        /* Dynamic Progress Bar */
+        .liquid-progress-container {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 8px;
+        }
+
+        .liquid-progress-track {
+            width: 100%;
+            height: 12px;
+            border-radius: 100px;
+            background: rgba(0, 0, 0, 0.45);
+            border: 1px solid var(--glass-border);
+            overflow: hidden;
+            position: relative;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.6);
+        }
+
+        .liquid-progress-fill {
+            height: 100%;
+            width: 0%;
+            border-radius: 100px;
+            background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+            box-shadow: 0 0 20px var(--accent-primary);
+            transition: width 0.2s ease-out;
+        }
+
+        .liquid-status-text {
+            font-size: 12px;
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--accent-primary);
+            text-align: center;
+        }
+
+        /* ==========================================================================
+           MAIN APPLICATION CONTAINER
+           ========================================================================== */
+        .app-wrapper {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            width: 100vw;
+            padding: 16px;
+            gap: 16px;
+        }
+
+        /* Header Navigation */
+        .app-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 24px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(var(--glass-blur)) saturate(180%);
+            -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(180%);
+            border: 1px solid var(--glass-border);
+            border-radius: 22px;
+            box-shadow: var(--glass-shadow);
+            flex-shrink: 0;
+        }
+
+        .brand-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .brand-icon {
+            width: 38px;
+            height: 38px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 20px var(--accent-glow);
+            color: #000;
+            font-weight: 800;
+            font-size: 18px;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .brand-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 19px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            background: linear-gradient(90deg, var(--text-primary), var(--accent-primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .brand-badge {
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 3px 10px;
+            border-radius: 100px;
+            background: var(--accent-glow);
+            color: var(--accent-primary);
+            border: 1px solid var(--glass-border);
+        }
+
+        .header-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .status-pill {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            padding: 6px 14px;
+            border-radius: 100px;
+            background: rgba(0, 0, 0, 0.18);
+            border: 1px solid var(--glass-border);
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--accent-primary);
+            box-shadow: 0 0 10px var(--accent-primary);
+            animation: pulse-dot 2s infinite;
+        }
+
+        @keyframes pulse-dot {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.4; transform: scale(0.8); }
+        }
+
+        /* Action Buttons */
+        .header-btn {
+            background: var(--glass-card);
+            border: 1px solid var(--glass-border);
+            color: var(--text-primary);
+            padding: 8px 14px;
+            border-radius: 100px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            transition: all 0.25s var(--apple-ease);
+        }
+
+        .header-btn:hover {
+            background: var(--glass-bg-hover);
+            border-color: var(--glass-border-focus);
+            transform: translateY(-2px);
+        }
+
+        .header-btn:active {
+            transform: translateY(0px) scale(0.97);
+        }
+
+        .header-btn.ai-stopped {
+            border-color: rgba(245, 158, 11, 0.5);
+            color: #f59e0b;
+        }
+
+        /* ==========================================================================
+           VS CODE / PREMIERE PRO RESIZABLE DOCK LAYOUT ENGINE
+           ========================================================================== */
+        .main-layout {
+            display: grid;
+            grid-template-columns: var(--sidebar-left-width) 6px 1fr 6px var(--sidebar-right-width);
+            gap: 0;
+            flex-grow: 1;
+            min-height: 0;
+            position: relative;
+        }
+
+        /* Resizer Drag Handles */
+        .resizer {
+            width: 6px;
+            height: 100%;
+            cursor: col-resize;
+            position: relative;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+        }
+
+        .resizer:hover, .resizer.dragging {
+            background: var(--resizer-hover);
+            border-radius: 3px;
+        }
+
+        .resizer-line {
+            width: 2px;
+            height: 32px;
+            background: var(--glass-border);
+            border-radius: 2px;
+            transition: background 0.2s, height 0.2s;
+        }
+
+        .resizer:hover .resizer-line, .resizer.dragging .resizer-line {
+            background: #fff;
+            height: 48px;
+        }
+
+        /* Generic Liquid Glass Panel */
+        .glass-panel {
+            background: var(--glass-bg);
+            backdrop-filter: blur(var(--glass-blur)) saturate(180%);
+            -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(180%);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            box-shadow: var(--glass-shadow);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* --------------------------------------------------------------------------
+           LEFT COLUMN: Chat History Sidebar
+           -------------------------------------------------------------------------- */
+        .sidebar-left {
+            padding: 18px;
+            gap: 14px;
+        }
+
+        .panel-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .panel-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 15px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-primary);
+        }
+
+        .history-search-input {
+            width: 100%;
+            background: var(--glass-card);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            padding: 8px 12px;
+            color: var(--text-primary);
+            font-size: 12px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .history-search-input:focus {
+            border-color: var(--glass-border-focus);
+        }
+
+        .history-list {
+            flex-grow: 1;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            padding-right: 4px;
+        }
+
+        .history-list::-webkit-scrollbar {
+            width: 4px;
+        }
+        .history-list::-webkit-scrollbar-thumb {
+            background: var(--glass-border);
+            border-radius: 10px;
+        }
+
+        .history-item {
+            background: var(--glass-card);
+            border: 1px solid var(--glass-border);
+            border-radius: 14px;
+            padding: 12px;
+            cursor: pointer;
+            transition: all 0.25s var(--apple-ease);
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            position: relative;
+        }
+
+        .history-item:hover {
+            background: var(--glass-bg-hover);
+            border-color: var(--glass-border-focus);
+            transform: translateX(3px);
+        }
+
+        .history-query {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-primary);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .history-ans {
+            font-size: 12px;
+            color: var(--text-secondary);
+            font-family: 'JetBrains Mono', monospace;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .history-actions-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 4px;
+        }
+
+        .history-meta {
+            font-size: 10px;
+            color: var(--text-muted);
+        }
+
+        .history-btn-small {
+            background: transparent;
+            border: none;
+            color: var(--text-secondary);
+            cursor: pointer;
+            font-size: 11px;
+            padding: 2px 6px;
+            border-radius: 4px;
+            transition: all 0.2s;
+        }
+
+        .history-btn-small:hover {
+            color: var(--accent-primary);
+            background: var(--accent-glow);
+        }
+
+        .history-footer-btns {
+            display: flex;
+            gap: 8px;
+            margin-top: auto;
+        }
+
+        .clear-btn {
+            flex: 1;
+            background: transparent;
+            border: 1px solid var(--glass-border);
+            color: var(--text-muted);
+            padding: 8px;
+            border-radius: 10px;
+            font-size: 11px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .clear-btn:hover {
+            color: #ef4444;
+            border-color: rgba(239, 68, 68, 0.4);
+            background: rgba(239, 68, 68, 0.1);
+        }
+
+        /* --------------------------------------------------------------------------
+           CENTER COLUMN: Chat Interface
+           -------------------------------------------------------------------------- */
+        .chat-main {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+        }
+
+        .chat-messages {
+            flex-grow: 1;
+            overflow-y: auto;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .chat-messages::-webkit-scrollbar {
+            width: 6px;
+        }
+        .chat-messages::-webkit-scrollbar-thumb {
+            background: var(--glass-border);
+            border-radius: 10px;
+        }
+
+        /* Welcome Card */
+        .welcome-card {
+            background: var(--glass-card);
+            border: 1px dashed var(--glass-border);
+            border-radius: 20px;
+            padding: 24px;
+            text-align: center;
+            margin: auto;
+            max-width: 480px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            animation: fadeIn 0.6s var(--apple-ease);
+        }
+
+        .welcome-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 22px;
+            font-weight: 700;
+        }
+
+        .example-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+        }
+
+        .chip {
+            background: var(--key-bg);
+            border: 1px solid var(--glass-border);
+            color: var(--text-primary);
+            padding: 8px 14px;
+            border-radius: 100px;
+            font-size: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.25s var(--apple-ease);
+        }
+
+        .chip:hover {
+            background: var(--accent-glow);
+            border-color: var(--accent-primary);
+            transform: translateY(-2px);
+        }
+
+        /* Chat Bubbles */
+        .message-row {
+            display: flex;
+            gap: 12px;
+            max-width: 82%;
+            animation: slideUp 0.3s var(--apple-ease) forwards;
+        }
+
+        .message-row.user {
+            align-self: flex-end;
+            flex-direction: row-reverse;
+        }
+
+        .message-row.ai {
+            align-self: flex-start;
+        }
+
+        .avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 13px;
+            flex-shrink: 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .user .avatar {
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+            color: #fff;
+        }
+
+        .ai .avatar {
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            color: #000;
+        }
+
+        .bubble {
+            padding: 14px 18px;
+            border-radius: 20px;
+            font-size: 14px;
+            line-height: 1.6;
+            position: relative;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+        }
+
+        .user .bubble {
+            background: var(--user-msg-bg);
+            border: 1px solid var(--user-msg-border);
+            color: #ffffff;
+            border-bottom-right-radius: 4px;
+        }
+
+        .ai .bubble {
+            background: var(--ai-msg-bg);
+            border: 1px solid var(--ai-msg-border);
+            color: var(--text-primary);
+            border-bottom-left-radius: 4px;
+        }
+
+        .bubble-meta {
+            font-size: 10px;
+            opacity: 0.6;
+            margin-top: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+        }
+
+        .action-icon-btn {
+            background: transparent;
+            border: none;
+            color: inherit;
+            cursor: pointer;
+            font-size: 12px;
+            opacity: 0.8;
+            transition: opacity 0.2s;
+        }
+
+        .action-icon-btn:hover {
+            opacity: 1;
+        }
+
+        /* Input Controls Bar */
+        .chat-input-container {
+            padding: 16px 20px;
+            background: rgba(0, 0, 0, 0.15);
+            border-top: 1px solid var(--glass-border);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .input-wrapper {
+            flex-grow: 1;
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .chat-input {
+            width: 100%;
+            background: var(--glass-card);
+            border: 1px solid var(--glass-border);
+            border-radius: 100px;
+            padding: 14px 48px 14px 20px;
+            color: var(--text-primary);
+            font-size: 14px;
+            outline: none;
+            transition: all 0.3s var(--apple-ease);
+        }
+
+        .chat-input:focus {
+            border-color: var(--glass-border-focus);
+            box-shadow: 0 0 20px var(--accent-glow);
+        }
+
+        .mic-btn {
+            position: absolute;
+            right: 8px;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: transparent;
+            border: none;
+            color: var(--mic-idle);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            transition: all 0.25s var(--apple-ease);
+        }
+
+        .mic-btn:hover {
+            background: rgba(0, 210, 255, 0.15);
+            transform: scale(1.1);
+        }
+
+        .mic-btn.recording {
+            color: var(--mic-active);
+            animation: pulse-mic 1.2s infinite ease-in-out;
+            background: rgba(255, 59, 48, 0.2);
+        }
+
+        @keyframes pulse-mic {
+            0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 59, 48, 0.5); }
+            50% { transform: scale(1.15); box-shadow: 0 0 0 10px rgba(255, 59, 48, 0); }
+        }
+
+        .send-btn {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            border: none;
+            color: #000;
+            font-size: 18px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 16px var(--accent-glow);
+            transition: all 0.25s var(--apple-ease);
+            flex-shrink: 0;
+        }
+
+        .send-btn:hover {
+            transform: scale(1.08) translateY(-2px);
+            box-shadow: 0 8px 24px var(--accent-glow);
+        }
+
+        .send-btn:active {
+            transform: scale(0.95);
+        }
+
+        /* Typing Dots Animation */
+        .typing-indicator {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            padding: 12px 16px;
+            background: var(--ai-msg-bg);
+            border: 1px solid var(--ai-msg-border);
+            border-radius: 20px;
+            width: fit-content;
+        }
+
+        .typing-indicator .dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--accent-primary);
+            animation: bounce 1.4s infinite ease-in-out both;
+        }
+
+        .typing-indicator .dot:nth-child(1) { animation-delay: -0.32s; }
+        .typing-indicator .dot:nth-child(2) { animation-delay: -0.16s; }
+
+        @keyframes bounce {
+            0%, 80%, 100% { transform: scale(0); }
+            40% { transform: scale(1); }
+        }
+
+        /* --------------------------------------------------------------------------
+           RIGHT COLUMN: Virtual Math Keypad Sidebar Dock
+           -------------------------------------------------------------------------- */
+        .sidebar-right {
+            padding: 12px;
+            gap: 10px;
+            overflow-y: auto;
+        }
+
+        .sidebar-right::-webkit-scrollbar {
+            width: 4px;
+        }
+        .sidebar-right::-webkit-scrollbar-thumb {
+            background: var(--glass-border);
+            border-radius: 10px;
+        }
+
+        /* Keypad Container */
+        .keypad-container {
+            background: var(--keypad-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .keypad-tabs {
+            display: flex;
+            gap: 4px;
+            background: rgba(0, 0, 0, 0.25);
+            padding: 3px;
+            border-radius: 12px;
+        }
+
+        .key-tab {
+            flex: 1;
+            padding: 6px;
+            font-size: 11px;
+            font-weight: 700;
+            text-align: center;
+            border-radius: 8px;
+            cursor: pointer;
+            color: var(--text-secondary);
+            transition: all 0.2s;
+        }
+
+        .key-tab.active {
+            background: var(--glass-card);
+            color: var(--accent-primary);
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .keypad-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 6px;
+        }
+
+        .key-btn {
+            background: var(--key-bg);
+            border: 1px solid var(--glass-border);
+            color: var(--text-primary);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 13px;
+            font-weight: 600;
+            height: var(--keypad-size);
+            border-radius: 10px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.15s var(--apple-ease);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .key-btn:hover {
+            background: var(--key-hover);
+            border-color: var(--glass-border-focus);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px var(--accent-glow);
+        }
+
+        .key-btn:active {
+            transform: translateY(1px);
+        }
+
+        .key-btn.op {
+            background: var(--key-accent);
+            color: var(--key-accent-text);
+            font-weight: 700;
+        }
+
+        .key-btn.action {
+            background: rgba(239, 68, 68, 0.15);
+            color: #ef4444;
+            border-color: rgba(239, 68, 68, 0.3);
+        }
+
+        .key-btn.action:hover {
+            background: rgba(239, 68, 68, 0.3);
+        }
+
+        .key-btn.equals {
+            grid-column: span 2;
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            color: #000;
+            font-weight: 800;
+            border: none;
+        }
+
+        /* ==========================================================================
+           FULL CUSTOMIZATION SETTINGS MODAL OVERLAY
+           ========================================================================== */
+        .modal-backdrop {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 9999;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s var(--apple-ease);
+        }
+
+        .modal-backdrop.open {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .apple-settings-card {
+            background: rgba(15, 23, 42, 0.92);
+            border: 1px solid var(--glass-border);
+            border-radius: 32px;
+            padding: 32px;
+            max-width: 620px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 35px 90px rgba(0, 0, 0, 0.8), inset 0 1px 1px rgba(255, 255, 255, 0.2);
+            display: flex;
+            flex-direction: column;
+            gap: 22px;
+            transform: scale(0.9) translateY(20px);
+            transition: transform 0.35s var(--apple-spring);
+        }
+
+        .apple-settings-card::-webkit-scrollbar {
+            width: 6px;
+        }
+        .apple-settings-card::-webkit-scrollbar-thumb {
+            background: var(--glass-border);
+            border-radius: 10px;
+        }
+
+        .modal-backdrop.open .apple-settings-card {
+            transform: scale(1) translateY(0px);
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-bottom: 14px;
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .modal-close-btn {
+            background: var(--glass-card);
+            border: 1px solid var(--glass-border);
+            color: var(--text-primary);
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            transition: all 0.2s;
+        }
+
+        .modal-close-btn:hover {
+            background: rgba(239, 68, 68, 0.2);
+            color: #ef4444;
+            border-color: rgba(239, 68, 68, 0.4);
+        }
+
+        /* Color Customizer Grid */
+        .section-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--accent-primary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .preset-themes-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+        }
+
+        .theme-preset-btn {
+            background: var(--glass-card);
+            border: 1px solid var(--glass-border);
+            color: var(--text-primary);
+            padding: 8px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s;
+        }
+
+        .theme-preset-btn:hover {
+            border-color: var(--accent-primary);
+            background: var(--glass-bg-hover);
+            transform: translateY(-2px);
+        }
+
+        .color-pickers-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        .color-picker-item {
+            background: rgba(0, 0, 0, 0.25);
+            border: 1px solid var(--glass-border);
+            border-radius: 14px;
+            padding: 10px 14px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .color-picker-item input[type="color"] {
+            -webkit-appearance: none;
+            border: none;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            cursor: pointer;
+            background: transparent;
+        }
+
+        .color-picker-item input[type="color"]::-webkit-color-swatch-wrapper {
+            padding: 0;
+        }
+        .color-picker-item input[type="color"]::-webkit-color-swatch {
+            border: 2px solid rgba(255, 255, 255, 0.4);
+            border-radius: 50%;
+        }
+
+        .setting-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .setting-label {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .setting-val-badge {
+            color: var(--accent-primary);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        input[type="range"] {
+            width: 100%;
+            accent-color: var(--accent-primary);
+            cursor: pointer;
+        }
+
+        /* Toggle Switches */
+        .toggle-switch-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 44px;
+            height: 24px;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-color: rgba(255, 255, 255, 0.2);
+            transition: .3s;
+            border-radius: 34px;
+            border: 1px solid var(--glass-border);
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 2px;
+            bottom: 2px;
+            background-color: white;
+            transition: .3s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: var(--accent-primary);
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(20px);
+            background-color: #000;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.96); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Responsive Layout Breakpoints */
+        @media (max-width: 1024px) {
+            .main-layout {
+                grid-template-columns: 1fr;
+            }
+            .resizer {
+                display: none;
+            }
+            .sidebar-left, .sidebar-right {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 3D Particle Canvas Background Engine -->
+    <canvas id="bgCanvas"></canvas>
+
+    <!-- 1. IPHONE DUO DYNAMIC ISLAND LIQUID GLASS LOADING SPLASH SCREEN -->
+    <div class="liquid-loader-screen" id="liquidLoader">
+        <!-- iPhone Duo Dynamic Island Notch Pill -->
+        <div class="dynamic-island-duo">
+            <div class="duo-camera"></div>
+            <div class="duo-sensor"></div>
+            <div class="duo-label">iPhone Duo Dynamic Island</div>
+        </div>
+
+        <!-- Refraction Liquid Glass Container -->
+        <div class="liquid-glass-card">
+            <div class="liquid-logo-badge">f(x)</div>
+            <h2 class="liquid-headline-badge">✨ I CAN SOLVE ANYTHING</h2>
+            <div class="liquid-headline-tagline">HEAD TO SOLVE • CALCULUS • MATRIX • PHYSICS</div>
+
+            <div class="liquid-progress-container">
+                <div class="liquid-progress-track">
+                    <div class="liquid-progress-fill" id="progressFill"></div>
+                </div>
+                <div class="liquid-status-text" id="statusText">Initializing 3D Liquid Refraction Engine...</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN APP WRAPPER -->
+    <div class="app-wrapper">
+        <!-- App Header Bar -->
+        <header class="app-header">
+            <div class="brand-container">
+                <div class="brand-icon">f(x)</div>
+                <div>
+                    <h1 class="brand-title">3D Voice AI Calculator</h1>
+                </div>
+                <span class="brand-badge">v6.0 Custom Liquid Studio</span>
+            </div>
+
+            <div class="header-controls">
+                <div class="status-pill">
+                    <span class="status-dot" id="statusDot"></span>
+                    <span id="backendStatus">AI Active (Ollama)</span>
+                </div>
+
+                <!-- AI Engine Start / Stop Control Button -->
+                <button class="header-btn" id="aiToggleBtn" title="Start or Stop AI Engine">
+                    <span id="aiIcon">🤖</span>
+                    <span id="aiLabel">Stop AI</span>
+                </button>
+
+                <!-- Start/Stop 3D Canvas Animation Control -->
+                <button class="header-btn" id="animToggleBtn" title="Play or Pause 3D Particle Canvas">
+                    <span id="animIcon">⏸️</span>
+                    <span id="animLabel">3D Active</span>
+                </button>
+
+                <!-- Replay Liquid Intro Button -->
+                <button class="header-btn" id="replayIntroHeaderBtn" title="Replay Liquid Loading Animation">
+                    <span>🎬</span>
+                    <span>Replay Intro</span>
+                </button>
+
+                <!-- Top Header Full Customization Settings Button -->
+                <button class="header-btn" id="openSettingsBtn" title="Open Theme & Element Customizer">
+                    <span>⚙️</span>
+                    <span>Customize Studio</span>
+                </button>
+
+                <!-- Theme Toggle Button -->
+                <button class="header-btn" id="themeToggleBtn" title="Toggle Dark/Light Theme">
+                    <span id="themeIcon">🌙</span>
+                    <span id="themeLabel">Matrix Dark</span>
+                </button>
+            </div>
+        </header>
+
+        <!-- VS CODE / PREMIERE PRO STYLE RESIZABLE DOCK LAYOUT -->
+        <main class="main-layout" id="mainLayout">
+            
+            <!-- LEFT PANEL: Chat History Sidebar -->
+            <aside class="glass-panel sidebar-left" id="sidebarLeft">
+                <div class="panel-header">
+                    <div class="panel-title">
+                        <span>🕒 History Dock</span>
+                    </div>
+                </div>
+
+                <input type="text" id="historySearch" class="history-search-input" placeholder="🔍 Search past equations...">
+
+                <div class="history-list" id="historyList">
+                    <!-- Loaded dynamically from localStorage -->
+                </div>
+
+                <div class="history-footer-btns">
+                    <button class="clear-btn" id="exportHistoryBtn">📥 Export JSON</button>
+                    <button class="clear-btn" id="clearHistoryBtn">🗑️ Clear History</button>
+                </div>
+            </aside>
+
+            <!-- LEFT RESIZER DRAG HANDLE -->
+            <div class="resizer" id="resizerLeft">
+                <div class="resizer-line"></div>
+            </div>
+
+            <!-- CENTER PANEL: Main Chat Workspace -->
+            <section class="glass-panel chat-main">
+                <div class="chat-messages" id="chatMessages">
+                    <!-- Welcome Hero Box -->
+                    <div class="welcome-card" id="welcomeCard">
+                        <div class="brand-icon" style="margin: 0 auto; width: 48px; height: 48px; font-size: 24px;">f(x)</div>
+                        <h2 class="welcome-title">✨ I Can Solve Anything</h2>
+                        <p style="font-size: 13px; color: var(--text-secondary); line-height: 1.5;">
+                            Ask complex equations, calculus, linear algebra, voice queries, or matrix operations.
+                        </p>
+                        <div class="example-chips">
+                            <button class="chip" onclick="setInput('Calculate the integral of x^2 * sin(x)')">∫ x² sin(x) dx</button>
+                            <button class="chip" onclick="setInput('Solve system: 3x + 2y = 12 and 5x - y = 7')">System Equations</button>
+                            <button class="chip" onclick="setInput('What is the derivative of e^(2x) * cos(x)?')">d/dx (e²ˣ cos x)</button>
+                            <button class="chip" onclick="setInput('Calculate 45 * 18 + sqrt(144) / 3')">45 × 18 + √144 / 3</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chat Input Controls Bar -->
+                <div class="chat-input-container">
+                    <div class="input-wrapper">
+                        <input type="text" id="chatInput" class="chat-input" placeholder="Type or speak a math problem e.g. 25 * 4 + sqrt(81)..." autocomplete="off">
+                        <button class="mic-btn" id="micBtn" title="Speak to Voice Calculator">🎙️</button>
+                    </div>
+                    <button class="send-btn" id="sendBtn" title="Send Equation">➔</button>
+                </div>
+            </section>
+
+            <!-- RIGHT RESIZER DRAG HANDLE -->
+            <div class="resizer" id="resizerRight">
+                <div class="resizer-line"></div>
+            </div>
+
+            <!-- RIGHT PANEL: Pure Virtual Math Keypad Dock (Clean Display) -->
+            <aside class="glass-panel sidebar-right" id="sidebarRight">
+                <div class="panel-header">
+                    <div class="panel-title">
+                        <span>🧮 Math Dock</span>
+                    </div>
+                </div>
+
+                <!-- Virtual Keypad Dock Container -->
+                <div class="keypad-container">
+                    <div class="keypad-tabs">
+                        <div class="key-tab active" data-tab="basic" onclick="switchKeypadTab('basic')">Basic</div>
+                        <div class="key-tab" data-tab="sci" onclick="switchKeypadTab('sci')">Sci</div>
+                        <div class="key-tab" data-tab="func" onclick="switchKeypadTab('func')">Func</div>
+                    </div>
+
+                    <!-- Basic Keypad Grid -->
+                    <div class="keypad-grid" id="basicKeypad">
+                        <button class="key-btn action" onclick="pressKey('AC')">AC</button>
+                        <button class="key-btn action" onclick="pressKey('DEL')">DEL</button>
+                        <button class="key-btn op" onclick="pressKey('^')">^</button>
+                        <button class="key-btn op" onclick="pressKey('/')">÷</button>
+
+                        <button class="key-btn" onclick="pressKey('7')">7</button>
+                        <button class="key-btn" onclick="pressKey('8')">8</button>
+                        <button class="key-btn" onclick="pressKey('9')">9</button>
+                        <button class="key-btn op" onclick="pressKey('*')">×</button>
+
+                        <button class="key-btn" onclick="pressKey('4')">4</button>
+                        <button class="key-btn" onclick="pressKey('5')">5</button>
+                        <button class="key-btn" onclick="pressKey('6')">6</button>
+                        <button class="key-btn op" onclick="pressKey('-')">-</button>
+
+                        <button class="key-btn" onclick="pressKey('1')">1</button>
+                        <button class="key-btn" onclick="pressKey('2')">2</button>
+                        <button class="key-btn" onclick="pressKey('3')">3</button>
+                        <button class="key-btn op" onclick="pressKey('+')">+</button>
+
+                        <button class="key-btn" onclick="pressKey('0')">0</button>
+                        <button class="key-btn" onclick="pressKey('.')">.</button>
+                        <button class="key-btn equals" onclick="handleSend()">=</button>
+                    </div>
+
+                    <!-- Scientific Keypad Grid -->
+                    <div class="keypad-grid" id="sciKeypad" style="display: none;">
+                        <button class="key-btn op" onclick="pressKey('sin(')">sin</button>
+                        <button class="key-btn op" onclick="pressKey('cos(')">cos</button>
+                        <button class="key-btn op" onclick="pressKey('tan(')">tan</button>
+                        <button class="key-btn op" onclick="pressKey('π')">π</button>
+
+                        <button class="key-btn op" onclick="pressKey('sqrt(')">√</button>
+                        <button class="key-btn op" onclick="pressKey('log(')">log</button>
+                        <button class="key-btn op" onclick="pressKey('ln(')">ln</button>
+                        <button class="key-btn op" onclick="pressKey('e')">e</button>
+
+                        <button class="key-btn op" onclick="pressKey('(')">(</button>
+                        <button class="key-btn op" onclick="pressKey(')')">)</button>
+                        <button class="key-btn op" onclick="pressKey('abs(')">|x|</button>
+                        <button class="key-btn op" onclick="pressKey('!')">n!</button>
+                    </div>
+
+                    <!-- Function Keypad Grid -->
+                    <div class="keypad-grid" id="funcKeypad" style="display: none;">
+                        <button class="key-btn op" onclick="pressKey('int(')">∫</button>
+                        <button class="key-btn op" onclick="pressKey('diff(')">d/dx</button>
+                        <button class="key-btn op" onclick="pressKey('sum(')">∑</button>
+                        <button class="key-btn op" onclick="pressKey('lim(')">lim</button>
+
+                        <button class="key-btn op" onclick="pressKey('matrix(')">[M]</button>
+                        <button class="key-btn op" onclick="pressKey('det(')">det</button>
+                        <button class="key-btn op" onclick="pressKey('inv(')">M⁻¹</button>
+                        <button class="key-btn op" onclick="pressKey('eigen(')">λ</button>
+                    </div>
+                </div>
+            </aside>
+        </main>
+    </div>
+
+    <!-- FULL CUSTOMIZATION & STUDIO SETTINGS MODAL DIALOG -->
+    <div class="modal-backdrop" id="settingsModal">
+        <div class="apple-settings-card">
+            <div class="modal-header">
+                <h3 style="font-family: 'Outfit', sans-serif; font-size: 22px; font-weight: 800;">🎨 Full Element & Theme Studio</h3>
+                <button class="modal-close-btn" id="closeSettingsBtn">✕</button>
+            </div>
+
+            <!-- PRESET THEMES SECTION -->
+            <div class="setting-group">
+                <div class="section-title">🎨 Theme Palette Presets</div>
+                <div class="preset-themes-grid">
+                    <button class="theme-preset-btn" onclick="applyPresetTheme('matrix')">🌌 Matrix Neon</button>
+                    <button class="theme-preset-btn" onclick="applyPresetTheme('violet')">🔮 Cyber Violet</button>
+                    <button class="theme-preset-btn" onclick="applyPresetTheme('ocean')">🌊 Deep Ocean</button>
+                    <button class="theme-preset-btn" onclick="applyPresetTheme('sunset')">🌅 Sunset Amber</button>
+                    <button class="theme-preset-btn" onclick="applyPresetTheme('crystal')">💎 Crystal Blue</button>
+                    <button class="theme-preset-btn" onclick="applyPresetTheme('oled')">⚡ OLED Dark</button>
+                </div>
+            </div>
+
+            <!-- CUSTOM COLOR PICKERS FOR EVERY ELEMENT -->
+            <div class="setting-group">
+                <div class="section-title">🖌️ Live Element Color Customizer</div>
+                <div class="color-pickers-grid">
+                    <div class="color-picker-item">
+                        <span>Primary Accent</span>
+                        <input type="color" id="primaryColorPicker" value="#00ffaa">
+                    </div>
+                    <div class="color-picker-item">
+                        <span>Secondary Accent</span>
+                        <input type="color" id="secondaryColorPicker" value="#00d2ff">
+                    </div>
+                    <div class="color-picker-item">
+                        <span>Primary Text</span>
+                        <input type="color" id="textPrimaryPicker" value="#f8fafc">
+                    </div>
+                    <div class="color-picker-item">
+                        <span>Secondary Text</span>
+                        <input type="color" id="textSecondaryPicker" value="#94a3b8">
+                    </div>
+                    <div class="color-picker-item">
+                        <span>Glass Panel Tint</span>
+                        <input type="color" id="glassBgPicker" value="#0d1628">
+                    </div>
+                    <div class="color-picker-item">
+                        <span>Glass Border Glow</span>
+                        <input type="color" id="glassBorderPicker" value="#00ffaa">
+                    </div>
+                </div>
+            </div>
+
+            <!-- LIQUID GLASS & FLUID ANIMATION INTENSITY -->
+            <div class="setting-group">
+                <div class="section-title">💧 Liquid Glass Refraction & Physics</div>
+
+                <div class="setting-group">
+                    <div class="setting-label">
+                        <span>Liquid Glass Opacity</span>
+                        <span class="setting-val-badge" id="opacityVal">68%</span>
+                    </div>
+                    <input type="range" id="opacitySlider" min="0.2" max="0.95" step="0.05" value="0.68">
+                </div>
+
+                <div class="setting-group">
+                    <div class="setting-label">
+                        <span>Glass Backdrop Blur</span>
+                        <span class="setting-val-badge" id="modalBlurVal">32px</span>
+                    </div>
+                    <input type="range" id="modalBlurSlider" min="8" max="70" step="2" value="32">
+                </div>
+
+                <div class="setting-group">
+                    <div class="setting-label">
+                        <span>3D Particle Count</span>
+                        <span class="setting-val-badge" id="particleCountVal">75</span>
+                    </div>
+                    <input type="range" id="particleSlider" min="20" max="150" step="5" value="75">
+                </div>
+            </div>
+
+            <!-- WORKSPACE LAYOUT & KEYPAD -->
+            <div class="setting-group">
+                <div class="section-title">📐 Workspace & Keypad Sizing</div>
+                
+                <div class="setting-group">
+                    <div class="setting-label">
+                        <span>Workspace Layout Scale</span>
+                        <span class="setting-val-badge" id="modalScaleVal">100%</span>
+                    </div>
+                    <input type="range" id="modalScaleSlider" min="0.75" max="1.25" step="0.05" value="1">
+                </div>
+
+                <div class="setting-group">
+                    <div class="setting-label">
+                        <span>Keypad Key Height</span>
+                        <span class="setting-val-badge" id="modalKeySizeVal">38px</span>
+                    </div>
+                    <input type="range" id="modalKeySizeSlider" min="28" max="56" step="2" value="38">
+                </div>
+            </div>
+
+            <!-- AI & AUDIO ENGINE SETTINGS -->
+            <div class="setting-group">
+                <div class="section-title">🤖 AI Reasoning & Voice Controls</div>
+
+                <div class="toggle-switch-row">
+                    <span>Ollama AI Brain Reasoning</span>
+                    <label class="switch">
+                        <input type="checkbox" id="modalAiToggle" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <div class="toggle-switch-row">
+                    <span>Text-to-Speech (TTS) Voice</span>
+                    <label class="switch">
+                        <input type="checkbox" id="modalTtsToggle" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <div class="toggle-switch-row">
+                    <span>Keypad Audio Click Sound</span>
+                    <label class="switch">
+                        <input type="checkbox" id="modalSoundToggle" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <!-- Replay Liquid Loading Intro Button -->
+                <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--glass-border); padding-top: 14px; margin-top: 4px;">
+                    <span>Replay Liquid Loading Intro</span>
+                    <button class="header-btn" id="replayIntroModalBtn">🎬 Replay Intro</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT LOGIC ENGINE -->
+    <script>
+        /* --------------------------------------------------------------------------
+           1. IPHONE DUO DYNAMIC ISLAND LIQUID GLASS SPLASH SCREEN MANAGER
+           -------------------------------------------------------------------------- */
+        const liquidLoader = document.getElementById('liquidLoader');
+        const progressFill = document.getElementById('progressFill');
+        const statusText = document.getElementById('statusText');
+
+        const loadingSteps = [
+            { pct: 25, text: "Initializing 3D Liquid Particle Physics..." },
+            { pct: 55, text: "Calibrating Ollama Qwen2.5 AI Brain..." },
+            { pct: 85, text: "Refracting Liquid Glass Shaders..." },
+            { pct: 100, text: "Ready! I Can Solve Anything." }
+        ];
+
+        function startLiquidLoadingAnimation() {
+            liquidLoader.classList.remove('fade-out');
+            progressFill.style.width = '0%';
+            
+            let idx = 0;
+            const interval = setInterval(() => {
+                if (idx < loadingSteps.length) {
+                    const step = loadingSteps[idx];
+                    progressFill.style.width = step.pct + '%';
+                    statusText.textContent = step.text;
+                    playClickSound(600 + idx * 120, 'sine');
+                    idx++;
+                } else {
+                    clearInterval(interval);
+                    setTimeout(() => {
+                        liquidLoader.classList.add('fade-out');
+                        playClickSound(950, 'triangle');
+                    }, 650);
+                }
+            }, 500);
+        }
+
+        // Run Loading animation on page start
+        window.addEventListener('DOMContentLoaded', () => {
+            startLiquidLoadingAnimation();
+        });
+
+        document.getElementById('replayIntroHeaderBtn').addEventListener('click', () => {
+            startLiquidLoadingAnimation();
+        });
+
+        document.getElementById('replayIntroModalBtn').addEventListener('click', () => {
+            settingsModal.classList.remove('open');
+            startLiquidLoadingAnimation();
+        });
+
+
+        /* --------------------------------------------------------------------------
+           2. VS CODE / PREMIERE PRO STYLE RESIZABLE PANEL DOCKING SYSTEM
+           -------------------------------------------------------------------------- */
+        const mainLayout = document.getElementById('mainLayout');
+        const resizerLeft = document.getElementById('resizerLeft');
+        const resizerRight = document.getElementById('resizerRight');
+
+        let isDraggingLeft = false;
+        let isDraggingRight = false;
+
+        resizerLeft.addEventListener('mousedown', (e) => {
+            isDraggingLeft = true;
+            resizerLeft.classList.add('dragging');
+            document.body.style.cursor = 'col-resize';
+            e.preventDefault();
+        });
+
+        resizerRight.addEventListener('mousedown', (e) => {
+            isDraggingRight = true;
+            resizerRight.classList.add('dragging');
+            document.body.style.cursor = 'col-resize';
+            e.preventDefault();
+        });
+
+        document.addEventListener('mousemove', (e) => {
+            if (isDraggingLeft) {
+                const newWidth = Math.max(180, Math.min(500, e.clientX - 16));
+                document.documentElement.style.setProperty('--sidebar-left-width', newWidth + 'px');
+            } else if (isDraggingRight) {
+                const newWidth = Math.max(200, Math.min(550, window.innerWidth - e.clientX - 16));
+                document.documentElement.style.setProperty('--sidebar-right-width', newWidth + 'px');
+            }
+        });
+
+        document.addEventListener('mouseup', () => {
+            if (isDraggingLeft || isDraggingRight) {
+                isDraggingLeft = false;
+                isDraggingRight = false;
+                resizerLeft.classList.remove('dragging');
+                resizerRight.classList.remove('dragging');
+                document.body.style.cursor = 'default';
+                saveSettingsToStorage();
+            }
+        });
+
+
+        /* --------------------------------------------------------------------------
+           3. APPLE FLOATING SETTINGS MODAL & COLOR CUSTOMIZER MANAGER
+           -------------------------------------------------------------------------- */
+        const settingsModal = document.getElementById('settingsModal');
+        const openSettingsBtn = document.getElementById('openSettingsBtn');
+        const closeSettingsBtn = document.getElementById('closeSettingsBtn');
+
+        openSettingsBtn.addEventListener('click', () => {
+            settingsModal.classList.add('open');
+            playClickSound(750, 'sine');
+        });
+
+        closeSettingsBtn.addEventListener('click', () => {
+            settingsModal.classList.remove('open');
+            playClickSound(450, 'sine');
+        });
+
+        settingsModal.addEventListener('click', (e) => {
+            if (e.target === settingsModal) {
+                settingsModal.classList.remove('open');
+            }
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && settingsModal.classList.contains('open')) {
+                settingsModal.classList.remove('open');
+            }
+        });
+
+        // Color Picker Event Listeners
+        const primaryColorPicker = document.getElementById('primaryColorPicker');
+        const secondaryColorPicker = document.getElementById('secondaryColorPicker');
+        const textPrimaryPicker = document.getElementById('textPrimaryPicker');
+        const textSecondaryPicker = document.getElementById('textSecondaryPicker');
+        const glassBgPicker = document.getElementById('glassBgPicker');
+        const glassBorderPicker = document.getElementById('glassBorderPicker');
+
+        primaryColorPicker.addEventListener('input', (e) => {
+            const val = e.target.value;
+            document.documentElement.style.setProperty('--accent-primary', val);
+            document.documentElement.style.setProperty('--accent-glow', hexToRgba(val, 0.35));
+            saveSettingsToStorage();
+        });
+
+        secondaryColorPicker.addEventListener('input', (e) => {
+            const val = e.target.value;
+            document.documentElement.style.setProperty('--accent-secondary', val);
+            saveSettingsToStorage();
+        });
+
+        textPrimaryPicker.addEventListener('input', (e) => {
+            document.documentElement.style.setProperty('--text-primary', e.target.value);
+            saveSettingsToStorage();
+        });
+
+        textSecondaryPicker.addEventListener('input', (e) => {
+            document.documentElement.style.setProperty('--text-secondary', e.target.value);
+            saveSettingsToStorage();
+        });
+
+        glassBgPicker.addEventListener('input', (e) => {
+            const hex = e.target.value;
+            const opacity = parseFloat(document.getElementById('opacitySlider').value);
+            document.documentElement.style.setProperty('--glass-bg', hexToRgba(hex, opacity));
+            saveSettingsToStorage();
+        });
+
+        glassBorderPicker.addEventListener('input', (e) => {
+            const val = e.target.value;
+            document.documentElement.style.setProperty('--glass-border', hexToRgba(val, 0.3));
+            document.documentElement.style.setProperty('--glass-border-focus', hexToRgba(val, 0.7));
+            saveSettingsToStorage();
+        });
+
+        // Opacity Slider
+        const opacitySlider = document.getElementById('opacitySlider');
+        const opacityVal = document.getElementById('opacityVal');
+        opacitySlider.addEventListener('input', (e) => {
+            const op = parseFloat(e.target.value);
+            document.documentElement.style.setProperty('--glass-opacity', op);
+            opacityVal.textContent = Math.round(op * 100) + '%';
+            const hex = glassBgPicker.value;
+            document.documentElement.style.setProperty('--glass-bg', hexToRgba(hex, op));
+            saveSettingsToStorage();
+        });
+
+        // Particle Slider
+        const particleSlider = document.getElementById('particleSlider');
+        const particleCountVal = document.getElementById('particleCountVal');
+        particleSlider.addEventListener('input', (e) => {
+            const count = parseInt(e.target.value);
+            particleCountVal.textContent = count;
+            rebuildParticles(count);
+            saveSettingsToStorage();
+        });
+
+        function hexToRgba(hex, alpha = 1) {
+            let c = hex.replace('#', '');
+            if (c.length === 3) c = c.split('').map(x => x + x).join('');
+            const num = parseInt(c, 16);
+            const r = (num >> 16) & 255;
+            const g = (num >> 8) & 255;
+            const b = num & 255;
+            return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+        }
+
+        // Preset Theme Applicator
+        function applyPresetTheme(preset) {
+            playClickSound(850, 'sine');
+            if (preset === 'matrix') {
+                setThemeColors('#00ffaa', '#00d2ff', '#f8fafc', '#94a3b8', '#0d1628', '#00ffaa', '#0c1833', '#030712');
+            } else if (preset === 'violet') {
+                setThemeColors('#a855f7', '#ec4899', '#f3e8ff', '#c084fc', '#180d2b', '#a855f7', '#180d2b', '#090314');
+            } else if (preset === 'ocean') {
+                setThemeColors('#38bdf8', '#6366f1', '#f0f9ff', '#7dd3fc', '#081a36', '#38bdf8', '#081a36', '#020b18');
+            } else if (preset === 'sunset') {
+                setThemeColors('#f59e0b', '#ef4444', '#fffbe6', '#fcd34d', '#261408', '#f59e0b', '#261408', '#0f0702');
+            } else if (preset === 'crystal') {
+                setThemeColors('#2563eb', '#0284c7', '#0f172a', '#475569', '#f0f9ff', '#2563eb', '#e0f2fe', '#bae6fd');
+            } else if (preset === 'oled') {
+                setThemeColors('#22c55e', '#14b8a6', '#ffffff', '#a1a1aa', '#0a0a0a', '#22c55e', '#000000', '#050505');
+            }
+        }
+
+        function setThemeColors(primary, secondary, textP, textS, glassBgHex, glassBorderHex, bg1, bg2) {
+            primaryColorPicker.value = primary;
+            secondaryColorPicker.value = secondary;
+            textPrimaryPicker.value = textP;
+            textSecondaryPicker.value = textS;
+            glassBgPicker.value = glassBgHex;
+            glassBorderPicker.value = glassBorderHex;
+
+            document.documentElement.style.setProperty('--accent-primary', primary);
+            document.documentElement.style.setProperty('--accent-secondary', secondary);
+            document.documentElement.style.setProperty('--accent-glow', hexToRgba(primary, 0.35));
+            document.documentElement.style.setProperty('--text-primary', textP);
+            document.documentElement.style.setProperty('--text-secondary', textS);
+
+            const op = parseFloat(opacitySlider.value);
+            document.documentElement.style.setProperty('--glass-bg', hexToRgba(glassBgHex, op));
+            document.documentElement.style.setProperty('--glass-border', hexToRgba(glassBorderHex, 0.3));
+            document.documentElement.style.setProperty('--glass-border-focus', hexToRgba(glassBorderHex, 0.75));
+
+            document.documentElement.style.setProperty('--bg-color-1', bg1);
+            document.documentElement.style.setProperty('--bg-color-2', bg2);
+
+            saveSettingsToStorage();
+        }
+
+
+        /* --------------------------------------------------------------------------
+           4. 3D CANVAS MATHEMATICAL SYMBOLS BACKGROUND ENGINE WITH PLAY/PAUSE
+           -------------------------------------------------------------------------- */
+        const canvas = document.getElementById('bgCanvas');
+        const ctx = canvas.getContext('2d');
+
+        let width = canvas.width = window.innerWidth;
+        let height = canvas.height = window.innerHeight;
+
+        window.addEventListener('resize', () => {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        });
+
+        const mathSymbols = [
+            'π', '∑', '∫', '∞', '√', '∆', 'θ', 'λ', 
+            'sin', 'cos', 'tan', 'log', '÷', '×', '±', 
+            '∇', '∂', '≡', '≈', '⊕', '⊗', '∭', 'f(x)'
+        ];
+
+        class MathParticle3D {
+            constructor() {
+                this.reset(true);
+            }
+
+            reset(initial = false) {
+                this.x = (Math.random() - 0.5) * width * 1.5;
+                this.y = initial ? (Math.random() - 0.5) * height * 1.5 : height / 2 + 200;
+                this.z = Math.random() * 900 + 100;
+                
+                this.symbol = mathSymbols[Math.floor(Math.random() * mathSymbols.length)];
+                this.vy = -(Math.random() * 0.8 + 0.4);
+                this.vx = (Math.random() - 0.5) * 0.3;
+                this.rot = Math.random() * Math.PI * 2;
+                this.vRot = (Math.random() - 0.5) * 0.01;
+            }
+
+            update() {
+                this.y += this.vy * (1000 / this.z);
+                this.x += this.vx * (1000 / this.z);
+                this.rot += this.vRot;
+
+                if (this.y < -height / 2 - 100) {
+                    this.reset(false);
+                }
+            }
+
+            draw() {
+                const perspective = 500;
+                const scale = perspective / (perspective + this.z);
+                
+                const screenX = width / 2 + this.x * scale;
+                const screenY = height / 2 + this.y * scale;
+
+                if (screenX < -50 || screenX > width + 50 || screenY < -50 || screenY > height + 50) return;
+
+                ctx.save();
+                ctx.translate(screenX, screenY);
+                ctx.rotate(this.rot);
+
+                const baseSize = 36;
+                const size = baseSize * scale;
+                ctx.font = `${Math.max(10, size)}px 'JetBrains Mono', monospace`;
+
+                const alpha = Math.min(1, Math.max(0.1, scale * 0.95));
+                const accentPrimary = getComputedStyle(document.documentElement).getPropertyValue('--accent-primary').trim() || '#00ffaa';
+                
+                ctx.fillStyle = hexToRgba(accentPrimary, alpha);
+                ctx.shadowBlur = scale > 0.8 ? 14 : 0;
+                ctx.shadowColor = accentPrimary;
+
+                ctx.fillText(this.symbol, 0, 0);
+                ctx.restore();
+            }
+        }
+
+        let particles = Array.from({ length: 75 }, () => new MathParticle3D());
+        let isAnimationRunning = true;
+        let animationFrameId = null;
+
+        function rebuildParticles(count) {
+            particles = Array.from({ length: count }, () => new MathParticle3D());
+        }
+
+        function animateCanvas() {
+            if (!isAnimationRunning) return;
+            ctx.clearRect(0, 0, width, height);
+
+            particles.sort((a, b) => b.z - a.z);
+
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+
+            animationFrameId = requestAnimationFrame(animateCanvas);
+        }
+        animateCanvas();
+
+        const animToggleBtn = document.getElementById('animToggleBtn');
+        const animIcon = document.getElementById('animIcon');
+        const animLabel = document.getElementById('animLabel');
+
+        animToggleBtn.addEventListener('click', () => {
+            isAnimationRunning = !isAnimationRunning;
+            if (isAnimationRunning) {
+                animIcon.textContent = '⏸️';
+                animLabel.textContent = '3D Active';
+                animateCanvas();
+            } else {
+                animIcon.textContent = '▶️';
+                animLabel.textContent = '3D Paused';
+                if (animationFrameId) cancelAnimationFrame(animationFrameId);
+            }
+            saveSettingsToStorage();
+            playClickSound(600);
+        });
+
+
+        /* --------------------------------------------------------------------------
+           5. AI ENGINE START / STOP ENGINE CONTROL
+           -------------------------------------------------------------------------- */
+        let isAiEngineActive = true;
+        const aiToggleBtn = document.getElementById('aiToggleBtn');
+        const aiIcon = document.getElementById('aiIcon');
+        const aiLabel = document.getElementById('aiLabel');
+        const backendStatus = document.getElementById('backendStatus');
+        const statusDot = document.getElementById('statusDot');
+        const modalAiToggle = document.getElementById('modalAiToggle');
+
+        function setAiEngineState(active) {
+            isAiEngineActive = active;
+            modalAiToggle.checked = active;
+
+            if (active) {
+                aiIcon.textContent = '🤖';
+                aiLabel.textContent = 'Stop AI';
+                aiToggleBtn.classList.remove('ai-stopped');
+                backendStatus.textContent = 'AI Active (Ollama)';
+                statusDot.style.background = 'var(--accent-primary)';
+                statusDot.style.boxShadow = '0 0 10px var(--accent-primary)';
+            } else {
+                aiIcon.textContent = '⚡';
+                aiLabel.textContent = 'Start AI';
+                aiToggleBtn.classList.add('ai-stopped');
+                backendStatus.textContent = 'Direct Solver (AI Stopped)';
+                statusDot.style.background = '#f59e0b';
+                statusDot.style.boxShadow = '0 0 10px #f59e0b';
+            }
+        }
+
+        aiToggleBtn.addEventListener('click', () => {
+            setAiEngineState(!isAiEngineActive);
+            saveSettingsToStorage();
+            playClickSound(750);
+        });
+
+        modalAiToggle.addEventListener('change', (e) => {
+            setAiEngineState(e.target.checked);
+            saveSettingsToStorage();
+            playClickSound(750);
+        });
+
+
+        /* --------------------------------------------------------------------------
+           6. AUDIO SYNTHESIZER FOR KEYPAD CLICK FEEDBACK
+           -------------------------------------------------------------------------- */
+        let audioCtx = null;
+        function playClickSound(freq = 600, type = 'sine') {
+            if (!document.getElementById('modalSoundToggle').checked) return;
+            try {
+                if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                if (audioCtx.state === 'suspended') audioCtx.resume();
+
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+
+                osc.type = type;
+                osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+                gain.gain.setValueAtTime(0.05, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.05);
+
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+
+                osc.start();
+                osc.stop(audioCtx.currentTime + 0.05);
+            } catch (e) {
+                // Audio Context fallback if blocked
+            }
+        }
+
+
+        /* --------------------------------------------------------------------------
+           7. THEME MANAGEMENT SYSTEM
+           -------------------------------------------------------------------------- */
+        const themeToggleBtn = document.getElementById('themeToggleBtn');
+        const themeIcon = document.getElementById('themeIcon');
+        const themeLabel = document.getElementById('themeLabel');
+
+        themeToggleBtn.addEventListener('click', () => {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            setTheme(newTheme);
+            saveSettingsToStorage();
+            playClickSound(800, 'triangle');
+        });
+
+        function setTheme(theme) {
+            document.documentElement.setAttribute('data-theme', theme);
+            themeIcon.textContent = theme === 'dark' ? '🌙' : '☀️';
+            themeLabel.textContent = theme === 'dark' ? 'Matrix Dark' : 'Cyber Light';
+        }
+
+
+        /* --------------------------------------------------------------------------
+           8. LAYOUT & SIZE CUSTOMIZATION SETTINGS ENGINE
+           -------------------------------------------------------------------------- */
+        const scaleSlider = document.getElementById('modalScaleSlider');
+        const scaleVal = document.getElementById('modalScaleVal');
+        scaleSlider.addEventListener('input', (e) => {
+            const val = parseFloat(e.target.value);
+            document.documentElement.style.setProperty('--ui-scale', val);
+            scaleVal.textContent = Math.round(val * 100) + '%';
+            saveSettingsToStorage();
+        });
+
+        const blurSlider = document.getElementById('modalBlurSlider');
+        const blurVal = document.getElementById('modalBlurVal');
+        blurSlider.addEventListener('input', (e) => {
+            const val = parseInt(e.target.value);
+            document.documentElement.style.setProperty('--glass-blur', val + 'px');
+            blurVal.textContent = val + 'px';
+            saveSettingsToStorage();
+        });
+
+        const keySizeSlider = document.getElementById('modalKeySizeSlider');
+        const keySizeVal = document.getElementById('modalKeySizeVal');
+        keySizeSlider.addEventListener('input', (e) => {
+            const val = parseInt(e.target.value);
+            document.documentElement.style.setProperty('--keypad-size', val + 'px');
+            keySizeVal.textContent = val + 'px';
+            saveSettingsToStorage();
+        });
+
+        function switchKeypadTab(tab) {
+            document.querySelectorAll('.key-tab').forEach(t => t.classList.remove('active'));
+            document.querySelector(`.key-tab[data-tab="${tab}"]`).classList.add('active');
+
+            document.getElementById('basicKeypad').style.display = tab === 'basic' ? 'grid' : 'none';
+            document.getElementById('sciKeypad').style.display = tab === 'sci' ? 'grid' : 'none';
+            document.getElementById('funcKeypad').style.display = tab === 'func' ? 'grid' : 'none';
+            playClickSound(500);
+        }
+
+        const chatInput = document.getElementById('chatInput');
+
+        function setInput(text) {
+            chatInput.value = text;
+            chatInput.focus();
+            playClickSound(700);
+        }
+
+        function pressKey(key) {
+            playClickSound(650);
+            if (key === 'AC') {
+                chatInput.value = '';
+            } else if (key === 'DEL') {
+                chatInput.value = chatInput.value.slice(0, -1);
+            } else {
+                chatInput.value += key;
+            }
+            chatInput.focus();
+        }
+
+        chatInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                handleSend();
+            }
+        });
+
+
+        /* --------------------------------------------------------------------------
+           9. SPEECH RECOGNITION (VOICE TO TEXT)
+           -------------------------------------------------------------------------- */
+        const micBtn = document.getElementById('micBtn');
+        let recognition = null;
+        let isRecording = false;
+
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+        if (SpeechRecognition) {
+            recognition = new SpeechRecognition();
+            recognition.continuous = false;
+            recognition.interimResults = true;
+            recognition.lang = 'en-US';
+
+            recognition.onstart = () => {
+                isRecording = true;
+                micBtn.classList.add('recording');
+                chatInput.placeholder = "Listening... Speak your math problem aloud...";
+                playClickSound(900, 'sine');
+            };
+
+            recognition.onresult = (event) => {
+                const transcript = Array.from(event.results)
+                    .map(result => result[0].transcript)
+                    .join('');
+                chatInput.value = transcript;
+            };
+
+            recognition.onerror = (event) => {
+                console.warn('Speech recognition error:', event.error);
+                stopRecording();
+            };
+
+            recognition.onend = () => {
+                stopRecording();
+            };
+        } else {
+            micBtn.title = "Voice recognition not supported in this browser";
+            micBtn.style.opacity = '0.5';
+        }
+
+        function stopRecording() {
+            isRecording = false;
+            micBtn.classList.remove('recording');
+            chatInput.placeholder = "Type or speak a calculation e.g. 25 * 4 + sqrt(81)...";
+            playClickSound(400, 'sine');
+        }
+
+        micBtn.addEventListener('click', () => {
+            if (!recognition) {
+                alert("Speech recognition is not supported in your browser. Please try Chrome or Edge.");
+                return;
+            }
+            if (isRecording) {
+                recognition.stop();
+            } else {
+                recognition.start();
+            }
+        });
+
+
+        /* --------------------------------------------------------------------------
+           10. TEXT TO SPEECH (SPEECH SYNTHESIS)
+           -------------------------------------------------------------------------- */
+        function speakText(text) {
+            if (!document.getElementById('modalTtsToggle').checked) return;
+            if (!('speechSynthesis' in window)) return;
+
+            window.speechSynthesis.cancel();
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.rate = 1.0;
+            utterance.pitch = 1.0;
+
+            const voices = window.speechSynthesis.getVoices();
+            const preferredVoice = voices.find(v => v.lang.includes('en') && (v.name.includes('Natural') || v.name.includes('Google')));
+            if (preferredVoice) utterance.voice = preferredVoice;
+
+            window.speechSynthesis.speak(utterance);
+        }
+
+
+        /* --------------------------------------------------------------------------
+           11. LOCAL STORAGE & SETTINGS PERSISTENCE MANAGER
+           -------------------------------------------------------------------------- */
+        const HISTORY_KEY = 'ai_calculator_history_v7';
+        const SETTINGS_KEY = 'ai_calculator_settings_v7';
+
+        function saveSettingsToStorage() {
+            const settings = {
+                theme: document.documentElement.getAttribute('data-theme'),
+                uiScale: scaleSlider.value,
+                glassBlur: blurSlider.value,
+                keySize: keySizeSlider.value,
+                opacity: opacitySlider.value,
+                particles: particleSlider.value,
+                primaryColor: primaryColorPicker.value,
+                secondaryColor: secondaryColorPicker.value,
+                textPrimary: textPrimaryPicker.value,
+                textSecondary: textSecondaryPicker.value,
+                glassBg: glassBgPicker.value,
+                glassBorder: glassBorderPicker.value,
+                tts: document.getElementById('modalTtsToggle').checked,
+                sound: document.getElementById('modalSoundToggle').checked,
+                animRunning: isAnimationRunning,
+                aiActive: isAiEngineActive,
+                sidebarLeftWidth: getComputedStyle(document.documentElement).getPropertyValue('--sidebar-left-width'),
+                sidebarRightWidth: getComputedStyle(document.documentElement).getPropertyValue('--sidebar-right-width')
+            };
+            localStorage.setItem(SETTINGS_KEY, JSON.stringify(settings));
+        }
+
+        function loadSettingsFromStorage() {
+            const saved = localStorage.getItem(SETTINGS_KEY);
+            if (!saved) return;
+            try {
+                const s = JSON.parse(saved);
+                if (s.theme) setTheme(s.theme);
+                if (s.uiScale) {
+                    scaleSlider.value = s.uiScale;
+                    document.documentElement.style.setProperty('--ui-scale', s.uiScale);
+                    scaleVal.textContent = Math.round(s.uiScale * 100) + '%';
+                }
+                if (s.glassBlur) {
+                    blurSlider.value = s.glassBlur;
+                    document.documentElement.style.setProperty('--glass-blur', s.glassBlur + 'px');
+                    blurVal.textContent = s.glassBlur + 'px';
+                }
+                if (s.keySize) {
+                    keySizeSlider.value = s.keySize;
+                    document.documentElement.style.setProperty('--keypad-size', s.keySize + 'px');
+                    keySizeVal.textContent = s.keySize + 'px';
+                }
+                if (s.opacity) {
+                    opacitySlider.value = s.opacity;
+                    opacityVal.textContent = Math.round(parseFloat(s.opacity) * 100) + '%';
+                    document.documentElement.style.setProperty('--glass-opacity', s.opacity);
+                }
+                if (s.particles) {
+                    particleSlider.value = s.particles;
+                    particleCountVal.textContent = s.particles;
+                    rebuildParticles(parseInt(s.particles));
+                }
+                if (s.primaryColor) {
+                    setThemeColors(
+                        s.primaryColor, 
+                        s.secondaryColor || '#00d2ff', 
+                        s.textPrimary || '#f8fafc', 
+                        s.textSecondary || '#94a3b8', 
+                        s.glassBg || '#0d1628', 
+                        s.glassBorder || s.primaryColor,
+                        '#0c1833', '#030712'
+                    );
+                }
+                if (s.sidebarLeftWidth) {
+                    document.documentElement.style.setProperty('--sidebar-left-width', s.sidebarLeftWidth);
+                }
+                if (s.sidebarRightWidth) {
+                    document.documentElement.style.setProperty('--sidebar-right-width', s.sidebarRightWidth);
+                }
+                if (s.tts !== undefined) document.getElementById('modalTtsToggle').checked = s.tts;
+                if (s.sound !== undefined) document.getElementById('modalSoundToggle').checked = s.sound;
+                if (s.animRunning !== undefined && !s.animRunning) {
+                    isAnimationRunning = false;
+                    animIcon.textContent = '▶️';
+                    animLabel.textContent = '3D Paused';
+                }
+                if (s.aiActive !== undefined) {
+                    setAiEngineState(s.aiActive);
+                }
+            } catch (e) {
+                console.error("Failed to load settings from storage:", e);
+            }
+        }
+
+        function loadHistory() {
+            const saved = localStorage.getItem(HISTORY_KEY);
+            return saved ? JSON.parse(saved) : [];
+        }
+
+        function saveHistoryItem(item) {
+            const history = loadHistory();
+            history.unshift(item);
+            if (history.length > 50) history.pop();
+            localStorage.setItem(HISTORY_KEY, JSON.stringify(history));
+            renderHistoryUI();
+        }
+
+        function deleteHistoryItem(id) {
+            let history = loadHistory();
+            history = history.filter(h => h.id !== id);
+            localStorage.setItem(HISTORY_KEY, JSON.stringify(history));
+            renderHistoryUI();
+            playClickSound(400);
+        }
+
+        function renderHistoryUI() {
+            const historyList = document.getElementById('historyList');
+            const history = loadHistory();
+            const filterText = document.getElementById('historySearch').value.toLowerCase();
+
+            historyList.innerHTML = '';
+
+            const filtered = history.filter(h => 
+                h.question.toLowerCase().includes(filterText) || 
+                h.answer.toLowerCase().includes(filterText)
+            );
+
+            if (filtered.length === 0) {
+                historyList.innerHTML = `
+                    <div style="text-align: center; color: var(--text-muted); padding: 20px; font-size: 13px;">
+                        No calculation history found.
+                    </div>
+                `;
+                return;
+            }
+
+            filtered.forEach((item) => {
+                const div = document.createElement('div');
+                div.className = 'history-item';
+                div.onclick = (e) => {
+                    if (e.target.classList.contains('history-btn-small')) return;
+                    setInput(item.question);
+                };
+
+                div.innerHTML = `
+                    <div class="history-query">Q: ${escapeHtml(item.question)}</div>
+                    <div class="history-ans">= ${escapeHtml(item.answer)}</div>
+                    <div class="history-actions-row">
+                        <span class="history-meta">${item.timestamp}</span>
+                        <div>
+                            <button class="history-btn-small" onclick="directReCalculate('${escapeHtml(item.question).replace(/'/g, "\\'")}')" title="Run again">▶ Compute</button>
+                            <button class="history-btn-small" onclick="deleteHistoryItem('${item.id}')" title="Delete">🗑️</button>
+                        </div>
+                    </div>
+                `;
+                historyList.appendChild(div);
+            });
+        }
+
+        function directReCalculate(q) {
+            setInput(q);
+            handleSend();
+        }
+
+        document.getElementById('historySearch').addEventListener('input', renderHistoryUI);
+
+        document.getElementById('clearHistoryBtn').addEventListener('click', () => {
+            if (confirm('Clear all stored calculation history?')) {
+                localStorage.removeItem(HISTORY_KEY);
+                renderHistoryUI();
+                playClickSound(300, 'sawtooth');
+            }
+        });
+
+        document.getElementById('exportHistoryBtn').addEventListener('click', () => {
+            const history = loadHistory();
+            const blob = new Blob([JSON.stringify(history, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `3d_voice_calculator_history_${Date.now()}.json`;
+            a.click();
+            URL.revokeObjectURL(url);
+            playClickSound(800);
+        });
+
+
+        /* --------------------------------------------------------------------------
+           12. CLIENT-SIDE FALLBACK CALCULATOR ENGINE
+           -------------------------------------------------------------------------- */
+        function evaluateLocalMath(query) {
+            try {
+                let expr = query.toLowerCase()
+                    .replace(/what is|calculate|solve|the value of|equals|\?/g, '')
+                    .replace(/times/g, '*')
+                    .replace(/divided by/g, '/')
+                    .replace(/plus/g, '+')
+                    .replace(/minus/g, '-')
+                    .replace(/squared/g, '^2')
+                    .replace(/pi/g, 'Math.PI')
+                    .replace(/e/g, 'Math.E')
+                    .replace(/sqrt\((.*?)\)/g, 'Math.sqrt($1)')
+                    .replace(/sin\((.*?)\)/g, 'Math.sin($1)')
+                    .replace(/cos\((.*?)\)/g, 'Math.cos($1)')
+                    .replace(/tan\((.*?)\)/g, 'Math.tan($1)')
+                    .replace(/log\((.*?)\)/g, 'Math.log10($1)')
+                    .replace(/ln\((.*?)\)/g, 'Math.log($1)')
+                    .replace(/\^/g, '**')
+                    .trim();
+
+                if (/^[0-9+\-*/().\sMathPIEsqrtsincostanlog**]+$/.test(expr)) {
+                    const res = Function(`"use strict"; return (${expr})`)();
+                    if (res !== undefined && !isNaN(res)) {
+                        return `${query} equals ${Number.isInteger(res) ? res : Number(res).toFixed(6).replace(/\.?0+$/, '')}`;
+                    }
+                }
+            } catch (e) {
+                // Fallthrough to standard text response
+            }
+
+            return `The result for '${query}' is calculated based on mathematical logic.`;
+        }
+
+        function escapeHtml(str) {
+            return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+        }
+
+
+        /* --------------------------------------------------------------------------
+           13. MAIN CHAT & BACKEND DISPATCH ENGINE
+           -------------------------------------------------------------------------- */
+        const sendBtn = document.getElementById('sendBtn');
+        const chatMessages = document.getElementById('chatMessages');
+
+        async function handleSend() {
+            const question = chatInput.value.trim();
+            if (!question) return;
+
+            const welcomeCard = document.getElementById('welcomeCard');
+            if (welcomeCard) welcomeCard.remove();
+
+            appendUserMessage(question);
+            chatInput.value = '';
+
+            const typingIndicator = appendTypingIndicator();
+            playClickSound(800);
+
+            let answerText = "";
+
+            if (!isAiEngineActive) {
+                setTimeout(() => {
+                    typingIndicator.remove();
+                    answerText = evaluateLocalMath(question);
+                    appendAIMessage(answerText);
+                    speakText(answerText);
+                    saveHistoryItem({
+                        id: 'hist_' + Date.now() + '_' + Math.random().toString(36).substr(2, 5),
+                        question: question,
+                        answer: answerText,
+                        timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+                    });
+                }, 200);
+                return;
+            }
+
+            try {
+                const response = await fetch('/calculate', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        question: question,
+                        ai_enabled: isAiEngineActive
+                    })
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    answerText = data.answer || data.raw || "No response received.";
+                } else {
+                    throw new Error("Backend status " + response.status);
+                }
+            } catch (err) {
+                console.log("Flask backend offline or unreachable. Using local JS Math engine:", err);
+                answerText = evaluateLocalMath(question);
+            }
+
+            typingIndicator.remove();
+            appendAIMessage(answerText);
+            speakText(answerText);
+
+            saveHistoryItem({
+                id: 'hist_' + Date.now() + '_' + Math.random().toString(36).substr(2, 5),
+                question: question,
+                answer: answerText,
+                timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+            });
+        }
+
+        function appendUserMessage(text) {
+            const timeStr = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            const row = document.createElement('div');
+            row.className = 'message-row user';
+            row.innerHTML = `
+                <div class="avatar">YOU</div>
+                <div class="bubble">
+                    ${escapeHtml(text)}
+                    <div class="bubble-meta">
+                        <span>${timeStr}</span>
+                    </div>
+                </div>
+            `;
+            chatMessages.appendChild(row);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function appendAIMessage(text) {
+            const timeStr = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            const row = document.createElement('div');
+            row.className = 'message-row ai';
+            row.innerHTML = `
+                <div class="avatar">AI</div>
+                <div class="bubble">
+                    ${escapeHtml(text)}
+                    <div class="bubble-meta">
+                        <span>${timeStr}</span>
+                        <button class="action-icon-btn" onclick="speakText('${escapeHtml(text).replace(/'/g, "\\'")}') " title="Re-play Voice">🔊</button>
+                    </div>
+                </div>
+            `;
+            chatMessages.appendChild(row);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function appendTypingIndicator() {
+            const row = document.createElement('div');
+            row.className = 'message-row ai';
+            row.id = 'activeTypingIndicator';
+            row.innerHTML = `
+                <div class="avatar">AI</div>
+                <div class="typing-indicator">
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                </div>
+            `;
+            chatMessages.appendChild(row);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+            return row;
+        }
+
+        sendBtn.addEventListener('click', handleSend);
+
+        // INITIALIZATION ON PAGE LOAD
+        loadSettingsFromStorage();
+        renderHistoryUI();
+
+    </script>
+</body>
+</html>
