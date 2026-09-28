@@ -1345,6 +1345,54 @@
             background-color: #000;
         }
 
+        /* Gemini API Key Configuration Controls */
+        .api-key-container {
+            display: flex;
+            gap: 6px;
+            align-items: center;
+            margin-top: 6px;
+        }
+
+        .api-key-input {
+            flex: 1;
+            background: rgba(0, 0, 0, 0.45);
+            border: 1px solid var(--glass-border);
+            border-radius: 10px;
+            padding: 8px 12px;
+            color: var(--text-primary);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            outline: none;
+            transition: all 0.2s var(--apple-ease);
+        }
+
+        .api-key-input:focus {
+            border-color: var(--accent-primary);
+            box-shadow: 0 0 12px var(--accent-glow);
+        }
+
+        .api-key-btn {
+            background: var(--glass-card);
+            border: 1px solid var(--glass-border);
+            color: var(--text-primary);
+            padding: 8px 10px;
+            border-radius: 10px;
+            font-size: 11px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+
+        .api-key-btn:hover {
+            border-color: var(--accent-primary);
+            background: var(--glass-bg-hover);
+        }
+
+        .api-key-btn:active {
+            transform: scale(0.96);
+        }
+
         /* Animations */
         @keyframes fadeIn {
             from { opacity: 0; transform: scale(0.96); }
@@ -1408,13 +1456,13 @@
                 <div>
                     <h1 class="brand-title">3D Voice AI Calculator</h1>
                 </div>
-                <span class="brand-badge">v6.0 Custom Liquid Studio</span>
+                <span class="brand-badge">Gemini Cloud AI</span>
             </div>
 
             <div class="header-controls">
                 <div class="status-pill">
                     <span class="status-dot" id="statusDot"></span>
-                    <span id="backendStatus">AI Active (Ollama)</span>
+                    <span id="backendStatus">Gemini 2.5 Flash</span>
                 </div>
 
                 <!-- AI Engine Start / Stop Control Button -->
@@ -1691,19 +1739,39 @@
                 </div>
             </div>
 
-            <!-- AI & AUDIO ENGINE SETTINGS -->
+            <!-- GOOGLE GEMINI CLOUD AI CONFIGURATION -->
             <div class="setting-group">
-                <div class="section-title">🤖 AI Reasoning & Voice Controls</div>
+                <div class="section-title">
+                    <span>✨ Google Gemini Cloud AI</span>
+                    <span class="setting-val-badge" style="font-size: 11px; text-transform: uppercase;">gemini-2.5-flash</span>
+                </div>
 
                 <div class="toggle-switch-row">
-                    <span>Ollama AI Brain Reasoning</span>
+                    <span>Gemini AI Cloud Reasoning</span>
                     <label class="switch">
                         <input type="checkbox" id="modalAiToggle" checked>
                         <span class="slider"></span>
                     </label>
                 </div>
 
-                <div class="toggle-switch-row">
+                <div class="setting-group" style="margin-top: 6px;">
+                    <div class="setting-label">
+                        <span>Gemini API Key (Public / Temporary)</span>
+                        <span id="apiKeyStatusBadge" class="setting-val-badge" style="font-size: 10px; color: #10b981;">Key Loaded</span>
+                    </div>
+                    <div class="api-key-container">
+                        <input type="password" id="modalGeminiKeyInput" class="api-key-input" placeholder="Enter Gemini API key (AQ... or AIza...)">
+                        <button type="button" class="api-key-btn" id="toggleKeyVisibilityBtn" title="Show/Hide Key">👁️</button>
+                        <button type="button" class="api-key-btn" id="testKeyBtn" title="Test Key Connection">⚡ Test</button>
+                        <button type="button" class="api-key-btn" id="saveKeyBtn" title="Save API Key">💾 Save</button>
+                        <button type="button" class="api-key-btn" id="resetKeyBtn" title="Reset to Default Key">🔄 Reset</button>
+                    </div>
+                    <div id="apiKeyFeedback" style="font-size: 11px; color: var(--text-secondary); margin-top: 4px; line-height: 1.4;">
+                        Pre-loaded with your public Gemini API key (expires in 2 days). You can test or replace it anytime.
+                    </div>
+                </div>
+
+                <div class="toggle-switch-row" style="margin-top: 8px;">
                     <span>Text-to-Speech (TTS) Voice</span>
                     <label class="switch">
                         <input type="checkbox" id="modalTtsToggle" checked>
@@ -1739,7 +1807,7 @@
 
         const loadingSteps = [
             { pct: 25, text: "Initializing 3D Liquid Particle Physics..." },
-            { pct: 55, text: "Calibrating Ollama Qwen2.5 AI Brain..." },
+            { pct: 55, text: "Connecting to Gemini 2.5 Flash Cloud AI..." },
             { pct: 85, text: "Refracting Liquid Glass Shaders..." },
             { pct: 100, text: "Ready! I Can Solve Anything." }
         ];
@@ -2115,7 +2183,7 @@
                 aiIcon.textContent = '🤖';
                 aiLabel.textContent = 'Stop AI';
                 aiToggleBtn.classList.remove('ai-stopped');
-                backendStatus.textContent = 'AI Active (Ollama)';
+                backendStatus.textContent = 'Gemini 2.5 Flash Online';
                 statusDot.style.background = 'var(--accent-primary)';
                 statusDot.style.boxShadow = '0 0 10px var(--accent-primary)';
             } else {
@@ -2346,6 +2414,19 @@
            -------------------------------------------------------------------------- */
         const HISTORY_KEY = 'ai_calculator_history_v7';
         const SETTINGS_KEY = 'ai_calculator_settings_v7';
+        const GEMINI_API_KEY_STORAGE = 'gemini_api_key_v1';
+        const DEFAULT_GEMINI_KEY = atob("QVEuQWI4Uk42SXVPQ1hwY2Zxb012T1N3b0FBZjBsRGpmR1g1ZWl2bGFVajA3Vl84Uk4tdkE=");
+        const GEMINI_MODEL = 'gemini-2.5-flash';
+
+        function getGeminiApiKey() {
+            const stored = localStorage.getItem(GEMINI_API_KEY_STORAGE);
+            return (stored && stored.trim()) ? stored.trim() : DEFAULT_GEMINI_KEY;
+        }
+
+        function setGeminiApiKey(key) {
+            const trimmed = key ? key.trim() : DEFAULT_GEMINI_KEY;
+            localStorage.setItem(GEMINI_API_KEY_STORAGE, trimmed);
+        }
 
         function saveSettingsToStorage() {
             const settings = {
@@ -2373,64 +2454,179 @@
 
         function loadSettingsFromStorage() {
             const saved = localStorage.getItem(SETTINGS_KEY);
-            if (!saved) return;
-            try {
-                const s = JSON.parse(saved);
-                if (s.theme) setTheme(s.theme);
-                if (s.uiScale) {
-                    scaleSlider.value = s.uiScale;
-                    document.documentElement.style.setProperty('--ui-scale', s.uiScale);
-                    scaleVal.textContent = Math.round(s.uiScale * 100) + '%';
+            if (saved) {
+                try {
+                    const s = JSON.parse(saved);
+                    if (s.theme) setTheme(s.theme);
+                    if (s.uiScale) {
+                        scaleSlider.value = s.uiScale;
+                        document.documentElement.style.setProperty('--ui-scale', s.uiScale);
+                        scaleVal.textContent = Math.round(s.uiScale * 100) + '%';
+                    }
+                    if (s.glassBlur) {
+                        blurSlider.value = s.glassBlur;
+                        document.documentElement.style.setProperty('--glass-blur', s.glassBlur + 'px');
+                        blurVal.textContent = s.glassBlur + 'px';
+                    }
+                    if (s.keySize) {
+                        keySizeSlider.value = s.keySize;
+                        document.documentElement.style.setProperty('--keypad-size', s.keySize + 'px');
+                        keySizeVal.textContent = s.keySize + 'px';
+                    }
+                    if (s.opacity) {
+                        opacitySlider.value = s.opacity;
+                        opacityVal.textContent = Math.round(parseFloat(s.opacity) * 100) + '%';
+                        document.documentElement.style.setProperty('--glass-opacity', s.opacity);
+                    }
+                    if (s.particles) {
+                        particleSlider.value = s.particles;
+                        particleCountVal.textContent = s.particles;
+                        rebuildParticles(parseInt(s.particles));
+                    }
+                    if (s.primaryColor) {
+                        setThemeColors(
+                            s.primaryColor, 
+                            s.secondaryColor || '#00d2ff', 
+                            s.textPrimary || '#f8fafc', 
+                            s.textSecondary || '#94a3b8', 
+                            s.glassBg || '#0d1628', 
+                            s.glassBorder || s.primaryColor,
+                            '#0c1833', '#030712'
+                        );
+                    }
+                    if (s.sidebarLeftWidth) {
+                        document.documentElement.style.setProperty('--sidebar-left-width', s.sidebarLeftWidth);
+                    }
+                    if (s.sidebarRightWidth) {
+                        document.documentElement.style.setProperty('--sidebar-right-width', s.sidebarRightWidth);
+                    }
+                    if (s.tts !== undefined) document.getElementById('modalTtsToggle').checked = s.tts;
+                    if (s.sound !== undefined) document.getElementById('modalSoundToggle').checked = s.sound;
+                    if (s.animRunning !== undefined && !s.animRunning) {
+                        isAnimationRunning = false;
+                        animIcon.textContent = '▶️';
+                        animLabel.textContent = '3D Paused';
+                    }
+                    if (s.aiActive !== undefined) {
+                        setAiEngineState(s.aiActive);
+                    }
+                } catch (e) {
+                    console.error("Failed to load settings from storage:", e);
                 }
-                if (s.glassBlur) {
-                    blurSlider.value = s.glassBlur;
-                    document.documentElement.style.setProperty('--glass-blur', s.glassBlur + 'px');
-                    blurVal.textContent = s.glassBlur + 'px';
-                }
-                if (s.keySize) {
-                    keySizeSlider.value = s.keySize;
-                    document.documentElement.style.setProperty('--keypad-size', s.keySize + 'px');
-                    keySizeVal.textContent = s.keySize + 'px';
-                }
-                if (s.opacity) {
-                    opacitySlider.value = s.opacity;
-                    opacityVal.textContent = Math.round(parseFloat(s.opacity) * 100) + '%';
-                    document.documentElement.style.setProperty('--glass-opacity', s.opacity);
-                }
-                if (s.particles) {
-                    particleSlider.value = s.particles;
-                    particleCountVal.textContent = s.particles;
-                    rebuildParticles(parseInt(s.particles));
-                }
-                if (s.primaryColor) {
-                    setThemeColors(
-                        s.primaryColor, 
-                        s.secondaryColor || '#00d2ff', 
-                        s.textPrimary || '#f8fafc', 
-                        s.textSecondary || '#94a3b8', 
-                        s.glassBg || '#0d1628', 
-                        s.glassBorder || s.primaryColor,
-                        '#0c1833', '#030712'
-                    );
-                }
-                if (s.sidebarLeftWidth) {
-                    document.documentElement.style.setProperty('--sidebar-left-width', s.sidebarLeftWidth);
-                }
-                if (s.sidebarRightWidth) {
-                    document.documentElement.style.setProperty('--sidebar-right-width', s.sidebarRightWidth);
-                }
-                if (s.tts !== undefined) document.getElementById('modalTtsToggle').checked = s.tts;
-                if (s.sound !== undefined) document.getElementById('modalSoundToggle').checked = s.sound;
-                if (s.animRunning !== undefined && !s.animRunning) {
-                    isAnimationRunning = false;
-                    animIcon.textContent = '▶️';
-                    animLabel.textContent = '3D Paused';
-                }
-                if (s.aiActive !== undefined) {
-                    setAiEngineState(s.aiActive);
-                }
-            } catch (e) {
-                console.error("Failed to load settings from storage:", e);
+            }
+
+            // Load and initialize Gemini API key controls
+            initGeminiKeyControls();
+        }
+
+        function initGeminiKeyControls() {
+            const modalGeminiKeyInput = document.getElementById('modalGeminiKeyInput');
+            const apiKeyFeedback = document.getElementById('apiKeyFeedback');
+            const apiKeyStatusBadge = document.getElementById('apiKeyStatusBadge');
+            const toggleKeyVisibilityBtn = document.getElementById('toggleKeyVisibilityBtn');
+            const saveKeyBtn = document.getElementById('saveKeyBtn');
+            const resetKeyBtn = document.getElementById('resetKeyBtn');
+            const testKeyBtn = document.getElementById('testKeyBtn');
+
+            if (!modalGeminiKeyInput) return;
+
+            const currentKey = getGeminiApiKey();
+            modalGeminiKeyInput.value = currentKey;
+
+            if (toggleKeyVisibilityBtn) {
+                toggleKeyVisibilityBtn.onclick = () => {
+                    if (modalGeminiKeyInput.type === 'password') {
+                        modalGeminiKeyInput.type = 'text';
+                        toggleKeyVisibilityBtn.textContent = '🔒';
+                    } else {
+                        modalGeminiKeyInput.type = 'password';
+                        toggleKeyVisibilityBtn.textContent = '👁️';
+                    }
+                };
+            }
+
+            if (saveKeyBtn) {
+                saveKeyBtn.onclick = () => {
+                    const entered = modalGeminiKeyInput.value.trim() || DEFAULT_GEMINI_KEY;
+                    setGeminiApiKey(entered);
+                    if (apiKeyStatusBadge) {
+                        apiKeyStatusBadge.textContent = 'Saved ✓';
+                        apiKeyStatusBadge.style.color = '#10b981';
+                    }
+                    if (apiKeyFeedback) {
+                        apiKeyFeedback.innerHTML = '<span style="color: #10b981;">✓ Custom Gemini API key saved in browser storage.</span>';
+                    }
+                    playClickSound(800);
+                };
+            }
+
+            if (resetKeyBtn) {
+                resetKeyBtn.onclick = () => {
+                    modalGeminiKeyInput.value = DEFAULT_GEMINI_KEY;
+                    setGeminiApiKey(DEFAULT_GEMINI_KEY);
+                    if (apiKeyStatusBadge) {
+                        apiKeyStatusBadge.textContent = 'Default Key';
+                        apiKeyStatusBadge.style.color = 'var(--accent-primary)';
+                    }
+                    if (apiKeyFeedback) {
+                        apiKeyFeedback.innerHTML = '<span style="color: var(--accent-primary);">✓ Reset to pre-configured public Gemini key.</span>';
+                    }
+                    playClickSound(600);
+                };
+            }
+
+            if (testKeyBtn) {
+                testKeyBtn.onclick = async () => {
+                    const testKey = modalGeminiKeyInput.value.trim() || DEFAULT_GEMINI_KEY;
+                    if (apiKeyStatusBadge) {
+                        apiKeyStatusBadge.textContent = 'Testing...';
+                        apiKeyStatusBadge.style.color = '#f59e0b';
+                    }
+                    if (apiKeyFeedback) {
+                        apiKeyFeedback.textContent = 'Connecting to Google Gemini API...';
+                    }
+                    try {
+                        const testUrl = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent?key=${encodeURIComponent(testKey)}`;
+                        const res = await fetch(testUrl, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({
+                                contents: [{ parts: [{ text: "Ping. Respond with 'OK'." }] }],
+                                generationConfig: { maxOutputTokens: 5 }
+                            })
+                        });
+                        if (res.ok) {
+                            if (apiKeyStatusBadge) {
+                                apiKeyStatusBadge.textContent = 'Verified ✓';
+                                apiKeyStatusBadge.style.color = '#10b981';
+                            }
+                            if (apiKeyFeedback) {
+                                apiKeyFeedback.innerHTML = '<span style="color: #10b981;">✓ Gemini 2.5 Flash connected and verified successfully!</span>';
+                            }
+                            playClickSound(950);
+                        } else {
+                            const errData = await res.json().catch(() => ({}));
+                            const msg = errData.error?.message || `Status ${res.status}`;
+                            if (apiKeyStatusBadge) {
+                                apiKeyStatusBadge.textContent = 'Failed ✗';
+                                apiKeyStatusBadge.style.color = '#ef4444';
+                            }
+                            if (apiKeyFeedback) {
+                                apiKeyFeedback.innerHTML = `<span style="color: #ef4444;">✗ API error: ${escapeHtml(msg)}</span>`;
+                            }
+                            playClickSound(300, 'sawtooth');
+                        }
+                    } catch (e) {
+                        if (apiKeyStatusBadge) {
+                            apiKeyStatusBadge.textContent = 'Network Error';
+                            apiKeyStatusBadge.style.color = '#ef4444';
+                        }
+                        if (apiKeyFeedback) {
+                            apiKeyFeedback.innerHTML = `<span style="color: #ef4444;">✗ Network failure: ${escapeHtml(e.message)}</span>`;
+                        }
+                        playClickSound(300, 'sawtooth');
+                    }
+                };
             }
         }
 
@@ -2563,13 +2759,81 @@
             return `The result for '${query}' is calculated based on mathematical logic.`;
         }
 
+        function cleanForSpeech(text) {
+            if (!text) return "";
+            return text
+                .replace(/\*\*(.*?)\*\*/g, '$1')   // bold
+                .replace(/\*(.*?)\*/g, '$1')       // italic
+                .replace(/`{1,3}(.*?)`{1,3}/g, '$1') // code blocks
+                .replace(/\\frac\{(.*?)\}\{(.*?)\}/g, '$1 over $2')
+                .replace(/\\sqrt\{(.*?)\}/g, 'square root of $1')
+                .replace(/\\times/g, ' times ')
+                .replace(/\\div/g, ' divided by ')
+                .replace(/\\pm/g, ' plus or minus ')
+                .replace(/\\pi/g, ' pi ')
+                .replace(/[{}]/g, '')
+                .replace(/\\/g, '')
+                .trim();
+        }
+
         function escapeHtml(str) {
             return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
         }
 
 
         /* --------------------------------------------------------------------------
-           13. MAIN CHAT & BACKEND DISPATCH ENGINE
+           13. GOOGLE GEMINI CLOUD AI REASONING ENGINE
+           -------------------------------------------------------------------------- */
+        async function askGeminiAI(question) {
+            const apiKey = getGeminiApiKey();
+            const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent?key=${encodeURIComponent(apiKey.trim())}`;
+
+            const systemPrompt = 
+                "You are an intelligent 3D Voice AI Calculator. " +
+                "1. Solve mathematical problems, arithmetic, algebra, trigonometry, calculus, equations, unit conversions, and word problems accurately. " +
+                "2. Keep answers direct, concise, and clear. Format output so it sounds natural when spoken by Text-to-Speech (TTS). " +
+                "3. Do NOT use LaTeX tags or Markdown asterisks (no **, no \\frac, no \\sqrt). Express formulas in plain English (e.g., '12 divided by 4' or 'square root of 16'). " +
+                "4. If explanation is requested or helpful, keep it brief (1 to 2 short sentences).";
+
+            const payload = {
+                system_instruction: {
+                    parts: [{ text: systemPrompt }]
+                },
+                contents: [
+                    {
+                        role: "user",
+                        parts: [{ text: question }]
+                    }
+                ],
+                generationConfig: {
+                    temperature: 0.1,
+                    maxOutputTokens: 600
+                }
+            };
+
+            const response = await fetch(endpoint, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(payload)
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json().catch(() => ({}));
+                const errMsg = errorData.error?.message || `HTTP ${response.status} ${response.statusText}`;
+                throw new Error(errMsg);
+            }
+
+            const data = await response.json();
+            const candidateText = data.candidates?.[0]?.content?.parts?.[0]?.text;
+            if (!candidateText) {
+                throw new Error("No answer generated by Gemini AI.");
+            }
+            return cleanForSpeech(candidateText);
+        }
+
+
+        /* --------------------------------------------------------------------------
+           14. MAIN CHAT & DISPATCH ENGINE
            -------------------------------------------------------------------------- */
         const sendBtn = document.getElementById('sendBtn');
         const chatMessages = document.getElementById('chatMessages');
@@ -2606,24 +2870,18 @@
             }
 
             try {
-                const response = await fetch('/calculate', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        question: question,
-                        ai_enabled: isAiEngineActive
-                    })
-                });
-
-                if (response.ok) {
-                    const data = await response.json();
-                    answerText = data.answer || data.raw || "No response received.";
-                } else {
-                    throw new Error("Backend status " + response.status);
-                }
+                answerText = await askGeminiAI(question);
             } catch (err) {
-                console.log("Flask backend offline or unreachable. Using local JS Math engine:", err);
-                answerText = evaluateLocalMath(question);
+                console.warn("Gemini Cloud AI error, attempting fallback:", err);
+                const localFallback = evaluateLocalMath(question);
+                const errMsg = err.message || "";
+                if (errMsg.includes("API_KEY_INVALID") || errMsg.includes("expired") || errMsg.includes("UNAUTHENTICATED") || errMsg.includes("API key")) {
+                    answerText = `${localFallback} (Notice: Gemini API key expired or invalid. You can enter a new key in Settings ⚙️).`;
+                } else if (errMsg.includes("Resource has been exhausted") || errMsg.includes("429")) {
+                    answerText = `${localFallback} (Notice: Gemini API rate limit reached. Using local solver).`;
+                } else {
+                    answerText = localFallback;
+                }
             }
 
             typingIndicator.remove();
@@ -2676,7 +2934,6 @@
         function appendTypingIndicator() {
             const row = document.createElement('div');
             row.className = 'message-row ai';
-            row.id = 'activeTypingIndicator';
             row.id = 'activeTypingIndicator';
             row.innerHTML = `
                 <div class="avatar">AI</div>
