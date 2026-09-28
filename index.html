@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>3D Voice AI Calculator | Liquid Glass Studio</title>
-    <meta name="description" content="Apple-designed 3D Voice AI Calculator with Liquid Glass refraction, iPhone Duo Dynamic Island loading animation, full live color customization, resizable dock panels, and natural speech interaction.">
+    <meta name="description" content="Gemini-powered 3D Voice AI Calculator with Liquid Glass refraction, Quantum Dynamic Island loading animation, live color customizer, responsive multi-view panels, and natural speech interaction.">
     
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -227,8 +227,8 @@
 
         @keyframes islandMorph {
             0% { transform: scale(0.3) translateY(-100px); opacity: 0; width: 120px; }
-            50% { transform: scale(1.1) translateY(10px); width: 340px; }
-            100% { transform: scale(1) translateY(0); opacity: 1; width: 310px; }
+            50% { transform: scale(1.05) translateY(10px); width: min(340px, 92vw); }
+            100% { transform: scale(1) translateY(0); opacity: 1; width: min(310px, 88vw); }
         }
 
         /* Liquid Refraction Glass Card */
@@ -1404,16 +1404,334 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
+        /* --------------------------------------------------------------------------
+           MOBILE NAVIGATION SEGMENTED SWITCHER (Visible on Mobile & Tablet <= 1024px)
+           -------------------------------------------------------------------------- */
+        .mobile-nav-bar {
+            display: none;
+            gap: 6px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(var(--glass-blur)) saturate(180%);
+            -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(180%);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 4px;
+            box-shadow: var(--glass-shadow);
+            flex-shrink: 0;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .mobile-nav-btn {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            padding: 9px 8px;
+            background: transparent;
+            border: 1px solid transparent;
+            border-radius: 12px;
+            color: var(--text-secondary);
+            font-family: 'Outfit', sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s var(--apple-ease);
+        }
+
+        .mobile-nav-btn:hover {
+            color: var(--text-primary);
+            background: rgba(255, 255, 255, 0.06);
+        }
+
+        .mobile-nav-btn.active {
+            background: linear-gradient(135deg, rgba(0, 210, 255, 0.18), rgba(0, 255, 136, 0.15));
+            border-color: var(--glass-border-focus);
+            color: var(--accent-primary);
+            box-shadow: 0 2px 10px var(--accent-glow);
+        }
+
+        .mobile-history-badge {
+            background: var(--accent-primary);
+            color: #000;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 10px;
+            font-weight: 700;
+            padding: 1px 6px;
+            border-radius: 10px;
+            margin-left: 2px;
+        }
+
+        .mobile-toggle-dock-btn {
+            display: none;
+            background: var(--glass-card);
+            border: 1px solid var(--glass-border);
+            color: var(--accent-primary);
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 18px;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: all 0.2s var(--apple-ease);
+        }
+
+        .mobile-toggle-dock-btn:hover {
+            background: var(--glass-bg-hover);
+            border-color: var(--accent-primary);
+            transform: scale(1.05);
+        }
+
+        .mobile-toggle-dock-btn:active {
+            transform: scale(0.95);
+        }
+
+        .dock-input-preview-card {
+            background: rgba(0, 0, 0, 0.35);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            padding: 8px 12px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+        }
+
+        .dock-input-preview-text {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 13px;
+            color: var(--accent-primary);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            flex-grow: 1;
+        }
+
+        .dock-return-chat-btn {
+            background: var(--glass-card);
+            border: 1px solid var(--glass-border);
+            color: var(--text-primary);
+            font-size: 11px;
+            font-weight: 600;
+            padding: 5px 10px;
+            border-radius: 8px;
+            cursor: pointer;
+            white-space: nowrap;
+            display: none;
+            transition: all 0.2s;
+        }
+
+        .dock-return-chat-btn:hover {
+            border-color: var(--accent-primary);
+            background: var(--glass-bg-hover);
+        }
+
         /* Responsive Layout Breakpoints */
         @media (max-width: 1024px) {
-            .main-layout {
-                grid-template-columns: 1fr;
+            .app-wrapper {
+                padding: max(10px, env(safe-area-inset-top)) max(10px, env(safe-area-inset-right)) max(10px, env(safe-area-inset-bottom)) max(10px, env(safe-area-inset-left));
+                gap: 10px;
+                height: 100vh;
+                height: 100dvh;
+                box-sizing: border-box;
             }
+
+            .app-header {
+                padding: 10px 14px;
+                border-radius: 18px;
+                gap: 8px;
+            }
+
+            .brand-container {
+                gap: 8px;
+            }
+
+            .brand-icon {
+                width: 34px;
+                height: 34px;
+                font-size: 16px;
+                border-radius: 10px;
+            }
+
+            .brand-title {
+                font-size: 16px;
+            }
+
+            .brand-badge {
+                font-size: 9px;
+                padding: 2px 7px;
+            }
+
+            .header-controls {
+                gap: 6px;
+                flex-wrap: nowrap;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+                padding-bottom: 2px;
+            }
+
+            /* Compact icon-only header buttons on mobile for clean fit */
+            .header-btn {
+                padding: 6px 10px;
+                min-width: 36px;
+                height: 36px;
+                font-size: 14px;
+                justify-content: center;
+                border-radius: 10px;
+            }
+
+            .header-btn #aiLabel,
+            .header-btn #animLabel,
+            .header-btn #themeLabel,
+            .header-btn span:nth-child(2) {
+                display: none;
+            }
+
+            .status-pill {
+                padding: 5px 10px;
+                font-size: 11px;
+                gap: 6px;
+                white-space: nowrap;
+            }
+
+            .mobile-nav-bar {
+                display: flex;
+            }
+
+            .mobile-toggle-dock-btn {
+                display: flex;
+            }
+
+            .dock-return-chat-btn {
+                display: block;
+            }
+
+            .main-layout {
+                display: flex;
+                flex-direction: column;
+                grid-template-columns: none;
+                flex-grow: 1;
+                min-height: 0;
+                overflow: hidden;
+            }
+
             .resizer {
                 display: none;
             }
-            .sidebar-left, .sidebar-right {
+
+            /* MOBILE VIEW TABS ROUTING */
+            /* Default: Chat / Calculator View */
+            .main-layout .chat-main {
+                display: flex;
+                flex-grow: 1;
+                min-height: 0;
+                height: 100%;
+                width: 100%;
+            }
+
+            .main-layout .sidebar-left,
+            .main-layout .sidebar-right {
                 display: none;
+            }
+
+            /* When Keypad View is active */
+            .main-layout.view-keypad .chat-main,
+            .main-layout.view-keypad .sidebar-left {
+                display: none;
+            }
+
+            .main-layout.view-keypad .sidebar-right {
+                display: flex;
+                flex-grow: 1;
+                min-height: 0;
+                height: 100%;
+                width: 100% !important;
+                max-width: 100%;
+            }
+
+            /* When History View is active */
+            .main-layout.view-history .chat-main,
+            .main-layout.view-history .sidebar-right {
+                display: none;
+            }
+
+            .main-layout.view-history .sidebar-left {
+                display: flex;
+                flex-grow: 1;
+                min-height: 0;
+                height: 100%;
+                width: 100% !important;
+                max-width: 100%;
+            }
+
+            /* Keypad touch sizing on mobile */
+            .key-btn {
+                height: max(44px, var(--keypad-size));
+                font-size: 15px;
+            }
+
+            .chat-messages {
+                padding: 14px;
+                gap: 12px;
+            }
+
+            .chat-input-container {
+                padding: 10px 12px;
+                gap: 8px;
+            }
+
+            .chat-input {
+                padding: 12px 42px 12px 16px;
+                font-size: 13px;
+            }
+
+            .mic-btn {
+                right: 6px;
+                width: 32px;
+                height: 32px;
+                font-size: 14px;
+            }
+
+            .send-btn {
+                width: 44px;
+                height: 44px;
+                font-size: 16px;
+            }
+
+            .message-row {
+                max-width: 92%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .brand-badge {
+                display: none;
+            }
+            .brand-title {
+                font-size: 14px;
+            }
+            .dynamic-island-duo {
+                width: 90% !important;
+                max-width: 290px !important;
+                gap: 8px;
+            }
+            .dynamic-island-duo .duo-label {
+                font-size: 10px;
+                letter-spacing: 0.8px;
+            }
+            .liquid-glass-card {
+                padding: 30px 18px;
+                border-radius: 26px;
+            }
+            .liquid-headline-badge {
+                font-size: 17px;
+            }
+            .liquid-headline-tagline {
+                font-size: 9px;
             }
         }
     </style>
@@ -1423,13 +1741,13 @@
     <!-- 3D Particle Canvas Background Engine -->
     <canvas id="bgCanvas"></canvas>
 
-    <!-- 1. IPHONE DUO DYNAMIC ISLAND LIQUID GLASS LOADING SPLASH SCREEN -->
+    <!-- 1. GEMINI QUANTUM DYNAMIC ISLAND LIQUID LOADING SPLASH SCREEN -->
     <div class="liquid-loader-screen" id="liquidLoader">
-        <!-- iPhone Duo Dynamic Island Notch Pill -->
+        <!-- Quantum Dynamic Island Notch Pill -->
         <div class="dynamic-island-duo">
             <div class="duo-camera"></div>
             <div class="duo-sensor"></div>
-            <div class="duo-label">iPhone Duo Dynamic Island</div>
+            <div class="duo-label">Gemini 2.5 Flash Quantum AI</div>
         </div>
 
         <!-- Refraction Liquid Glass Container -->
@@ -1496,6 +1814,23 @@
                 </button>
             </div>
         </header>
+ 
+        <!-- MOBILE VIEW TABS (Visible on mobile & tablet <= 1024px) -->
+        <nav class="mobile-nav-bar" id="mobileNavBar">
+            <button class="mobile-nav-btn active" id="tabBtnChat" data-tab="chat" onclick="setMobileView('chat')">
+                <span>💬</span>
+                <span>Calculator</span>
+            </button>
+            <button class="mobile-nav-btn" id="tabBtnKeypad" data-tab="keypad" onclick="setMobileView('keypad')">
+                <span>🧮</span>
+                <span>Math Keypad</span>
+            </button>
+            <button class="mobile-nav-btn" id="tabBtnHistory" data-tab="history" onclick="setMobileView('history')">
+                <span>📜</span>
+                <span>History</span>
+                <span class="mobile-history-badge" id="mobileHistoryBadge">0</span>
+            </button>
+        </nav>
 
         <!-- VS CODE / PREMIERE PRO STYLE RESIZABLE DOCK LAYOUT -->
         <main class="main-layout" id="mainLayout">
@@ -1546,6 +1881,7 @@
 
                 <!-- Chat Input Controls Bar -->
                 <div class="chat-input-container">
+                    <button class="mobile-toggle-dock-btn" id="mobileDockToggleBtn" onclick="toggleMobileKeypad()" title="Open Math Keypad">🧮</button>
                     <div class="input-wrapper">
                         <input type="text" id="chatInput" class="chat-input" placeholder="Type or speak a math problem e.g. 25 * 4 + sqrt(81)..." autocomplete="off">
                         <button class="mic-btn" id="micBtn" title="Speak to Voice Calculator">🎙️</button>
@@ -1565,6 +1901,12 @@
                     <div class="panel-title">
                         <span>🧮 Math Dock</span>
                     </div>
+                    <button class="dock-return-chat-btn" onclick="setMobileView('chat')">💬 View Chat</button>
+                </div>
+
+                <!-- Live Equation Display in Dock -->
+                <div class="dock-input-preview-card">
+                    <div class="dock-input-preview-text" id="dockInputPreviewText">Equation appears here...</div>
                 </div>
 
                 <!-- Virtual Keypad Dock Container -->
@@ -2300,10 +2642,56 @@
             playClickSound(500);
         }
 
+        /* --------------------------------------------------------------------------
+           MOBILE VIEW ROUTER & DOCK PREVIEW MANAGER
+           -------------------------------------------------------------------------- */
+        let currentMobileView = 'chat';
+
+        function setMobileView(view) {
+            currentMobileView = view;
+            const mainLayout = document.getElementById('mainLayout');
+            if (!mainLayout) return;
+
+            mainLayout.classList.remove('view-chat', 'view-keypad', 'view-history');
+            if (view !== 'chat') {
+                mainLayout.classList.add(`view-${view}`);
+            }
+
+            document.querySelectorAll('.mobile-nav-btn').forEach(btn => {
+                if (btn.getAttribute('data-tab') === view) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+
+            updateDockInputPreview();
+            playClickSound(550);
+        }
+
+        function toggleMobileKeypad() {
+            if (currentMobileView === 'keypad') {
+                setMobileView('chat');
+            } else {
+                setMobileView('keypad');
+            }
+        }
+
+        function updateDockInputPreview() {
+            const preview = document.getElementById('dockInputPreviewText');
+            if (preview && chatInput) {
+                preview.textContent = chatInput.value.trim() || 'Tap keys to write equation...';
+            }
+        }
+
         const chatInput = document.getElementById('chatInput');
 
         function setInput(text) {
             chatInput.value = text;
+            updateDockInputPreview();
+            if (window.innerWidth <= 1024) {
+                setMobileView('chat');
+            }
             chatInput.focus();
             playClickSound(700);
         }
@@ -2317,8 +2705,11 @@
             } else {
                 chatInput.value += key;
             }
+            updateDockInputPreview();
             chatInput.focus();
         }
+
+        chatInput.addEventListener('input', updateDockInputPreview);
 
         chatInput.addEventListener('keydown', (e) => {
             if (e.key === 'Enter') {
@@ -2656,6 +3047,11 @@
             const history = loadHistory();
             const filterText = document.getElementById('historySearch').value.toLowerCase();
 
+            const badge = document.getElementById('mobileHistoryBadge');
+            if (badge) {
+                badge.textContent = history.length;
+            }
+
             historyList.innerHTML = '';
 
             const filtered = history.filter(h => 
@@ -2847,6 +3243,11 @@
 
             appendUserMessage(question);
             chatInput.value = '';
+            updateDockInputPreview();
+
+            if (window.innerWidth <= 1024 && currentMobileView === 'keypad') {
+                setMobileView('chat');
+            }
 
             const typingIndicator = appendTypingIndicator();
             playClickSound(800);
