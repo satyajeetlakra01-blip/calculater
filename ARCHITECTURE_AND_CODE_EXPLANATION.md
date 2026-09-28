@@ -199,10 +199,29 @@ If offline, network-constrained, or if the API key reaches rate limits, the app 
 - Normalizes natural voice commands: *"what is 45 plus 18 times 3"* $\to$ `45 + 18 * 3`.
 - Safely evaluates expressions with scientific functions (`sqrt`, `sin`, `cos`, `tan`, `log`, `ln`, `pi`, `e`, powers).
 
-### 6.3 Multimodal Audio & Voice Synthesis
-- **Web Audio Synthesizer**: Uses `AudioContext` to generate subtle, harmonic sine and triangle clicks at 528Hz and 850Hz on every keypress.
-- **Speech Synthesis (TTS)**: Speaks the mathematical result aloud with natural pacing.
-- **Speech Recognition (STT)**: Uses Web Speech API with automatic punctuation and language adaptation.
+### 6.3 Multimodal Audio & Sound Control Architecture
+
+The application implements a decoupled, user-configurable audio engine with zero third-party audio asset dependencies:
+
+1. **Master Sound FX Switch (Settings Studio)**:
+   - Controls all synthesized interface audio: keypad button taps, Apple unlock chimes, progress indicators, modal transitions, and operation feedback.
+   - When toggled **OFF**, all Web Audio oscillators are completely bypassed, guaranteeing 100% silent operation.
+   - Changes are immediately persisted to browser `localStorage` under `three_d_calculator_settings_v3`.
+
+2. **Web Audio Synthesizer Engine**:
+   - Rather than loading bulky `.mp3` or `.wav` files that cause network latency or playback delays, sounds are generated procedurally on-the-fly using the HTML5 `AudioContext`:
+     - **Keypad Clicks**: 600Hz–1080Hz pure sine waves with 50ms exponential gain decay.
+     - **Apple iOS Unlock Chime**: Dual-harmonic chord combining $C_5 \to C_6$ ($523.25\text{Hz}$) and $E_5 \to E_6$ ($659.25\text{Hz}$) with 750ms decay.
+     - **Success / Evaluation**: 800Hz–950Hz bell tones.
+     - **Error / Clear Warning**: 300Hz sawtooth tone for clear auditory error discrimination.
+
+3. **Decoupled Text-to-Speech (TTS) Engine**:
+   - Uses the browser's native `SpeechSynthesisUtterance`.
+   - Has its own independent toggle in the Settings modal, allowing users to enable spoken answers while keeping UI clicks muted (or vice versa).
+   - Automatically sanitizes LaTeX symbols and markdown formatting into conversational English before vocalization.
+
+4. **Speech Recognition (STT)**:
+   - Uses the Web Speech API (`webkitSpeechRecognition` / `SpeechRecognition`) with real-time acoustic microphone feedback and listening status indication.
 
 ---
 

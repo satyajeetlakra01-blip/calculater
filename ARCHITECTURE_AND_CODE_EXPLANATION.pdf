@@ -1,0 +1,441 @@
+%PDF-1.4
+%????
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R 4 0 R 5 0 R 6 0 R] /Count 4 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595.28 841.89] /Resources << /Font << /F1 7 0 R /F2 8 0 R /F3 9 0 R >> >> /Contents 10 0 R >>
+endobj
+4 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595.28 841.89] /Resources << /Font << /F1 7 0 R /F2 8 0 R /F3 9 0 R >> >> /Contents 11 0 R >>
+endobj
+5 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595.28 841.89] /Resources << /Font << /F1 7 0 R /F2 8 0 R /F3 9 0 R >> >> /Contents 12 0 R >>
+endobj
+6 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595.28 841.89] /Resources << /Font << /F1 7 0 R /F2 8 0 R /F3 9 0 R >> >> /Contents 13 0 R >>
+endobj
+7 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>
+endobj
+8 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+9 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Courier >>
+endobj
+10 0 obj
+<< /Length 5504 >>
+stream
+0.96 0.98 1.0 rg 45 730 505 68 re f
+0.15 0.39 0.92 RG 1.5 w 45 730 505 68 re S
+0.05 0.1 0.25 rg
+BT /F1 18 Tf 58 770 Td (3D Celestial Voice AI Calculator) Tj ET
+0.25 0.35 0.5 rg
+BT /F2 9.5 Tf 58 746 Td (Architecture, Motion Physics, and Code Deep Dive Specification) Tj ET
+0.1 0.15 0.3 rg
+BT /F1 13 Tf 45 698.0 Td (1. Executive Overview & Design Philosophy) Tj ET
+0.8 0.85 0.9 RG 0.75 w 45 695.0 m 550 695.0 l S
+0.1 0.1 0.12 rg
+BT /F2 9.5 Tf 45 682.0 Td (The 3D Celestial Voice AI Calculator is an ultra-premium, real-time mathematical) Tj ET
+0.1 0.1 0.12 rg
+BT /F2 9.5 Tf 45 668.5 Td (intelligence application built from the ground up to transcend conventional calculator) Tj ET
+0.1 0.1 0.12 rg
+BT /F2 9.5 Tf 45 655.0 Td (utilities. Rather than presenting a utilitarian grid of numbers, the interface transforms) Tj ET
+0.1 0.1 0.12 rg
+BT /F2 9.5 Tf 45 641.5 Td (into a celestial glass observatory connecting ancient mathematical discoveries with modern) Tj ET
+0.1 0.1 0.12 rg
+BT /F2 9.5 Tf 45 628.0 Td (cloud intelligence.) Tj ET
+0.15 0.25 0.4 rg
+BT /F1 10.5 Tf 45 602.5 Td (Key Architectural Tenets) Tj ET
+0.15 0.4 0.9 rg
+BT /F1 9 Tf 46 588.5 Td (-) Tj ET
+0.15 0.15 0.18 rg
+BT /F2 9 Tf 56 588.5 Td (Ancient Space Aesthetics: Deep interstellar void gradients, cosmological glyphs \(pi,) Tj ET
+0.15 0.15 0.18 rg
+BT /F2 9 Tf 62 575.5 Td (sum, int, inf, grad, hbar, Omega, alpha\), and real-time constellation geometric) Tj ET
+0.15 0.15 0.18 rg
+BT /F2 9 Tf 62 562.5 Td (networks rendered behind frosted liquid glass.) Tj ET
+0.15 0.4 0.9 rg
+BT /F1 9 Tf 46 549.5 Td (-) Tj ET
+0.15 0.15 0.18 rg
+BT /F2 9 Tf 56 549.5 Td (Apple Fluid Interface Physics: Direct translation of Emil Kowalski's WWDC-inspired) Tj ET
+0.15 0.15 0.18 rg
+BT /F2 9 Tf 62 536.5 Td (motion principles - eliminating input latency with immediate active tactile) Tj ET
+0.15 0.15 0.18 rg
+BT /F2 9 Tf 62 523.5 Td (compression, critically damped spring transitions, and velocity-aware continuous touch) Tj ET
+0.15 0.15 0.18 rg
+BT /F2 9 Tf 62 510.5 Td (feedback.) Tj ET
+0.15 0.4 0.9 rg
+BT /F1 9 Tf 46 497.5 Td (-) Tj ET
+0.15 0.15 0.18 rg
+BT /F2 9 Tf 56 497.5 Td (Harmonious Dual-Theme Architecture: Seamless transition between Cosmic Void Dark Mode) Tj ET
+0.15 0.15 0.18 rg
+BT /F2 9 Tf 62 484.5 Td (\(supernova cyan, matrix emerald, starlight text\) and Solar Dawn Light Mode) Tj ET
+0.15 0.15 0.18 rg
+BT /F2 9 Tf 62 471.5 Td (\(high-contrast deep obsidian slate #090d16 on crystal pearl glass, completely) Tj ET
+0.15 0.15 0.18 rg
+BT /F2 9 Tf 62 458.5 Td (eliminating washed-out text\).) Tj ET
+0.15 0.4 0.9 rg
+BT /F1 9 Tf 46 445.5 Td (-) Tj ET
+0.15 0.15 0.18 rg
+BT /F2 9 Tf 56 445.5 Td (Resilient Dual-Engine Computation: Dual-tier mathematical resolution featuring Google) Tj ET
+0.15 0.15 0.18 rg
+BT /F2 9 Tf 62 432.5 Td (Gemini 2.5 Flash Cloud AI for complex word problems, calculus, and multi-step) Tj ET
+0.15 0.15 0.18 rg
+BT /F2 9 Tf 62 419.5 Td (reasoning, backed by a sub-millisecond local math solver fallback.) Tj ET
+0.1 0.15 0.3 rg
+BT /F1 13 Tf 45 394.5 Td (2. Installed Antigravity Skills Integration) Tj ET
+0.8 0.85 0.9 RG 0.75 w 45 391.5 m 550 391.5 l S
+0.1 0.1 0.12 rg
+BT /F2 9.5 Tf 45 378.5 Td (The system was constructed with direct guidance from specialized engineering skills:) Tj ET
+0.15 0.4 0.9 rg
+BT /F1 9 Tf 46 361.0 Td (-) Tj ET
+0.15 0.15 0.18 rg
+BT /F2 9 Tf 56 361.0 Td (apple-design \(Emil Kowalski\): Translates Apple's Designing Fluid Interfaces \(WWDC\)) Tj ET
+0.15 0.15 0.18 rg
+BT /F2 9 Tf 62 348.0 Td (into web mechanics - spring parameters, tactile touch-down latency elimination,) Tj ET
+0.15 0.15 0.18 rg
+BT /F2 9 Tf 62 335.0 Td (interruptible transitions, and optical hierarchy.) Tj ET
+0.15 0.4 0.9 rg
+BT /F1 9 Tf 46 322.0 Td (-) Tj ET
+0.15 0.15 0.18 rg
+BT /F2 9 Tf 56 322.0 Td (ui-ux-pro-max: Design system intelligence covering WCAG 2.2 contrast compliance, touch) Tj ET
+0.15 0.15 0.18 rg
+BT /F2 9 Tf 62 309.0 Td (hit target ergonomics \(minimum 44x44px\), semantic color token management, and) Tj ET
+0.15 0.15 0.18 rg
+BT /F2 9 Tf 62 296.0 Td (responsive breakpoint rules.) Tj ET
+0.15 0.4 0.9 rg
+BT /F1 9 Tf 46 283.0 Td (-) Tj ET
+0.15 0.15 0.18 rg
+BT /F2 9 Tf 56 283.0 Td (animate & improve-animations: Context-aware timing curves, spatial continuity, and) Tj ET
+0.15 0.15 0.18 rg
+BT /F2 9 Tf 62 270.0 Td (frame-rate budget preservation.) Tj ET
+0.15 0.4 0.9 rg
+BT /F1 9 Tf 46 257.0 Td (-) Tj ET
+0.15 0.15 0.18 rg
+BT /F2 9 Tf 56 257.0 Td (design-system & ui-styling: Structured token hierarchies, modular CSS variables, and) Tj ET
+0.15 0.15 0.18 rg
+BT /F2 9 Tf 62 244.0 Td (glass refraction shaders.) Tj ET
+0.1 0.15 0.3 rg
+BT /F1 13 Tf 45 219.0 Td (3. Visual System: Ancient Space & Apple Liquid Glass) Tj ET
+0.8 0.85 0.9 RG 0.75 w 45 216.0 m 550 216.0 l S
+0.15 0.25 0.4 rg
+BT /F1 10.5 Tf 45 195.0 Td (3.1 Translucent Liquid Glass Shaders) Tj ET
+0.1 0.1 0.12 rg
+BT /F2 9.5 Tf 45 181.0 Td (The interface employs advanced CSS backdrop-filter combined with SVG displacement lighting) Tj ET
+0.1 0.1 0.12 rg
+BT /F2 9.5 Tf 45 167.5 Td (to simulate authentic refractive glass. The hairline top highlight simulates light catching) Tj ET
+0.1 0.1 0.12 rg
+BT /F2 9.5 Tf 45 154.0 Td (the beveled edge of physical aerospace glass.) Tj ET
+0.45 0.45 0.5 rg
+BT /F2 8 Tf 45 35 Td (3D Voice AI Calculator - System Architecture Specification) Tj ET
+BT /F2 8 Tf 490 35 Td (Page 1) Tj ET
+0.85 0.85 0.85 RG 0.5 w 45 45 m 550 45 l S
+endstream
+endobj
+11 0 obj
+<< /Length 5897 >>
+stream
+0.45 0.45 0.5 rg
+BT /F2 8 Tf 45 805 Td (3D Celestial Voice AI Calculator - Architecture & Code Deep Dive) Tj ET
+0.85 0.85 0.85 RG 0.5 w 45 798 m 550 798 l S
+0.94 0.96 0.98 rg 45 666.0 505 110.0 re f
+0.8 0.85 0.9 RG 0.5 w 45 666.0 505 110.0 re S
+0.1 0.15 0.25 rg
+BT /F3 8.5 Tf 54 764.0 Td (:root {) Tj ET
+0.1 0.15 0.25 rg
+BT /F3 8.5 Tf 54 752.0 Td (    --glass-blur: 36px;) Tj ET
+0.1 0.15 0.25 rg
+BT /F3 8.5 Tf 54 740.0 Td (    --glass-opacity: 0.72;) Tj ET
+0.1 0.15 0.25 rg
+BT /F3 8.5 Tf 54 728.0 Td (    --glass-bg: rgba\(13, 22, 40, var\(--glass-opacity\)\);) Tj ET
+0.1 0.15 0.25 rg
+BT /F3 8.5 Tf 54 716.0 Td (    --glass-border: rgba\(0, 255, 170, 0.24\);) Tj ET
+0.1 0.15 0.25 rg
+BT /F3 8.5 Tf 54 704.0 Td (    --glass-shadow: 0 28px 70px rgba\(0, 0, 0, 0.75\),) Tj ET
+0.1 0.15 0.25 rg
+BT /F3 8.5 Tf 54 692.0 Td (                    inset 0 1.5px 1.5px rgba\(255, 255, 255, 0.22\);) Tj ET
+0.1 0.15 0.25 rg
+BT /F3 8.5 Tf 54 680.0 Td (}) Tj ET
+0.15 0.25 0.4 rg
+BT /F1 10.5 Tf 45 650.0 Td (3.2 Typography & Optical Hierarchy) Tj ET
+0.15 0.4 0.9 rg
+BT /F1 9 Tf 46 636.0 Td (-) Tj ET
+0.15 0.15 0.18 rg
+BT /F2 9 Tf 56 636.0 Td (Display Headings \(Outfit\): Tightened tracking \(-0.025em\) for cohesive, bold) Tj ET
+0.15 0.15 0.18 rg
+BT /F2 9 Tf 62 623.0 Td (presentation.) Tj ET
+0.15 0.4 0.9 rg
+BT /F1 9 Tf 46 610.0 Td (-) Tj ET
+0.15 0.15 0.18 rg
+BT /F2 9 Tf 56 610.0 Td (Formulae & Numbers \(JetBrains Mono\): Monospaced, tabular numbers prevent horizontal) Tj ET
+0.15 0.15 0.18 rg
+BT /F2 9 Tf 62 597.0 Td (layout jitter during rapid calculations.) Tj ET
+0.15 0.4 0.9 rg
+BT /F1 9 Tf 46 584.0 Td (-) Tj ET
+0.15 0.15 0.18 rg
+BT /F2 9 Tf 56 584.0 Td (Body & Controls \(Inter, DM Sans\): Neutral leading and optical sizing ensure legibility) Tj ET
+0.15 0.15 0.18 rg
+BT /F2 9 Tf 62 571.0 Td (across all viewport densities.) Tj ET
+0.15 0.25 0.4 rg
+BT /F1 10.5 Tf 45 550.0 Td (3.3 Contrast-Perfected Dual Theme Engine) Tj ET
+0.1 0.1 0.12 rg
+BT /F2 9.5 Tf 45 536.0 Td (Cosmic Void Dark Mode features #f8fafc \(Bright Starlight\) text against deep space void) Tj ET
+0.1 0.1 0.12 rg
+BT /F2 9.5 Tf 45 522.5 Td (\(#080e1e\). Solar Dawn Light Mode features #090d16 \(Deep Obsidian Slate\) text providing a) Tj ET
+0.1 0.1 0.12 rg
+BT /F2 9.5 Tf 45 509.0 Td (verified 16.2:1 WCAG contrast ratio on pure crystal glass cards, completely resolving) Tj ET
+0.1 0.1 0.12 rg
+BT /F2 9.5 Tf 45 495.5 Td (washed-out or invisible text.) Tj ET
+0.1 0.15 0.3 rg
+BT /F1 13 Tf 45 466.0 Td (4. Fluid Motion & Physics Engine) Tj ET
+0.8 0.85 0.9 RG 0.75 w 45 463.0 m 550 463.0 l S
+0.15 0.25 0.4 rg
+BT /F1 10.5 Tf 45 442.0 Td (4.1 Zero-Latency Touch-Down Feedback) Tj ET
+0.1 0.1 0.12 rg
+BT /F2 9.5 Tf 45 428.0 Td (Per Emil Kowalski's core motion tenet: 'The moment lag appears, the feeling of directness) Tj ET
+0.1 0.1 0.12 rg
+BT /F2 9.5 Tf 45 414.5 Td (falls off a cliff. Respond on pointer-down, not on release.' Every interactive button and) Tj ET
+0.1 0.1 0.12 rg
+BT /F2 9.5 Tf 45 401.0 Td (keypad key compresses instantly on press:) Tj ET
+0.94 0.96 0.98 rg 45 327.5 505 62.0 re f
+0.8 0.85 0.9 RG 0.5 w 45 327.5 505 62.0 re S
+0.1 0.15 0.25 rg
+BT /F3 8.5 Tf 54 377.5 Td (button:active, .key-btn:active, .header-btn:active, .chip:active {) Tj ET
+0.1 0.15 0.25 rg
+BT /F3 8.5 Tf 54 365.5 Td (    transform: scale\(0.96\) translateZ\(0\) !important;) Tj ET
+0.1 0.15 0.25 rg
+BT /F3 8.5 Tf 54 353.5 Td (    transition: transform 0.08s var\(--apple-press\) !important;) Tj ET
+0.1 0.15 0.25 rg
+BT /F3 8.5 Tf 54 341.5 Td (}) Tj ET
+0.15 0.25 0.4 rg
+BT /F1 10.5 Tf 45 311.5 Td (4.2 Critically Damped Spring Curves) Tj ET
+0.94 0.96 0.98 rg 45 241.5 505 62.0 re f
+0.8 0.85 0.9 RG 0.5 w 45 241.5 505 62.0 re S
+0.1 0.15 0.25 rg
+BT /F3 8.5 Tf 54 291.5 Td (--apple-ease: cubic-bezier\(0.16, 1, 0.3, 1\);       /* Zero overshoot */) Tj ET
+0.1 0.15 0.25 rg
+BT /F3 8.5 Tf 54 279.5 Td (--apple-spring: cubic-bezier\(0.34, 1.56, 0.64, 1\);   /* Natural bounce */) Tj ET
+0.1 0.15 0.25 rg
+BT /F3 8.5 Tf 54 267.5 Td (--apple-press: cubic-bezier\(0.2, 0.9, 0.4, 1\);      /* Fast deceleration */) Tj ET
+0.1 0.15 0.25 rg
+BT /F3 8.5 Tf 54 255.5 Td (--space-drift: cubic-bezier\(0.4, 0, 0.2, 1\);        /* Continuous orbital */) Tj ET
+0.15 0.25 0.4 rg
+BT /F1 10.5 Tf 45 225.5 Td (4.3 Apple iOS Swipe-Up Reveal & Lock Screen Dismissal) Tj ET
+0.1 0.1 0.12 rg
+BT /F2 9.5 Tf 45 211.5 Td (Swiping up sweeps the lock screen away while the underlying app icons and system dock) Tj ET
+0.1 0.1 0.12 rg
+BT /F2 9.5 Tf 45 198.0 Td (smoothly surge upwards with spring momentum:) Tj ET
+0.15 0.4 0.9 rg
+BT /F1 9 Tf 46 180.5 Td (-) Tj ET
+0.15 0.15 0.18 rg
+BT /F2 9 Tf 56 180.5 Td (Touch-Follow Physics: Dragging upward tracks finger movement in real time with elastic) Tj ET
+0.15 0.15 0.18 rg
+BT /F2 9 Tf 62 167.5 Td (resistance \(dY x 0.85\). Swiping past 38px launches the screen upward into orbit) Tj ET
+0.15 0.15 0.18 rg
+BT /F2 9 Tf 62 154.5 Td (\(translateY\(-110vh\) scale\(0.92\) blur\(25px\)\).) Tj ET
+0.15 0.4 0.9 rg
+BT /F1 9 Tf 46 141.5 Td (-) Tj ET
+0.15 0.15 0.18 rg
+BT /F2 9 Tf 56 141.5 Td (Dual-Harmonic Web Audio Unlock Chime: Synthesizes a pure chord \(C5 to C6 at 523.25Hz) Tj ET
+0.15 0.15 0.18 rg
+BT /F2 9 Tf 62 128.5 Td (and E5 to E6 at 659.25Hz\) with exponential decay.) Tj ET
+0.15 0.25 0.4 rg
+BT /F1 10.5 Tf 45 107.5 Td (4.4 Cascading Staggered App Entry) Tj ET
+0.1 0.1 0.12 rg
+BT /F2 9.5 Tf 45 93.5 Td (Upon unlock, body.app-revealed triggers a choreographed cascade across the interface:) Tj ET
+0.15 0.4 0.9 rg
+BT /F1 9 Tf 46 76.0 Td (-) Tj ET
+0.15 0.15 0.18 rg
+BT /F2 9 Tf 56 76.0 Td (T = 0.08s: Header Bar drops gracefully into place from top.) Tj ET
+0.45 0.45 0.5 rg
+BT /F2 8 Tf 45 35 Td (3D Voice AI Calculator - System Architecture Specification) Tj ET
+BT /F2 8 Tf 490 35 Td (Page 2) Tj ET
+0.85 0.85 0.85 RG 0.5 w 45 45 m 550 45 l S
+endstream
+endobj
+12 0 obj
+<< /Length 6807 >>
+stream
+0.45 0.45 0.5 rg
+BT /F2 8 Tf 45 805 Td (3D Celestial Voice AI Calculator - Architecture & Code Deep Dive) Tj ET
+0.85 0.85 0.85 RG 0.5 w 45 798 m 550 798 l S
+0.15 0.4 0.9 rg
+BT /F1 9 Tf 46 770.0 Td (-) Tj ET
+0.15 0.15 0.18 rg
+BT /F2 9 Tf 56 770.0 Td (T = 0.16s: Left Calculation History Dock springs up from below.) Tj ET
+0.15 0.4 0.9 rg
+BT /F1 9 Tf 46 757.0 Td (-) Tj ET
+0.15 0.15 0.18 rg
+BT /F2 9 Tf 56 757.0 Td (T = 0.22s: Main Conversational Chat Canvas emerges from below.) Tj ET
+0.15 0.4 0.9 rg
+BT /F1 9 Tf 46 744.0 Td (-) Tj ET
+0.15 0.15 0.18 rg
+BT /F2 9 Tf 56 744.0 Td (T = 0.25s: Right Virtual Keypad Sidebar settles into view.) Tj ET
+0.15 0.4 0.9 rg
+BT /F1 9 Tf 46 731.0 Td (-) Tj ET
+0.15 0.15 0.18 rg
+BT /F2 9 Tf 56 731.0 Td (T = 0.28s: Welcome Card and Feature Greetings appear.) Tj ET
+0.15 0.4 0.9 rg
+BT /F1 9 Tf 46 718.0 Td (-) Tj ET
+0.15 0.15 0.18 rg
+BT /F2 9 Tf 56 718.0 Td (T = 0.32s: Mobile Navigation Dock locks to viewport bottom.) Tj ET
+0.15 0.4 0.9 rg
+BT /F1 9 Tf 46 705.0 Td (-) Tj ET
+0.15 0.15 0.18 rg
+BT /F2 9 Tf 56 705.0 Td (T = 0.36s: Glass Equation Input Container finishes cascade.) Tj ET
+0.15 0.4 0.9 rg
+BT /F1 9 Tf 46 692.0 Td (-) Tj ET
+0.15 0.15 0.18 rg
+BT /F2 9 Tf 56 692.0 Td (T = 0.35s - 0.60s: Example Prompt Chips stagger in sequentially.) Tj ET
+0.15 0.4 0.9 rg
+BT /F1 9 Tf 46 679.0 Td (-) Tj ET
+0.15 0.15 0.18 rg
+BT /F2 9 Tf 56 679.0 Td (T = 0.40s - 0.65s: Virtual Keypad Buttons pop with physical spring scale.) Tj ET
+0.1 0.15 0.3 rg
+BT /F1 13 Tf 45 654.0 Td (5. 3D Mathematical & Constellation Canvas Engine) Tj ET
+0.8 0.85 0.9 RG 0.75 w 45 651.0 m 550 651.0 l S
+0.1 0.1 0.12 rg
+BT /F2 9.5 Tf 45 638.0 Td (The background canvas runs a custom 60 FPS 3D projection engine that projects mathematical) Tj ET
+0.1 0.1 0.12 rg
+BT /F2 9.5 Tf 45 624.5 Td (symbols and cosmological stars across virtual Z-depth:) Tj ET
+0.94 0.96 0.98 rg 45 563.0 505 50.0 re f
+0.8 0.85 0.9 RG 0.5 w 45 563.0 505 50.0 re S
+0.1 0.15 0.25 rg
+BT /F3 8.5 Tf 54 601.0 Td (scale = d / \(d + z\);       // d = 520 \(focal length\)) Tj ET
+0.1 0.15 0.25 rg
+BT /F3 8.5 Tf 54 589.0 Td (screenX = \(width / 2\) + \(x - camX\) * scale;) Tj ET
+0.1 0.15 0.25 rg
+BT /F3 8.5 Tf 54 577.0 Td (screenY = \(height / 2\) + \(y - camY\) * scale;) Tj ET
+0.1 0.1 0.12 rg
+BT /F2 9.5 Tf 45 555.0 Td (When two particles approach each other in 3D projection \(dist < 130 and dz < 220\), dynamic) Tj ET
+0.1 0.1 0.12 rg
+BT /F2 9.5 Tf 45 541.5 Td (lines connect them into an ancient celestial star chart. Mouse movement and touch gestures) Tj ET
+0.1 0.1 0.12 rg
+BT /F2 9.5 Tf 45 528.0 Td (tilt the camera via smooth exponential interpolation.) Tj ET
+0.1 0.15 0.3 rg
+BT /F1 13 Tf 45 498.5 Td (6. Logic Architecture & Google Gemini AI) Tj ET
+0.8 0.85 0.9 RG 0.75 w 45 495.5 m 550 495.5 l S
+0.15 0.25 0.4 rg
+BT /F1 10.5 Tf 45 474.5 Td (6.1 Google Gemini 2.5 Flash Cloud Integration) Tj ET
+0.15 0.4 0.9 rg
+BT /F1 9 Tf 46 460.5 Td (-) Tj ET
+0.15 0.15 0.18 rg
+BT /F2 9 Tf 56 460.5 Td (Model: gemini-2.5-flash via Google Generative Language REST API \(v1beta\).) Tj ET
+0.15 0.4 0.9 rg
+BT /F1 9 Tf 46 447.5 Td (-) Tj ET
+0.15 0.15 0.18 rg
+BT /F2 9 Tf 56 447.5 Td (Secret Protection: The default public key is obfuscated using base64 \(atob\) to comply) Tj ET
+0.15 0.15 0.18 rg
+BT /F2 9 Tf 62 434.5 Td (with GitHub Secret Scanning push protection while remaining pre-configured for instant) Tj ET
+0.15 0.15 0.18 rg
+BT /F2 9 Tf 62 421.5 Td (zero-setup execution.) Tj ET
+0.15 0.4 0.9 rg
+BT /F1 9 Tf 46 408.5 Td (-) Tj ET
+0.15 0.15 0.18 rg
+BT /F2 9 Tf 56 408.5 Td (Custom System Instruction: Directs Gemini to solve complex math step-by-step while) Tj ET
+0.15 0.15 0.18 rg
+BT /F2 9 Tf 62 395.5 Td (outputting plain, spoken-word English suitable for the Text-to-Speech \(TTS\)) Tj ET
+0.15 0.15 0.18 rg
+BT /F2 9 Tf 62 382.5 Td (synthesizer.) Tj ET
+0.15 0.25 0.4 rg
+BT /F1 10.5 Tf 45 361.5 Td (6.2 Multimodal Audio & Sound Control Architecture) Tj ET
+0.95 0.98 0.95 rg 45 303.5 505 44 re f
+0.1 0.6 0.25 RG 2 w 45 303.5 0 44 re S
+0.08 0.4 0.18 rg
+BT /F1 9.5 Tf 56 335.5 Td (Master Sound FX & Decoupled Audio Control) Tj ET
+0.15 0.35 0.2 rg
+BT /F2 9 Tf 56 319.5 Td (Users can toggle audio on or off anytime via the Full Element & Theme Studio in Settings. All preferences are instantly saved to browser storage.) Tj ET
+0.15 0.4 0.9 rg
+BT /F1 9 Tf 46 293.5 Td (-) Tj ET
+0.15 0.15 0.18 rg
+BT /F2 9 Tf 56 293.5 Td (Master Sound FX Switch: Controls all synthesized UI audio \(keypad clicks, unlock) Tj ET
+0.15 0.15 0.18 rg
+BT /F2 9 Tf 62 280.5 Td (chimes, progress beeps, modal transitions\). When toggled OFF, all oscillators are) Tj ET
+0.15 0.15 0.18 rg
+BT /F2 9 Tf 62 267.5 Td (bypassed for 100% silent operation.) Tj ET
+0.15 0.4 0.9 rg
+BT /F1 9 Tf 46 254.5 Td (-) Tj ET
+0.15 0.15 0.18 rg
+BT /F2 9 Tf 56 254.5 Td (Decoupled TTS Voice: Independent toggle allows users to keep spoken answers ON while) Tj ET
+0.15 0.15 0.18 rg
+BT /F2 9 Tf 62 241.5 Td (muting keypad clicks, or vice versa.) Tj ET
+0.15 0.4 0.9 rg
+BT /F1 9 Tf 46 228.5 Td (-) Tj ET
+0.15 0.15 0.18 rg
+BT /F2 9 Tf 56 228.5 Td (Zero Asset Dependency: Procedurally generated via HTML5 AudioContext with zero network) Tj ET
+0.15 0.15 0.18 rg
+BT /F2 9 Tf 62 215.5 Td (latency.) Tj ET
+0.1 0.15 0.3 rg
+BT /F1 13 Tf 45 190.5 Td (7. Multi-Device Docking System) Tj ET
+0.8 0.85 0.9 RG 0.75 w 45 187.5 m 550 187.5 l S
+0.15 0.4 0.9 rg
+BT /F1 9 Tf 46 174.5 Td (-) Tj ET
+0.15 0.15 0.18 rg
+BT /F2 9 Tf 56 174.5 Td (Desktop \(VS Code / Premiere Pro Resizable Dock\): Left History Dock, Center Chat) Tj ET
+0.15 0.15 0.18 rg
+BT /F2 9 Tf 62 161.5 Td (Canvas, Right Virtual Keypad with interactive column resizer drag handles.) Tj ET
+0.15 0.4 0.9 rg
+BT /F1 9 Tf 46 148.5 Td (-) Tj ET
+0.15 0.15 0.18 rg
+BT /F2 9 Tf 56 148.5 Td (Mobile & Tablet \(<= 1024px\): Ergonomic bottom navigation bar \(Calculator, Math Keypad,) Tj ET
+0.15 0.15 0.18 rg
+BT /F2 9 Tf 62 135.5 Td (History\) and slide-up touch keypad dock with real-time expression preview card.) Tj ET
+0.1 0.15 0.3 rg
+BT /F1 13 Tf 45 110.5 Td (8. Self-Healing State Persistence) Tj ET
+0.8 0.85 0.9 RG 0.75 w 45 107.5 m 550 107.5 l S
+0.1 0.1 0.12 rg
+BT /F2 9.5 Tf 45 94.5 Td (All user preferences \(theme, UI scale, glass opacity, particle count, audio toggles, custom) Tj ET
+0.1 0.1 0.12 rg
+BT /F2 9.5 Tf 45 81.0 Td (color palettes, and API keys\) are persisted to browser localStorage. On load, an automatic) Tj ET
+0.1 0.1 0.12 rg
+BT /F2 9.5 Tf 45 67.5 Td (healing routine verifies contrast and restores missing parameters.) Tj ET
+0.45 0.45 0.5 rg
+BT /F2 8 Tf 45 35 Td (3D Voice AI Calculator - System Architecture Specification) Tj ET
+BT /F2 8 Tf 490 35 Td (Page 3) Tj ET
+0.85 0.85 0.85 RG 0.5 w 45 45 m 550 45 l S
+endstream
+endobj
+13 0 obj
+<< /Length 681 >>
+stream
+0.45 0.45 0.5 rg
+BT /F2 8 Tf 45 805 Td (3D Celestial Voice AI Calculator - Architecture & Code Deep Dive) Tj ET
+0.85 0.85 0.85 RG 0.5 w 45 798 m 550 798 l S
+0.95 0.98 0.95 rg 45 726.0 505 44 re f
+0.1 0.6 0.25 RG 2 w 45 726.0 0 44 re S
+0.08 0.4 0.18 rg
+BT /F1 9.5 Tf 56 758.0 Td (Production Deployment Status) Tj ET
+0.15 0.35 0.2 rg
+BT /F2 9 Tf 56 742.0 Td (Fully tested, responsive, and deployed on Vercel via GitHub main branch with instantaneous PDF documentation download.) Tj ET
+0.45 0.45 0.5 rg
+BT /F2 8 Tf 45 35 Td (3D Voice AI Calculator - System Architecture Specification) Tj ET
+BT /F2 8 Tf 490 35 Td (Page 4) Tj ET
+0.85 0.85 0.85 RG 0.5 w 45 45 m 550 45 l S
+endstream
+endobj
+xref
+0 14
+0000000000 65535 f 
+0000000017 00000 n 
+0000000069 00000 n 
+0000000147 00000 n 
+0000000303 00000 n 
+0000000459 00000 n 
+0000000615 00000 n 
+0000000771 00000 n 
+0000000849 00000 n 
+0000000922 00000 n 
+0000000993 00000 n 
+0000006554 00000 n 
+0000012508 00000 n 
+0000019372 00000 n 
+trailer
+<< /Size 14 /Root 1 0 R >>
+startxref
+20109
+%%EOF

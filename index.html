@@ -2706,19 +2706,47 @@
                 </div>
 
                 <div class="toggle-switch-row" style="margin-top: 8px;">
-                    <span>Text-to-Speech (TTS) Voice</span>
+                    <div>
+                        <div style="font-weight: 600; color: var(--text-primary);">Master Sound FX</div>
+                        <div style="font-size: 11px; color: var(--text-secondary);">Keypad clicks, unlock chimes & UI audio</div>
+                    </div>
+                    <label class="switch">
+                        <input type="checkbox" id="modalSoundToggle" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <div class="toggle-switch-row">
+                    <div>
+                        <div style="font-weight: 600; color: var(--text-primary);">Text-to-Speech (TTS) Voice</div>
+                        <div style="font-size: 11px; color: var(--text-secondary);">Spoken math answers from Gemini AI</div>
+                    </div>
                     <label class="switch">
                         <input type="checkbox" id="modalTtsToggle" checked>
                         <span class="slider"></span>
                     </label>
                 </div>
 
-                <div class="toggle-switch-row">
-                    <span>Keypad Audio Click Sound</span>
-                    <label class="switch">
-                        <input type="checkbox" id="modalSoundToggle" checked>
-                        <span class="slider"></span>
-                    </label>
+                <!-- ARCHITECTURE & DOCUMENTATION EXPORT SECTION -->
+                <div class="setting-group" style="border-top: 1px solid var(--glass-border); padding-top: 16px; margin-top: 14px;">
+                    <div class="section-title">
+                        <span>📖 System Architecture & Documentation</span>
+                        <span class="setting-val-badge">System Docs</span>
+                    </div>
+                    <p style="font-size: 11.5px; color: var(--text-secondary); margin-bottom: 12px; line-height: 1.5;">
+                        Official technical blueprint explaining the Ancient Space visual system, Apple fluid motion physics, Google Gemini 2.5 Flash architecture, and complete code walkthrough.
+                    </p>
+                    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                        <a href="ARCHITECTURE_AND_CODE_EXPLANATION.pdf" download="3D_Voice_AI_Calculator_Architecture_Guide.pdf" class="header-btn" id="downloadPdfBtn" style="text-decoration: none; background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary)); color: #000; font-weight: 700; border: none; box-shadow: 0 4px 14px var(--accent-glow);">
+                            📄 Download Architecture Guide (PDF)
+                        </a>
+                        <a href="ARCHITECTURE_AND_CODE_EXPLANATION.md" download="ARCHITECTURE_AND_CODE_EXPLANATION.md" class="header-btn" id="downloadMdBtn" style="text-decoration: none;">
+                            📝 Download Source (MD)
+                        </a>
+                        <button type="button" class="header-btn" id="viewDocsModalBtn" title="Read Documentation in Studio">
+                            👁️ Read in Studio
+                        </button>
+                    </div>
                 </div>
 
                 <!-- Replay Liquid Loading Intro Button -->
@@ -2726,6 +2754,30 @@
                     <span>Replay Liquid Loading Intro</span>
                     <button class="header-btn" id="replayIntroModalBtn">🎬 Replay Intro</button>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- IN-APP DOCUMENTATION VIEWER MODAL -->
+    <div class="modal-backdrop" id="docsModal">
+        <div class="apple-settings-card" style="max-width: 820px; width: 92vw; max-height: 86vh; display: flex; flex-direction: column;">
+            <div class="modal-header">
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <span style="font-size: 24px;">🌌</span>
+                    <div>
+                        <h3 style="font-family: 'Outfit', sans-serif; font-size: 20px; font-weight: 800; margin: 0; color: var(--text-primary);">Architecture & Code Deep Dive</h3>
+                        <div style="font-size: 11px; color: var(--text-secondary);">3D Voice AI Calculator • System Specification</div>
+                    </div>
+                </div>
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <a href="ARCHITECTURE_AND_CODE_EXPLANATION.pdf" download="3D_Voice_AI_Calculator_Architecture_Guide.pdf" class="header-btn" style="text-decoration: none; font-size: 11.5px; padding: 6px 12px; background: var(--accent-glow); color: var(--accent-primary); border-color: var(--accent-primary);">
+                        📥 Download PDF
+                    </a>
+                    <button class="modal-close-btn" id="closeDocsBtn">✕</button>
+                </div>
+            </div>
+            <div id="docsContentArea" style="overflow-y: auto; padding: 14px 8px; font-size: 13px; line-height: 1.7; color: var(--text-primary);">
+                <!-- Dynamic Content Area -->
             </div>
         </div>
     </div>
@@ -2985,10 +3037,127 @@
         });
 
         document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && settingsModal.classList.contains('open')) {
-                settingsModal.classList.remove('open');
+            if (e.key === 'Escape') {
+                if (settingsModal && settingsModal.classList.contains('open')) {
+                    settingsModal.classList.remove('open');
+                }
+                if (docsModal && docsModal.classList.contains('open')) {
+                    docsModal.classList.remove('open');
+                }
             }
         });
+
+        // Master Sound FX & TTS Audio Listeners
+        const modalSoundToggle = document.getElementById('modalSoundToggle');
+        const modalTtsToggle = document.getElementById('modalTtsToggle');
+
+        if (modalSoundToggle) {
+            modalSoundToggle.addEventListener('change', () => {
+                saveSettingsToStorage();
+                if (modalSoundToggle.checked) {
+                    playClickSound(650, 'sine');
+                }
+            });
+        }
+
+        if (modalTtsToggle) {
+            modalTtsToggle.addEventListener('change', () => {
+                saveSettingsToStorage();
+                if (!modalTtsToggle.checked && 'speechSynthesis' in window) {
+                    window.speechSynthesis.cancel();
+                }
+            });
+        }
+
+        // Architecture & Documentation Modal Logic
+        const docsModal = document.getElementById('docsModal');
+        const viewDocsModalBtn = document.getElementById('viewDocsModalBtn');
+        const closeDocsBtn = document.getElementById('closeDocsBtn');
+        const docsContentArea = document.getElementById('docsContentArea');
+        const downloadPdfBtn = document.getElementById('downloadPdfBtn');
+        const downloadMdBtn = document.getElementById('downloadMdBtn');
+
+        function renderDocsInModal() {
+            if (!docsContentArea) return;
+            docsContentArea.innerHTML = `
+                <div style="background: rgba(0,0,0,0.14); padding: 16px; border-radius: 14px; border: 1px solid var(--glass-border); margin-bottom: 18px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                        <span style="font-weight: 700; color: var(--accent-primary); font-size: 13px; text-transform: uppercase; letter-spacing: 0.08em;">Official System Specification</span>
+                        <span style="font-size: 11px; background: var(--accent-glow); color: var(--accent-primary); padding: 2px 8px; border-radius: 100px;">v3.5 Certified</span>
+                    </div>
+                    <p style="margin: 0; font-size: 12px; color: var(--text-secondary); line-height: 1.5;">
+                        Complete engineering blueprint detailing ancient space aesthetics, Apple WWDC fluid interface physics, Google Gemini 2.5 Flash cloud integration, and decoupled sound architecture.
+                    </p>
+                </div>
+
+                <h4 style="color: var(--accent-primary); margin: 16px 0 8px 0; font-size: 15px; font-family: 'Outfit', sans-serif;">1. Executive Overview & Design Philosophy</h4>
+                <p>The 3D Celestial Voice AI Calculator is an ultra-premium, real-time mathematical intelligence application built from the ground up to transcend conventional calculator utilities. Rather than presenting a utilitarian grid of numbers, the interface transforms into a celestial glass observatory connecting ancient mathematical discoveries with modern cloud intelligence.</p>
+
+                <h4 style="color: var(--accent-primary); margin: 16px 0 8px 0; font-size: 15px; font-family: 'Outfit', sans-serif;">2. Installed Antigravity Skills Integration</h4>
+                <ul style="padding-left: 20px; margin: 0 0 14px 0;">
+                    <li><strong>apple-design (Emil Kowalski):</strong> Translates Apple's Designing Fluid Interfaces (WWDC) into web mechanics - zero touch-down latency, critically damped springs, and gesture interruptibility.</li>
+                    <li><strong>ui-ux-pro-max:</strong> Design system intelligence covering WCAG 2.2 contrast compliance (16.2:1 verified ratio in light mode), 44x44px touch ergonomics, and font pairings (Space Grotesk + DM Sans + Outfit + Inter + JetBrains Mono).</li>
+                    <li><strong>animate & improve-animations:</strong> Context-aware physics curves and frame-rate preservation.</li>
+                </ul>
+
+                <h4 style="color: var(--accent-primary); margin: 16px 0 8px 0; font-size: 15px; font-family: 'Outfit', sans-serif;">3. Master Sound FX & Decoupled Audio Control</h4>
+                <p>The application implements a decoupled, user-configurable audio engine with zero external asset latency:</p>
+                <ul style="padding-left: 20px; margin: 0 0 14px 0;">
+                    <li><strong>Master Sound FX Switch:</strong> Located in Settings Studio. Toggling OFF completely silences all UI audio (keypad clicks, unlock chimes, progress beeps, modal clicks) with zero CPU overhead.</li>
+                    <li><strong>Decoupled TTS Voice:</strong> Allows users to independently enable spoken voice answers while keeping click audio muted, or vice versa.</li>
+                    <li><strong>Web Audio Procedural Synthesis:</strong> Synthesizes harmonic 600Hz–1080Hz clicks, C5–C6 / E5–E6 unlock chords, and 300Hz error tones on the fly.</li>
+                </ul>
+
+                <h4 style="color: var(--accent-primary); margin: 16px 0 8px 0; font-size: 15px; font-family: 'Outfit', sans-serif;">4. Apple iOS Swipe-Up Reveal & Cascading Entrance</h4>
+                <p>Swiping up sweeps the lock screen away (<code>translateY(-110vh) scale(0.92) blur(25px)</code>) while triggering an authentic dual-harmonic unlock chime and a choreographed cascade across all 7 UI regions (Header, Left History Dock, Chat, Right Keypad, Welcome Card, Input Bar, Chips, and Keys).</p>
+
+                <div style="margin-top: 20px; padding: 14px; background: rgba(0,255,170,0.08); border-radius: 12px; border: 1px solid var(--glass-border); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+                    <div>
+                        <div style="font-weight: 700; color: var(--text-primary); font-size: 13px;">Download Complete Printable PDF</div>
+                        <div style="font-size: 11px; color: var(--text-secondary);">4-page publication-quality vector document</div>
+                    </div>
+                    <a href="ARCHITECTURE_AND_CODE_EXPLANATION.pdf" download="3D_Voice_AI_Calculator_Architecture_Guide.pdf" class="header-btn" style="text-decoration: none; font-size: 12px; font-weight: 700; background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary)); color: #000; border: none; box-shadow: 0 4px 12px var(--accent-glow);">
+                        📄 Download PDF
+                    </a>
+                </div>
+            `;
+        }
+
+        if (viewDocsModalBtn) {
+            viewDocsModalBtn.addEventListener('click', () => {
+                if (settingsModal) settingsModal.classList.remove('open');
+                if (docsModal) {
+                    docsModal.classList.add('open');
+                    renderDocsInModal();
+                    playClickSound(750, 'sine');
+                }
+            });
+        }
+
+        if (closeDocsBtn) {
+            closeDocsBtn.addEventListener('click', () => {
+                if (docsModal) docsModal.classList.remove('open');
+                playClickSound(450, 'sine');
+            });
+        }
+
+        if (docsModal) {
+            docsModal.addEventListener('click', (e) => {
+                if (e.target === docsModal) docsModal.classList.remove('open');
+            });
+        }
+
+        if (downloadPdfBtn) {
+            downloadPdfBtn.addEventListener('click', () => {
+                playClickSound(850, 'triangle');
+            });
+        }
+
+        if (downloadMdBtn) {
+            downloadMdBtn.addEventListener('click', () => {
+                playClickSound(650, 'sine');
+            });
+        }
 
         // Color Picker Event Listeners
         const primaryColorPicker = document.getElementById('primaryColorPicker');
@@ -3722,6 +3891,7 @@
             const saved = localStorage.getItem(SETTINGS_KEY);
             if (saved) {
                 try {
+                    const s = JSON.parse(saved);
                     const activeTheme = s.theme || 'dark';
                     setTheme(activeTheme);
                     if (s.uiScale) {
