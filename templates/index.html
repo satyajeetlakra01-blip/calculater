@@ -80,29 +80,401 @@
         }
 
         :root[data-theme="light"] {
-            --bg-gradient: radial-gradient(circle at 50% 20%, #f0f6ff 0%, #e2e8f0 60%, #cbd5e1 100%);
-            --glass-bg: rgba(255, 255, 255, var(--glass-opacity));
-            --glass-bg-hover: rgba(255, 255, 255, 0.92);
-            --glass-card: rgba(255, 255, 255, 0.88);
-            --glass-border: rgba(37, 99, 235, 0.25);
-            --glass-border-focus: rgba(37, 99, 235, 0.65);
-            --glass-shadow: 0 24px 50px rgba(31, 38, 135, 0.14), inset 0 1.5px 1.5px rgba(255, 255, 255, 0.95), inset 0 -1.5px 1.5px rgba(0, 0, 0, 0.08);
+            --bg-gradient: radial-gradient(circle at 50% 15%, #ffffff 0%, #f1f5f9 50%, #e2e8f0 100%);
+            --bg-color-1: #ffffff;
+            --bg-color-2: #f1f5f9;
             
-            --text-primary: #0f172a;
-            --text-secondary: #475569;
-            --text-muted: #94a3b8;
+            --text-primary: #0f172a;        /* Deep Obsidian Slate (rich contrast) */
+            --text-secondary: #334155;      /* Deep Slate (crisp readable) */
+            --text-muted: #64748b;          /* Cool Slate */
             
-            --accent-primary: #2563eb;
-            --accent-secondary: #0284c7;
-            --accent-glow: rgba(37, 99, 235, 0.25);
-            
-            --keypad-bg: rgba(241, 245, 249, 0.78);
-            --key-bg: rgba(255, 255, 255, 0.92);
-            --key-hover: rgba(226, 232, 240, 1);
-            --key-accent: rgba(37, 99, 235, 0.14);
-            --key-accent-text: #1d4ed8;
+            --accent-primary: #2563eb;      /* Vivid Electric Cobalt Blue */
+            --accent-secondary: #0ea5e9;    /* Sky / Cyan Blue */
+            --accent-glow: rgba(37, 99, 235, 0.22);
+
+            --glass-bg: rgba(255, 255, 255, 0.82);
+            --glass-bg-hover: rgba(255, 255, 255, 0.95);
+            --glass-card: rgba(255, 255, 255, 0.9);
+            --glass-border: rgba(203, 213, 225, 0.75);
+            --glass-border-focus: rgba(37, 99, 235, 0.6);
+            --glass-shadow: 0 20px 45px rgba(15, 23, 42, 0.08), 0 4px 12px rgba(15, 23, 42, 0.04), inset 0 1px 1px rgba(255, 255, 255, 1);
+
+            --user-msg-bg: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+            --user-msg-border: rgba(37, 99, 235, 0.35);
+            --ai-msg-bg: rgba(255, 255, 255, 0.96);
+            --ai-msg-border: rgba(203, 213, 225, 0.85);
+
+            --keypad-bg: rgba(248, 250, 252, 0.85);
+            --key-bg: #ffffff;
+            --key-hover: #f1f5f9;
+            --key-accent: rgba(37, 99, 235, 0.09);
+            --key-accent-text: #2563eb;
 
             --mic-idle: #2563eb;
+            --modal-bg: rgba(255, 255, 255, 0.97);
+            --modal-border: rgba(203, 213, 225, 0.85);
+            --modal-input-bg: rgba(241, 245, 249, 0.92);
+            --modal-input-border: rgba(203, 213, 225, 0.9);
+        }
+
+        /* LIGHT THEME ELEMENT-SPECIFIC HIGH CONTRAST & PREMIUM REFINEMENTS */
+        [data-theme="light"] .app-header {
+            box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06), inset 0 1px 1px rgba(255, 255, 255, 1);
+        }
+
+        [data-theme="light"] .brand-title {
+            background: linear-gradient(90deg, #0f172a, #2563eb);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        [data-theme="light"] .brand-icon {
+            color: #ffffff !important;
+            box-shadow: 0 4px 16px rgba(37, 99, 235, 0.25);
+        }
+
+        [data-theme="light"] .status-pill {
+            background: rgba(37, 99, 235, 0.07);
+            border-color: rgba(37, 99, 235, 0.22);
+            color: #0f172a;
+        }
+
+        [data-theme="light"] .header-btn {
+            background: rgba(255, 255, 255, 0.85);
+            border-color: rgba(203, 213, 225, 0.8);
+            color: #0f172a;
+            box-shadow: 0 2px 6px rgba(15, 23, 42, 0.04);
+        }
+
+        [data-theme="light"] .header-btn:hover {
+            background: #ffffff;
+            border-color: #2563eb;
+            color: #2563eb;
+        }
+
+        [data-theme="light"] .chat-messages {
+            color: #0f172a;
+        }
+
+        [data-theme="light"] .ai .avatar {
+            color: #ffffff !important;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+        }
+
+        [data-theme="light"] .ai .bubble {
+            background: #ffffff;
+            border: 1px solid rgba(203, 213, 225, 0.8);
+            color: #0f172a !important;
+            box-shadow: 0 4px 18px rgba(15, 23, 42, 0.05);
+        }
+
+        [data-theme="light"] .bubble-meta {
+            color: #64748b;
+            opacity: 0.9;
+        }
+
+        [data-theme="light"] .chat-input-container {
+            background: rgba(248, 250, 252, 0.85);
+            border-top: 1px solid rgba(226, 232, 240, 0.9);
+        }
+
+        [data-theme="light"] .chat-input {
+            background: #ffffff;
+            border-color: rgba(203, 213, 225, 0.9);
+            color: #0f172a !important;
+            box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
+        }
+
+        [data-theme="light"] .chat-input::placeholder {
+            color: #94a3b8;
+        }
+
+        [data-theme="light"] .send-btn {
+            color: #ffffff !important;
+            box-shadow: 0 4px 14px rgba(37, 99, 235, 0.3);
+        }
+
+        [data-theme="light"] .key-btn {
+            background: #ffffff;
+            border-color: rgba(226, 232, 240, 0.9);
+            color: #0f172a;
+            box-shadow: 0 2px 6px rgba(15, 23, 42, 0.03);
+        }
+
+        [data-theme="light"] .key-btn:hover {
+            background: #f8fafc;
+            border-color: #2563eb;
+            color: #2563eb;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.15);
+        }
+
+        [data-theme="light"] .key-btn.op {
+            background: rgba(37, 99, 235, 0.08);
+            color: #1d4ed8;
+            border-color: rgba(37, 99, 235, 0.2);
+        }
+
+        [data-theme="light"] .key-btn.action {
+            background: rgba(239, 68, 68, 0.08);
+            color: #dc2626;
+            border-color: rgba(239, 68, 68, 0.25);
+        }
+
+        [data-theme="light"] .key-btn.equals {
+            background: linear-gradient(135deg, #2563eb, #0284c7);
+            color: #ffffff !important;
+            font-weight: 800;
+            box-shadow: 0 4px 16px rgba(37, 99, 235, 0.35);
+        }
+
+        [data-theme="light"] .dock-input-preview-card {
+            background: rgba(241, 245, 249, 0.85);
+            border-color: rgba(203, 213, 225, 0.85);
+        }
+
+        [data-theme="light"] .dock-input-preview-text {
+            color: #2563eb;
+        }
+
+        [data-theme="light"] .history-search-input {
+            background: #ffffff;
+            border-color: rgba(203, 213, 225, 0.85);
+            color: #0f172a !important;
+        }
+
+        [data-theme="light"] .history-search-input::placeholder {
+            color: #94a3b8;
+        }
+
+        [data-theme="light"] .history-item {
+            background: #ffffff;
+            border-color: rgba(226, 232, 240, 0.9);
+            box-shadow: 0 2px 8px rgba(15, 23, 42, 0.03);
+        }
+
+        [data-theme="light"] .history-item:hover {
+            border-color: #2563eb;
+            background: #f8fafc;
+        }
+
+        [data-theme="light"] .history-query {
+            color: #0f172a !important;
+        }
+
+        [data-theme="light"] .history-ans {
+            color: #2563eb;
+        }
+
+        [data-theme="light"] .welcome-card {
+            background: #ffffff;
+            border-color: rgba(203, 213, 225, 0.85);
+            box-shadow: 0 8px 30px rgba(15, 23, 42, 0.04);
+        }
+
+        [data-theme="light"] .welcome-card p {
+            color: #475569 !important;
+        }
+
+        [data-theme="light"] .chip {
+            background: #f8fafc;
+            border-color: rgba(203, 213, 225, 0.85);
+            color: #0f172a;
+        }
+
+        [data-theme="light"] .chip:hover {
+            background: rgba(37, 99, 235, 0.08);
+            border-color: #2563eb;
+            color: #2563eb;
+        }
+
+        [data-theme="light"] .mobile-nav-bar {
+            background: rgba(255, 255, 255, 0.9);
+            border-color: rgba(203, 213, 225, 0.85);
+            box-shadow: 0 4px 16px rgba(15, 23, 42, 0.05);
+        }
+
+        [data-theme="light"] .mobile-nav-btn {
+            color: #475569;
+        }
+
+        [data-theme="light"] .mobile-nav-btn.active {
+            background: rgba(37, 99, 235, 0.1);
+            border-color: rgba(37, 99, 235, 0.3);
+            color: #2563eb;
+        }
+
+        [data-theme="light"] .mobile-toggle-dock-btn {
+            background: #ffffff;
+            border-color: rgba(203, 213, 225, 0.85);
+            color: #2563eb;
+            box-shadow: 0 2px 6px rgba(15, 23, 42, 0.05);
+        }
+
+        [data-theme="light"] .modal-backdrop {
+            background: rgba(15, 23, 42, 0.35);
+        }
+
+        [data-theme="light"] .apple-settings-card {
+            background: rgba(255, 255, 255, 0.97) !important;
+            border: 1px solid rgba(203, 213, 225, 0.85) !important;
+            box-shadow: 0 30px 80px rgba(15, 23, 42, 0.16), inset 0 1px 1px rgba(255, 255, 255, 1) !important;
+            color: #0f172a !important;
+        }
+
+        [data-theme="light"] .modal-header {
+            border-color: rgba(226, 232, 240, 0.9);
+        }
+
+        [data-theme="light"] .modal-close-btn {
+            background: #f1f5f9;
+            border-color: #cbd5e1;
+            color: #0f172a;
+        }
+
+        [data-theme="light"] .section-title {
+            color: #2563eb;
+        }
+
+        [data-theme="light"] .theme-preset-btn {
+            background: #f8fafc;
+            border-color: #cbd5e1;
+            color: #0f172a;
+        }
+
+        [data-theme="light"] .theme-preset-btn:hover {
+            border-color: #2563eb;
+            background: #eff6ff;
+            color: #2563eb;
+        }
+
+        [data-theme="light"] .color-picker-item {
+            background: #f8fafc;
+            border-color: #cbd5e1;
+            color: #0f172a;
+        }
+
+        [data-theme="light"] .setting-label {
+            color: #334155;
+        }
+
+        [data-theme="light"] .api-key-input {
+            background: #f8fafc;
+            border-color: #cbd5e1;
+            color: #0f172a !important;
+        }
+
+        [data-theme="light"] .api-key-btn {
+            background: #f1f5f9;
+            border-color: #cbd5e1;
+            color: #0f172a;
+        }
+
+        [data-theme="light"] .api-key-btn:hover {
+            background: #eff6ff;
+            border-color: #2563eb;
+            color: #2563eb;
+        }
+
+        [data-theme="light"] .toggle-switch-row {
+            color: #0f172a;
+        }
+
+        [data-theme="light"] .slider {
+            background-color: #cbd5e1;
+            border: 1px solid #94a3b8;
+        }
+
+        [data-theme="light"] .slider:before {
+            background-color: #ffffff !important;
+            box-shadow: 0 2px 5px rgba(15, 23, 42, 0.2);
+        }
+
+        [data-theme="light"] input:checked + .slider {
+            background-color: #2563eb !important;
+            border-color: #1d4ed8 !important;
+        }
+
+        [data-theme="light"] input:checked + .slider:before {
+            background-color: #ffffff !important;
+        }
+
+        [data-theme="light"] .apple-settings-card h3 {
+            color: #0f172a !important;
+        }
+
+        [data-theme="light"] .keypad-container {
+            background: rgba(255, 255, 255, 0.88) !important;
+            border-color: rgba(226, 232, 240, 0.9) !important;
+        }
+
+        [data-theme="light"] .keypad-tabs {
+            border-bottom: 1px solid rgba(226, 232, 240, 0.9) !important;
+        }
+
+        [data-theme="light"] .key-tab {
+            color: #64748b !important;
+        }
+
+        [data-theme="light"] .key-tab.active {
+            color: #2563eb !important;
+            border-bottom: 2px solid #2563eb !important;
+        }
+
+        [data-theme="light"] .history-sidebar {
+            background: rgba(255, 255, 255, 0.88) !important;
+            border-left: 1px solid rgba(226, 232, 240, 0.9) !important;
+        }
+
+        [data-theme="light"] .sidebar-title {
+            color: #0f172a !important;
+        }
+
+        [data-theme="light"] .history-meta {
+            color: #64748b !important;
+        }
+
+        [data-theme="light"] .history-btn-small {
+            background: #f1f5f9 !important;
+            border: 1px solid #cbd5e1 !important;
+            color: #0f172a !important;
+        }
+
+        [data-theme="light"] .history-btn-small:hover {
+            background: #e2e8f0 !important;
+            color: #2563eb !important;
+        }
+
+        [data-theme="light"] .chat-container {
+            background: rgba(255, 255, 255, 0.75) !important;
+        }
+
+        [data-theme="light"] .resizer {
+            background: rgba(203, 213, 225, 0.7) !important;
+        }
+
+        [data-theme="light"] .resizer:hover,
+        [data-theme="light"] .resizer.dragging {
+            background: #2563eb !important;
+            box-shadow: 0 0 10px rgba(37, 99, 235, 0.4) !important;
+        }
+
+        [data-theme="light"] .action-icon-btn {
+            background: rgba(37, 99, 235, 0.08) !important;
+            border: 1px solid rgba(37, 99, 235, 0.22) !important;
+            color: #2563eb !important;
+        }
+
+        [data-theme="light"] .action-icon-btn:hover {
+            background: rgba(37, 99, 235, 0.18) !important;
+            color: #1d4ed8 !important;
+        }
+
+        [data-theme="light"] .typing-indicator .dot {
+            background: #2563eb !important;
+        }
+
+        [data-theme="light"] body {
+            color: #0f172a !important;
         }
 
         /* Reset & Base Styling */
@@ -2334,8 +2706,11 @@
         });
 
         function hexToRgba(hex, alpha = 1) {
-            let c = hex.replace('#', '');
+            if (!hex) return `rgba(0, 0, 0, ${alpha})`;
+            if (typeof hex === 'string' && hex.startsWith('rgb')) return hex;
+            let c = String(hex).replace('#', '');
             if (c.length === 3) c = c.split('').map(x => x + x).join('');
+            if (c.length !== 6) return `rgba(0, 0, 0, ${alpha})`;
             const num = parseInt(c, 16);
             const r = (num >> 16) & 255;
             const g = (num >> 8) & 255;
@@ -2346,28 +2721,62 @@
         // Preset Theme Applicator
         function applyPresetTheme(preset) {
             playClickSound(850, 'sine');
-            if (preset === 'matrix') {
-                setThemeColors('#00ffaa', '#00d2ff', '#f8fafc', '#94a3b8', '#0d1628', '#00ffaa', '#0c1833', '#030712');
-            } else if (preset === 'violet') {
-                setThemeColors('#a855f7', '#ec4899', '#f3e8ff', '#c084fc', '#180d2b', '#a855f7', '#180d2b', '#090314');
-            } else if (preset === 'ocean') {
-                setThemeColors('#38bdf8', '#6366f1', '#f0f9ff', '#7dd3fc', '#081a36', '#38bdf8', '#081a36', '#020b18');
-            } else if (preset === 'sunset') {
-                setThemeColors('#f59e0b', '#ef4444', '#fffbe6', '#fcd34d', '#261408', '#f59e0b', '#261408', '#0f0702');
-            } else if (preset === 'crystal') {
-                setThemeColors('#2563eb', '#0284c7', '#0f172a', '#475569', '#f0f9ff', '#2563eb', '#e0f2fe', '#bae6fd');
-            } else if (preset === 'oled') {
-                setThemeColors('#22c55e', '#14b8a6', '#ffffff', '#a1a1aa', '#0a0a0a', '#22c55e', '#000000', '#050505');
+            if (preset === 'crystal') {
+                document.documentElement.setAttribute('data-theme', 'light');
+                if (themeIcon) themeIcon.textContent = '☀️';
+                if (themeLabel) themeLabel.textContent = 'Cyber Light';
+                setThemeColors('#2563eb', '#0284c7', '#0f172a', '#334155', '#ffffff', '#cbd5e1', '#ffffff', '#f1f5f9');
+            } else {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                if (themeIcon) themeIcon.textContent = '🌙';
+                if (themeLabel) themeLabel.textContent = 'Matrix Dark';
+                if (preset === 'matrix') {
+                    setThemeColors('#00ffaa', '#00d2ff', '#f8fafc', '#94a3b8', '#0d1628', '#00ffaa', '#0c1833', '#030712');
+                } else if (preset === 'violet') {
+                    setThemeColors('#a855f7', '#ec4899', '#f3e8ff', '#c084fc', '#180d2b', '#a855f7', '#180d2b', '#090314');
+                } else if (preset === 'ocean') {
+                    setThemeColors('#38bdf8', '#6366f1', '#f0f9ff', '#7dd3fc', '#081a36', '#38bdf8', '#081a36', '#020b18');
+                } else if (preset === 'sunset') {
+                    setThemeColors('#f59e0b', '#ef4444', '#fffbe6', '#fcd34d', '#261408', '#f59e0b', '#261408', '#0f0702');
+                } else if (preset === 'oled') {
+                    setThemeColors('#22c55e', '#14b8a6', '#ffffff', '#a1a1aa', '#0a0a0a', '#22c55e', '#000000', '#050505');
+                }
             }
         }
 
+        function applyLightModePreset() {
+            setThemeColors(
+                '#2563eb', // primary (Apple Electric Cobalt Blue)
+                '#0ea5e9', // secondary (Sky Cyan Blue)
+                '#0f172a', // text primary (Deep Obsidian Slate)
+                '#334155', // text secondary (Crisp Slate)
+                '#ffffff', // glass bg
+                '#cbd5e1', // glass border
+                '#ffffff', // bg1
+                '#f1f5f9'  // bg2
+            );
+        }
+
+        function applyDarkModePreset() {
+            setThemeColors(
+                '#00ffaa', // primary (Matrix Emerald)
+                '#00d2ff', // secondary (Cyan Glow)
+                '#f8fafc', // text primary (Bright White)
+                '#94a3b8', // text secondary (Cool Gray)
+                '#0d1628', // glass bg
+                '#00ffaa', // glass border
+                '#0c1833', // bg1
+                '#030712'  // bg2
+            );
+        }
+
         function setThemeColors(primary, secondary, textP, textS, glassBgHex, glassBorderHex, bg1, bg2) {
-            primaryColorPicker.value = primary;
-            secondaryColorPicker.value = secondary;
-            textPrimaryPicker.value = textP;
-            textSecondaryPicker.value = textS;
-            glassBgPicker.value = glassBgHex;
-            glassBorderPicker.value = glassBorderHex;
+            if (primaryColorPicker) primaryColorPicker.value = primary;
+            if (secondaryColorPicker) secondaryColorPicker.value = secondary;
+            if (textPrimaryPicker) textPrimaryPicker.value = textP;
+            if (textSecondaryPicker) textSecondaryPicker.value = textS;
+            if (glassBgPicker) glassBgPicker.value = glassBgHex;
+            if (glassBorderPicker) glassBorderPicker.value = glassBorderHex;
 
             document.documentElement.style.setProperty('--accent-primary', primary);
             document.documentElement.style.setProperty('--accent-secondary', secondary);
@@ -2375,13 +2784,34 @@
             document.documentElement.style.setProperty('--text-primary', textP);
             document.documentElement.style.setProperty('--text-secondary', textS);
 
-            const op = parseFloat(opacitySlider.value);
+            const op = opacitySlider ? parseFloat(opacitySlider.value) : 0.8;
             document.documentElement.style.setProperty('--glass-bg', hexToRgba(glassBgHex, op));
             document.documentElement.style.setProperty('--glass-border', hexToRgba(glassBorderHex, 0.3));
             document.documentElement.style.setProperty('--glass-border-focus', hexToRgba(glassBorderHex, 0.75));
 
             document.documentElement.style.setProperty('--bg-color-1', bg1);
             document.documentElement.style.setProperty('--bg-color-2', bg2);
+
+            const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+            if (isLight) {
+                document.documentElement.style.setProperty('--bg-gradient', `radial-gradient(circle at 50% 15%, ${bg1} 0%, ${bg2} 55%, #e2e8f0 100%)`);
+                document.documentElement.style.setProperty('--ai-msg-bg', '#ffffff');
+                document.documentElement.style.setProperty('--ai-msg-border', 'rgba(203, 213, 225, 0.85)');
+                document.documentElement.style.setProperty('--keypad-bg', 'rgba(248, 250, 252, 0.85)');
+                document.documentElement.style.setProperty('--key-bg', '#ffffff');
+                document.documentElement.style.setProperty('--key-hover', '#f1f5f9');
+                document.documentElement.style.setProperty('--modal-bg', 'rgba(255, 255, 255, 0.98)');
+                document.documentElement.style.setProperty('--modal-border', 'rgba(203, 213, 225, 0.85)');
+            } else {
+                document.documentElement.style.setProperty('--bg-gradient', `radial-gradient(circle at 50% 20%, ${bg1} 0%, ${bg2} 65%, #010206 100%)`);
+                document.documentElement.style.setProperty('--ai-msg-bg', 'rgba(15, 23, 42, 0.92)');
+                document.documentElement.style.setProperty('--ai-msg-border', 'var(--glass-border)');
+                document.documentElement.style.setProperty('--keypad-bg', 'rgba(15, 23, 42, 0.65)');
+                document.documentElement.style.setProperty('--key-bg', 'rgba(30, 41, 59, 0.78)');
+                document.documentElement.style.setProperty('--key-hover', 'rgba(51, 65, 85, 0.95)');
+                document.documentElement.style.setProperty('--modal-bg', 'rgba(15, 23, 42, 0.92)');
+                document.documentElement.style.setProperty('--modal-border', 'var(--glass-border)');
+            }
 
             saveSettingsToStorage();
         }
@@ -2451,11 +2881,12 @@
                 const size = baseSize * scale;
                 ctx.font = `${Math.max(10, size)}px 'JetBrains Mono', monospace`;
 
-                const alpha = Math.min(1, Math.max(0.1, scale * 0.95));
-                const accentPrimary = getComputedStyle(document.documentElement).getPropertyValue('--accent-primary').trim() || '#00ffaa';
+                const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+                const alpha = Math.min(1, Math.max(0.1, scale * (isLight ? 0.35 : 0.95)));
+                const accentPrimary = getComputedStyle(document.documentElement).getPropertyValue('--accent-primary').trim() || (isLight ? '#2563eb' : '#00ffaa');
                 
-                ctx.fillStyle = hexToRgba(accentPrimary, alpha);
-                ctx.shadowBlur = scale > 0.8 ? 14 : 0;
+                ctx.fillStyle = hexToRgba(accentPrimary, isLight ? alpha * 0.45 : alpha);
+                ctx.shadowBlur = (!isLight && scale > 0.8) ? 14 : 0;
                 ctx.shadowColor = accentPrimary;
 
                 ctx.fillText(this.symbol, 0, 0);
@@ -2597,8 +3028,15 @@
 
         function setTheme(theme) {
             document.documentElement.setAttribute('data-theme', theme);
-            themeIcon.textContent = theme === 'dark' ? '🌙' : '☀️';
-            themeLabel.textContent = theme === 'dark' ? 'Matrix Dark' : 'Cyber Light';
+            if (theme === 'light') {
+                if (themeIcon) themeIcon.textContent = '☀️';
+                if (themeLabel) themeLabel.textContent = 'Cyber Light';
+                applyLightModePreset();
+            } else {
+                if (themeIcon) themeIcon.textContent = '🌙';
+                if (themeLabel) themeLabel.textContent = 'Matrix Dark';
+                applyDarkModePreset();
+            }
         }
 
 
@@ -2847,8 +3285,8 @@
             const saved = localStorage.getItem(SETTINGS_KEY);
             if (saved) {
                 try {
-                    const s = JSON.parse(saved);
-                    if (s.theme) setTheme(s.theme);
+                    const activeTheme = s.theme || 'dark';
+                    setTheme(activeTheme);
                     if (s.uiScale) {
                         scaleSlider.value = s.uiScale;
                         document.documentElement.style.setProperty('--ui-scale', s.uiScale);
@@ -2874,15 +3312,26 @@
                         particleCountVal.textContent = s.particles;
                         rebuildParticles(parseInt(s.particles));
                     }
-                    if (s.primaryColor) {
+                    if (s.primaryColor && s.textPrimary) {
+                        let tp = s.textPrimary;
+                        let ts = s.textSecondary;
+                        let gb = s.glassBg;
+                        if (activeTheme === 'light') {
+                            if (!tp || tp === '#f8fafc' || tp === '#ffffff' || tp.toLowerCase().includes('fff')) {
+                                tp = '#0f172a';
+                                ts = '#334155';
+                                gb = '#ffffff';
+                            }
+                        }
                         setThemeColors(
                             s.primaryColor, 
-                            s.secondaryColor || '#00d2ff', 
-                            s.textPrimary || '#f8fafc', 
-                            s.textSecondary || '#94a3b8', 
-                            s.glassBg || '#0d1628', 
+                            s.secondaryColor || (activeTheme === 'light' ? '#0ea5e9' : '#00d2ff'), 
+                            tp || (activeTheme === 'light' ? '#0f172a' : '#f8fafc'), 
+                            ts || (activeTheme === 'light' ? '#334155' : '#94a3b8'), 
+                            gb || (activeTheme === 'light' ? '#ffffff' : '#0d1628'), 
                             s.glassBorder || s.primaryColor,
-                            '#0c1833', '#030712'
+                            activeTheme === 'light' ? '#ffffff' : '#0c1833',
+                            activeTheme === 'light' ? '#f1f5f9' : '#030712'
                         );
                     }
                     if (s.sidebarLeftWidth) {
