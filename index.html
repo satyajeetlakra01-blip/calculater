@@ -28,19 +28,24 @@
 
     <style>
         /* ==========================================================================
-           DYNAMIC APPLE DESIGN SYSTEM & LIQUID GLASS REFRACTION THEME
+           ANCIENT SPACE & APPLE FLUID LIQUID GLASS DESIGN SYSTEM
+           WWDC Fluid Motion + Interstellar Space Geometry
            ========================================================================== */
         :root {
             --ui-scale: 1;
-            --glass-blur: 32px;
-            --glass-opacity: 0.68;
+            --glass-blur: 36px;
+            --glass-opacity: 0.72;
             --keypad-size: 38px;
             --sidebar-left-width: 280px;
             --sidebar-right-width: 320px;
-            --apple-ease: cubic-bezier(0.16, 1, 0.3, 1);
-            --apple-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
 
-            --bg-color-1: #0c1833;
+            /* Emil Kowalski Apple Motion Tokens */
+            --apple-ease: cubic-bezier(0.16, 1, 0.3, 1);           /* Critically damped ease-out */
+            --apple-spring: cubic-bezier(0.34, 1.56, 0.64, 1);       /* Physical spring with subtle bounce */
+            --apple-press: cubic-bezier(0.2, 0.9, 0.4, 1);          /* Instant response compression */
+            --space-drift: cubic-bezier(0.4, 0, 0.2, 1);            /* Cosmic orbital interpolation */
+
+            --bg-color-1: #080e1e;
             --bg-color-2: #030712;
             
             --text-primary: #f8fafc;
@@ -49,72 +54,72 @@
             
             --accent-primary: #00ffaa;
             --accent-secondary: #00d2ff;
-            --accent-glow: rgba(0, 255, 170, 0.3);
+            --accent-glow: rgba(0, 255, 170, 0.35);
             
             --glass-bg: rgba(13, 22, 40, var(--glass-opacity));
-            --glass-bg-hover: rgba(20, 32, 58, 0.85);
-            --glass-card: rgba(16, 26, 48, 0.75);
-            --glass-border: rgba(0, 255, 170, 0.22);
-            --glass-border-focus: rgba(0, 255, 204, 0.65);
-            --glass-shadow: 0 24px 60px rgba(0, 0, 0, 0.7), inset 0 1.5px 1.5px rgba(255, 255, 255, 0.25), inset 0 -1.5px 1.5px rgba(0, 0, 0, 0.4);
+            --glass-bg-hover: rgba(22, 34, 62, 0.88);
+            --glass-card: rgba(16, 26, 48, 0.78);
+            --glass-border: rgba(0, 255, 170, 0.24);
+            --glass-border-focus: rgba(0, 255, 204, 0.75);
+            --glass-shadow: 0 28px 70px rgba(0, 0, 0, 0.75), inset 0 1.5px 1.5px rgba(255, 255, 255, 0.22), inset 0 -1.5px 1.5px rgba(0, 0, 0, 0.4);
 
             --user-msg-bg: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
             --user-msg-border: rgba(147, 197, 253, 0.4);
             --ai-msg-bg: rgba(15, 23, 42, 0.92);
             --ai-msg-border: var(--glass-border);
             
-            --keypad-bg: rgba(15, 23, 42, 0.65);
-            --key-bg: rgba(30, 41, 59, 0.78);
-            --key-hover: rgba(51, 65, 85, 0.95);
-            --key-accent: rgba(0, 255, 170, 0.15);
+            --keypad-bg: rgba(15, 23, 42, 0.68);
+            --key-bg: rgba(30, 41, 59, 0.82);
+            --key-hover: rgba(51, 65, 85, 0.98);
+            --key-accent: rgba(0, 255, 170, 0.16);
             --key-accent-text: var(--accent-primary);
 
             --mic-idle: var(--accent-secondary);
             --mic-active: #ff3b30;
             --resizer-hover: var(--glass-border-focus);
-            --refraction-glow: rgba(0, 255, 170, 0.15);
+            --refraction-glow: rgba(0, 255, 170, 0.18);
         }
 
         :root[data-theme="dark"] {
-            --bg-gradient: radial-gradient(circle at 50% 20%, var(--bg-color-1) 0%, var(--bg-color-2) 65%, #010206 100%);
+            --bg-gradient: radial-gradient(circle at 50% 20%, #080e1e 0%, #030712 60%, #000104 100%);
         }
 
         :root[data-theme="light"] {
-            --bg-gradient: radial-gradient(circle at 50% 15%, #ffffff 0%, #f1f5f9 50%, #e2e8f0 100%);
+            --bg-gradient: radial-gradient(circle at 50% 15%, #ffffff 0%, #f4f7fc 45%, #e2e8f0 100%);
             --bg-color-1: #ffffff;
-            --bg-color-2: #f1f5f9;
+            --bg-color-2: #f4f7fc;
             
-            --text-primary: #0f172a;        /* Deep Obsidian Slate (rich contrast) */
-            --text-secondary: #334155;      /* Deep Slate (crisp readable) */
-            --text-muted: #64748b;          /* Cool Slate */
+            --text-primary: #090d16;        /* Deep Celestial Obsidian (16:1 contrast) */
+            --text-secondary: #334155;      /* Deep Slate Crisp */
+            --text-muted: #64748b;          /* Cool Nebula Slate */
             
-            --accent-primary: #2563eb;      /* Vivid Electric Cobalt Blue */
-            --accent-secondary: #0ea5e9;    /* Sky / Cyan Blue */
-            --accent-glow: rgba(37, 99, 235, 0.22);
+            --accent-primary: #2563eb;      /* Vivid Aerospace Royal Cobalt */
+            --accent-secondary: #0284c7;    /* Deep Celestial Sky */
+            --accent-glow: rgba(37, 99, 235, 0.25);
 
-            --glass-bg: rgba(255, 255, 255, 0.82);
-            --glass-bg-hover: rgba(255, 255, 255, 0.95);
-            --glass-card: rgba(255, 255, 255, 0.9);
-            --glass-border: rgba(203, 213, 225, 0.75);
-            --glass-border-focus: rgba(37, 99, 235, 0.6);
-            --glass-shadow: 0 20px 45px rgba(15, 23, 42, 0.08), 0 4px 12px rgba(15, 23, 42, 0.04), inset 0 1px 1px rgba(255, 255, 255, 1);
+            --glass-bg: rgba(255, 255, 255, 0.88);
+            --glass-bg-hover: rgba(255, 255, 255, 0.98);
+            --glass-card: rgba(255, 255, 255, 0.92);
+            --glass-border: rgba(203, 213, 225, 0.8);
+            --glass-border-focus: rgba(37, 99, 235, 0.65);
+            --glass-shadow: 0 24px 50px rgba(15, 23, 42, 0.08), 0 4px 14px rgba(15, 23, 42, 0.04), inset 0 1px 1px #ffffff;
 
             --user-msg-bg: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
             --user-msg-border: rgba(37, 99, 235, 0.35);
-            --ai-msg-bg: rgba(255, 255, 255, 0.96);
-            --ai-msg-border: rgba(203, 213, 225, 0.85);
+            --ai-msg-bg: #ffffff;
+            --ai-msg-border: rgba(203, 213, 225, 0.9);
 
-            --keypad-bg: rgba(248, 250, 252, 0.85);
+            --keypad-bg: rgba(248, 250, 252, 0.9);
             --key-bg: #ffffff;
             --key-hover: #f1f5f9;
-            --key-accent: rgba(37, 99, 235, 0.09);
+            --key-accent: rgba(37, 99, 235, 0.1);
             --key-accent-text: #2563eb;
 
             --mic-idle: #2563eb;
-            --modal-bg: rgba(255, 255, 255, 0.97);
-            --modal-border: rgba(203, 213, 225, 0.85);
-            --modal-input-bg: rgba(241, 245, 249, 0.92);
-            --modal-input-border: rgba(203, 213, 225, 0.9);
+            --modal-bg: rgba(255, 255, 255, 0.98);
+            --modal-border: rgba(203, 213, 225, 0.88);
+            --modal-input-bg: rgba(241, 245, 249, 0.94);
+            --modal-input-border: rgba(203, 213, 225, 0.95);
         }
 
         /* LIGHT THEME ELEMENT-SPECIFIC HIGH CONTRAST & PREMIUM REFINEMENTS */
@@ -484,7 +489,7 @@
             padding: 0;
             user-select: none;
             -webkit-user-select: none;
-            transition: background 0.3s var(--apple-ease), color 0.3s var(--apple-ease), border-color 0.3s var(--apple-ease);
+            transition: background 0.35s var(--apple-ease), color 0.25s var(--apple-ease), border-color 0.25s var(--apple-ease), box-shadow 0.35s var(--apple-ease);
         }
 
         html {
@@ -499,6 +504,38 @@
             width: 100vw;
             overflow: hidden;
             position: relative;
+        }
+
+        /* Emil Kowalski Apple Fluid Feedback - Respond on Press (Kill Latency) */
+        button, .key-btn, .header-btn, .chip, .mobile-nav-btn, .theme-preset-btn, .api-key-btn {
+            touch-action: manipulation;
+            -webkit-tap-highlight-color: transparent;
+            transition: transform 0.2s var(--apple-ease), background 0.2s var(--apple-ease), border-color 0.2s var(--apple-ease), box-shadow 0.25s var(--apple-ease);
+        }
+        button:active, .key-btn:active, .header-btn:active, .chip:active, .mobile-nav-btn:active, .theme-preset-btn:active, .api-key-btn:active {
+            transform: scale(0.96) translateZ(0) !important;
+            transition: transform 0.08s var(--apple-press) !important;
+        }
+
+        /* Ancient Space Pulsar & Shimmer Animations */
+        @keyframes cosmic-pulsar {
+            0%, 100% {
+                box-shadow: 0 0 0 0 var(--accent-glow);
+                transform: scale(1);
+            }
+            50% {
+                box-shadow: 0 0 14px 4px var(--accent-glow);
+                transform: scale(1.08);
+            }
+        }
+
+        @keyframes celestial-float {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-3px);
+            }
         }
 
         /* Background Canvas */
@@ -786,27 +823,28 @@
             align-items: center;
             justify-content: center;
             box-shadow: 0 0 20px var(--accent-glow);
-            color: #000;
+            color: #ffffff;
             font-weight: 800;
             font-size: 18px;
             font-family: 'Outfit', sans-serif;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.35);
         }
 
         .brand-title {
             font-family: 'Outfit', sans-serif;
             font-size: 19px;
             font-weight: 700;
-            letter-spacing: -0.5px;
+            letter-spacing: -0.025em;
             background: linear-gradient(90deg, var(--text-primary), var(--accent-primary));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
         .brand-badge {
-            font-size: 11px;
+            font-size: 10.5px;
             font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 0.08em;
             padding: 3px 10px;
             border-radius: 100px;
             background: var(--accent-glow);
@@ -839,12 +877,7 @@
             border-radius: 50%;
             background: var(--accent-primary);
             box-shadow: 0 0 10px var(--accent-primary);
-            animation: pulse-dot 2s infinite;
-        }
-
-        @keyframes pulse-dot {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.4; transform: scale(0.8); }
+            animation: cosmic-pulsar 2.4s infinite var(--space-drift);
         }
 
         /* Action Buttons */
@@ -1193,7 +1226,9 @@
 
         .ai .avatar {
             background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
-            color: #000;
+            color: #ffffff;
+            font-weight: 700;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
         }
 
         .bubble {
@@ -1318,7 +1353,7 @@
             border-radius: 50%;
             background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
             border: none;
-            color: #000;
+            color: #ffffff;
             font-size: 18px;
             cursor: pointer;
             display: flex;
@@ -1327,6 +1362,7 @@
             box-shadow: 0 4px 16px var(--accent-glow);
             transition: all 0.25s var(--apple-ease);
             flex-shrink: 0;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
         }
 
         .send-btn:hover {
@@ -1475,9 +1511,11 @@
         .key-btn.equals {
             grid-column: span 2;
             background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
-            color: #000;
+            color: #ffffff;
             font-weight: 800;
             border: none;
+            box-shadow: 0 4px 16px var(--accent-glow);
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.35);
         }
 
         /* ==========================================================================
@@ -2237,16 +2275,18 @@
                 <div class="chat-messages" id="chatMessages">
                     <!-- Welcome Hero Box -->
                     <div class="welcome-card" id="welcomeCard">
-                        <div class="brand-icon" style="margin: 0 auto; width: 48px; height: 48px; font-size: 24px;">f(x)</div>
-                        <h2 class="welcome-title">✨ I Can Solve Anything</h2>
-                        <p style="font-size: 13px; color: var(--text-secondary); line-height: 1.5;">
-                            Ask complex equations, calculus, linear algebra, voice queries, or matrix operations.
+                        <div class="brand-icon" style="margin: 0 auto; width: 50px; height: 50px; font-size: 24px; animation: celestial-float 4s ease-in-out infinite;">f(x)</div>
+                        <h2 class="welcome-title">✨ Celestial AI Mathematical Oracle</h2>
+                        <p style="font-size: 13.5px; color: var(--text-secondary); line-height: 1.6; max-width: 520px; margin: 0 auto;">
+                            Powered by Gemini 2.5 Flash Cloud AI with 3D Ancient Space Physics. Compute complex calculus, astrophysics, linear algebra, voice calculations, or matrix determinants with natural speech.
                         </p>
                         <div class="example-chips">
                             <button class="chip" onclick="setInput('Calculate the integral of x^2 * sin(x)')">∫ x² sin(x) dx</button>
                             <button class="chip" onclick="setInput('Solve system: 3x + 2y = 12 and 5x - y = 7')">System Equations</button>
                             <button class="chip" onclick="setInput('What is the derivative of e^(2x) * cos(x)?')">d/dx (e²ˣ cos x)</button>
                             <button class="chip" onclick="setInput('Calculate 45 * 18 + sqrt(144) / 3')">45 × 18 + √144 / 3</button>
+                            <button class="chip" onclick="setInput('What is the escape velocity from Earth surface?')">Escape Velocity</button>
+                            <button class="chip" onclick="setInput('Find eigenvalues of matrix [[2, 1], [1, 2]]')">Matrix Eigenvalues</button>
                         </div>
                     </div>
                 </div>
@@ -2818,7 +2858,7 @@
 
 
         /* --------------------------------------------------------------------------
-           4. 3D CANVAS MATHEMATICAL SYMBOLS BACKGROUND ENGINE WITH PLAY/PAUSE
+           4. ANCIENT SPACE 3D MATHEMATICAL CONSTELLATION & STARDUST ENGINE
            -------------------------------------------------------------------------- */
         const canvas = document.getElementById('bgCanvas');
         const ctx = canvas.getContext('2d');
@@ -2826,15 +2866,25 @@
         let width = canvas.width = window.innerWidth;
         let height = canvas.height = window.innerHeight;
 
+        let camX = 0, camY = 0;
+        let targetCamX = 0, targetCamY = 0;
+
         window.addEventListener('resize', () => {
             width = canvas.width = window.innerWidth;
             height = canvas.height = window.innerHeight;
         });
 
+        // Parallax Camera Physics with Spring Momentum
+        window.addEventListener('pointermove', (e) => {
+            targetCamX = (e.clientX / width - 0.5) * 70;
+            targetCamY = (e.clientY / height - 0.5) * 70;
+        });
+
         const mathSymbols = [
             'π', '∑', '∫', '∞', '√', '∆', 'θ', 'λ', 
-            'sin', 'cos', 'tan', 'log', '÷', '×', '±', 
-            '∇', '∂', '≡', '≈', '⊕', '⊗', '∭', 'f(x)'
+            '∇', '∂', '≡', '≈', '⊕', '⊗', '∭', 'ℏ', 
+            'φ', 'ψ', 'Ω', 'ℵ', '∯', 'ℒ', 'ℋ', 'α',
+            'c²', 'G', 'ℏω', 'E=mc²', 'f(x)', 'e^iπ'
         ];
 
         class MathParticle3D {
@@ -2843,15 +2893,19 @@
             }
 
             reset(initial = false) {
-                this.x = (Math.random() - 0.5) * width * 1.5;
-                this.y = initial ? (Math.random() - 0.5) * height * 1.5 : height / 2 + 200;
-                this.z = Math.random() * 900 + 100;
+                this.x = (Math.random() - 0.5) * width * 1.6;
+                this.y = initial ? (Math.random() - 0.5) * height * 1.6 : height / 2 + 220;
+                this.z = Math.random() * 950 + 100;
                 
                 this.symbol = mathSymbols[Math.floor(Math.random() * mathSymbols.length)];
-                this.vy = -(Math.random() * 0.8 + 0.4);
-                this.vx = (Math.random() - 0.5) * 0.3;
+                this.vy = -(Math.random() * 0.7 + 0.35);
+                this.vx = (Math.random() - 0.5) * 0.25;
                 this.rot = Math.random() * Math.PI * 2;
-                this.vRot = (Math.random() - 0.5) * 0.01;
+                this.vRot = (Math.random() - 0.5) * 0.008;
+
+                this.screenX = 0;
+                this.screenY = 0;
+                this.scale = 0;
             }
 
             update() {
@@ -2859,34 +2913,33 @@
                 this.x += this.vx * (1000 / this.z);
                 this.rot += this.vRot;
 
-                if (this.y < -height / 2 - 100) {
+                if (this.y < -height / 2 - 120) {
                     this.reset(false);
                 }
+
+                const perspective = 520;
+                this.scale = perspective / (perspective + this.z);
+                this.screenX = width / 2 + (this.x - camX) * this.scale;
+                this.screenY = height / 2 + (this.y - camY) * this.scale;
             }
 
             draw() {
-                const perspective = 500;
-                const scale = perspective / (perspective + this.z);
-                
-                const screenX = width / 2 + this.x * scale;
-                const screenY = height / 2 + this.y * scale;
-
-                if (screenX < -50 || screenX > width + 50 || screenY < -50 || screenY > height + 50) return;
+                if (this.screenX < -60 || this.screenX > width + 60 || this.screenY < -60 || this.screenY > height + 60) return;
 
                 ctx.save();
-                ctx.translate(screenX, screenY);
+                ctx.translate(this.screenX, this.screenY);
                 ctx.rotate(this.rot);
 
-                const baseSize = 36;
-                const size = baseSize * scale;
-                ctx.font = `${Math.max(10, size)}px 'JetBrains Mono', monospace`;
+                const baseSize = 34;
+                const size = baseSize * this.scale;
+                ctx.font = `${Math.max(9, size)}px 'JetBrains Mono', 'Inter', monospace`;
 
                 const isLight = document.documentElement.getAttribute('data-theme') === 'light';
-                const alpha = Math.min(1, Math.max(0.1, scale * (isLight ? 0.35 : 0.95)));
+                const alpha = Math.min(1, Math.max(0.1, this.scale * (isLight ? 0.32 : 0.92)));
                 const accentPrimary = getComputedStyle(document.documentElement).getPropertyValue('--accent-primary').trim() || (isLight ? '#2563eb' : '#00ffaa');
                 
-                ctx.fillStyle = hexToRgba(accentPrimary, isLight ? alpha * 0.45 : alpha);
-                ctx.shadowBlur = (!isLight && scale > 0.8) ? 14 : 0;
+                ctx.fillStyle = hexToRgba(accentPrimary, isLight ? alpha * 0.42 : alpha);
+                ctx.shadowBlur = (!isLight && this.scale > 0.8) ? 14 : 0;
                 ctx.shadowColor = accentPrimary;
 
                 ctx.fillText(this.symbol, 0, 0);
@@ -2894,9 +2947,46 @@
             }
         }
 
-        let particles = Array.from({ length: 75 }, () => new MathParticle3D());
+        // Ambient Twinkling Cosmic Stardust Stars
+        class CosmicStardust {
+            constructor() {
+                this.reset();
+            }
+
+            reset() {
+                this.x = (Math.random() - 0.5) * width * 1.8;
+                this.y = (Math.random() - 0.5) * height * 1.8;
+                this.z = Math.random() * 1000 + 100;
+                this.radius = Math.random() * 1.6 + 0.6;
+                this.pulseSpeed = Math.random() * 0.03 + 0.01;
+                this.phase = Math.random() * Math.PI * 2;
+            }
+
+            draw(time) {
+                const perspective = 520;
+                const scale = perspective / (perspective + this.z);
+                const sx = width / 2 + (this.x - camX * 0.5) * scale;
+                const sy = height / 2 + (this.y - camY * 0.5) * scale;
+
+                if (sx < 0 || sx > width || sy < 0 || sy > height) return;
+
+                const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+                const twinkle = (Math.sin(time * this.pulseSpeed + this.phase) + 1) * 0.5;
+                const alpha = Math.min(1, Math.max(0.05, twinkle * scale * (isLight ? 0.25 : 0.75)));
+                const starColor = isLight ? '#0284c7' : '#00d2ff';
+
+                ctx.beginPath();
+                ctx.arc(sx, sy, this.radius * scale, 0, Math.PI * 2);
+                ctx.fillStyle = hexToRgba(starColor, alpha);
+                ctx.fill();
+            }
+        }
+
+        let particles = Array.from({ length: 70 }, () => new MathParticle3D());
+        let stardust = Array.from({ length: 45 }, () => new CosmicStardust());
         let isAnimationRunning = true;
         let animationFrameId = null;
+        let timeStep = 0;
 
         function rebuildParticles(count) {
             particles = Array.from({ length: count }, () => new MathParticle3D());
@@ -2905,13 +2995,49 @@
         function animateCanvas() {
             if (!isAnimationRunning) return;
             ctx.clearRect(0, 0, width, height);
+            timeStep += 1;
 
+            // Camera spring damping
+            camX += (targetCamX - camX) * 0.045;
+            camY += (targetCamY - camY) * 0.045;
+
+            // 1. Draw Cosmic Stardust
+            stardust.forEach(star => star.draw(timeStep));
+
+            // 2. Update math particles
+            particles.forEach(p => p.update());
+
+            // 3. Ancient Space Constellation Geometric Network
+            const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+            const accentSecondary = getComputedStyle(document.documentElement).getPropertyValue('--accent-secondary').trim() || (isLight ? '#0284c7' : '#00d2ff');
+
+            const pLen = particles.length;
+            for (let i = 0; i < pLen; i++) {
+                const p1 = particles[i];
+                for (let j = i + 1; j < pLen; j++) {
+                    const p2 = particles[j];
+                    const dz = Math.abs(p1.z - p2.z);
+                    if (dz > 220) continue;
+
+                    const dx = p1.screenX - p2.screenX;
+                    const dy = p1.screenY - p2.screenY;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+
+                    if (dist < 130) {
+                        const linkAlpha = (1 - dist / 130) * (isLight ? 0.12 : 0.28) * Math.min(p1.scale, p2.scale);
+                        ctx.beginPath();
+                        ctx.strokeStyle = hexToRgba(accentSecondary, linkAlpha);
+                        ctx.lineWidth = Math.max(0.4, 0.9 * p1.scale);
+                        ctx.moveTo(p1.screenX, p1.screenY);
+                        ctx.lineTo(p2.screenX, p2.screenY);
+                        ctx.stroke();
+                    }
+                }
+            }
+
+            // 4. Draw Mathematical Glyphs sorted by Z depth
             particles.sort((a, b) => b.z - a.z);
-
-            particles.forEach(p => {
-                p.update();
-                p.draw();
-            });
+            particles.forEach(p => p.draw());
 
             animationFrameId = requestAnimationFrame(animateCanvas);
         }
