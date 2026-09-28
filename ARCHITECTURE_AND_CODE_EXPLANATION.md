@@ -105,6 +105,48 @@ Rather than generic linear or browser-default cubic curves, motion tokens are ex
 --space-drift: cubic-bezier(0.4, 0, 0.2, 1);        /* Continuous orbital ease */
 ```
 
+### 4.3 Apple iOS Swipe-Up Reveal & Physical Lock Screen Dismissal
+When opening an iPhone, swiping up sweeps the lock screen away while the underlying app icons and system dock smoothly surge upwards with spring momentum. We faithfully reproduced this WWDC physical interaction:
+
+1. **Touch-Follow Physics & Elastic Resistance**:
+   On touch devices, dragging upward tracks the user's finger in real time:
+   $$\text{offset} = \min(\Delta Y \times 0.85, 140\text{px})$$
+   $$\text{scale} = 1 - \text{offset} \times 0.0005$$
+   If released before the threshold ($38\text{px}$), the card springs back down using `--apple-spring`. If swiped past the threshold (or tapped/completed), the card launches upward into the stratosphere:
+   ```css
+   .liquid-loader-screen.swipe-up-exit {
+       transform: translateY(-110vh) scale(0.92);
+       opacity: 0;
+       filter: blur(25px);
+       visibility: hidden;
+       pointer-events: none;
+       transition: transform 0.85s cubic-bezier(0.32, 0.72, 0, 1),
+                   opacity 0.65s ease,
+                   filter 0.75s ease;
+   }
+   ```
+
+2. **Dual-Harmonic Web Audio Unlock Chime**:
+   At the exact millisecond of unlock, the audio engine synthesizes a pure dual-harmonic chord ($C_5 \to C_6$ at $523.25\text{Hz}$ and $E_5 \to E_6$ at $659.25\text{Hz}$) with an exponential decay envelope, giving the user acoustic confirmation of physical unlock.
+
+### 4.4 Cascading Staggered App Entry
+Before reveal, all root UI regions are poised below the fold at `translateY(50px) scale(0.94)` with `opacity: 0`. Upon trigger, adding `body.app-revealed` releases a choreographed cascade:
+
+```
+  T=0.08s ──────────> App Header Bar drops gracefully into place
+  T=0.16s ──────────> Left History Sidebar springs up
+  T=0.22s ──────────> Center Chat Canvas emerges from below
+  T=0.25s ──────────> Right Keypad Sidebar settles in
+  T=0.28s ──────────> Welcome Greeting & Feature Cards spring up
+  T=0.32s ──────────> Mobile Navigation Dock locks to viewport bottom
+  T=0.36s ──────────> Glass Equation Input Container finishes cascade
+  T=0.35s - 0.60s ──> Example Prompt Chips stagger in sequentially
+  T=0.40s - 0.65s ──> Virtual Keypad Buttons pop with physical spring scale
+```
+
+Every single component across the UI feels interconnected, alive, and physically responsive to human touch.
+
+
 ---
 
 ## 5. 3D Mathematical & Constellation Canvas Engine

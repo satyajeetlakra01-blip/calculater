@@ -6,10 +6,10 @@
     <title>3D Voice AI Calculator | Liquid Glass Studio</title>
     <meta name="description" content="Gemini-powered 3D Voice AI Calculator with Liquid Glass refraction, Quantum Dynamic Island loading animation, live color customizer, responsive multi-view panels, and natural speech interaction.">
     
-    <!-- Google Fonts -->
+    <!-- Google Fonts: UI/UX Pro Max Font Pairing (Space Grotesk + DM Sans + Outfit + Inter + JetBrains Mono) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300..800;1,9..40,300..800&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700;800&family=Outfit:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 
     <!-- SVG Real Optical Liquid Glass Refraction Filter Definition -->
     <svg style="display: none;">
@@ -568,13 +568,69 @@
             justify-content: center;
             padding: 24px;
             perspective: 1200px;
-            transition: opacity 0.8s var(--apple-ease), visibility 0.8s;
+            transition: transform 0.85s cubic-bezier(0.32, 0.72, 0, 1), 
+                        opacity 0.65s ease, 
+                        filter 0.75s ease, 
+                        visibility 0.85s;
+            cursor: pointer;
+        }
+
+        .liquid-loader-screen.swipe-up-exit {
+            transform: translateY(-110vh) scale(0.92);
+            opacity: 0;
+            filter: blur(25px);
+            visibility: hidden;
+            pointer-events: none;
         }
 
         .liquid-loader-screen.fade-out {
             opacity: 0;
             visibility: hidden;
             pointer-events: none;
+        }
+
+        /* Apple Home Indicator Swipe Up Prompt */
+        .apple-swipe-hint {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            margin-top: 18px;
+            cursor: pointer;
+            opacity: 0.85;
+            transition: all 0.3s var(--apple-ease);
+            animation: appleSwipeBounce 2.2s infinite ease-in-out;
+        }
+
+        .apple-swipe-hint:hover {
+            opacity: 1;
+            transform: translateY(-4px);
+        }
+
+        .swipe-bar {
+            width: 130px;
+            height: 5px;
+            border-radius: 100px;
+            background: rgba(255, 255, 255, 0.75);
+            box-shadow: 0 0 14px var(--accent-glow);
+        }
+
+        .apple-swipe-hint span {
+            font-family: 'Space Grotesk', 'Outfit', sans-serif;
+            font-size: 11.5px;
+            font-weight: 600;
+            color: var(--accent-secondary);
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+
+        @keyframes appleSwipeBounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-8px);
+            }
         }
 
         /* Dynamic Island iPhone Duo Capsule Notch */
@@ -791,6 +847,124 @@
             width: 100vw;
             padding: 16px;
             gap: 16px;
+        }
+
+        /* Apple Staggered App Reveal: Initial pre-reveal state */
+        .app-header,
+        .sidebar-left,
+        .chat-main,
+        .sidebar-right,
+        .mobile-nav-bar {
+            opacity: 0;
+            transform: translateY(50px) scale(0.94);
+            transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+                        transform 0.75s cubic-bezier(0.34, 1.56, 0.64, 1);
+            will-change: transform, opacity;
+        }
+
+        .welcome-card,
+        .chat-input-container {
+            opacity: 0;
+            transform: translateY(35px) scale(0.96);
+            transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+                        transform 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
+            will-change: transform, opacity;
+        }
+
+        /* Apple iOS Unlock Reveal Cascades */
+        body.app-revealed .app-header {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            transition-delay: 0.08s;
+        }
+
+        body.app-revealed .sidebar-left {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            transition-delay: 0.16s;
+        }
+
+        body.app-revealed .chat-main {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            transition-delay: 0.22s;
+        }
+
+        body.app-revealed .welcome-card {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            transition-delay: 0.28s;
+        }
+
+        body.app-revealed .chat-input-container {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            transition-delay: 0.36s;
+        }
+
+        body.app-revealed .sidebar-right {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            transition-delay: 0.25s;
+        }
+
+        body.app-revealed .mobile-nav-bar {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            transition-delay: 0.32s;
+        }
+
+        body.app-revealed .keypad-grid .key-btn {
+            animation: appleKeyPop 0.55s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+        }
+
+        body.app-revealed .example-chips .chip {
+            animation: appleChipIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+        }
+        body.app-revealed .example-chips .chip:nth-child(1) { animation-delay: 0.35s; }
+        body.app-revealed .example-chips .chip:nth-child(2) { animation-delay: 0.40s; }
+        body.app-revealed .example-chips .chip:nth-child(3) { animation-delay: 0.45s; }
+        body.app-revealed .example-chips .chip:nth-child(4) { animation-delay: 0.50s; }
+        body.app-revealed .example-chips .chip:nth-child(5) { animation-delay: 0.55s; }
+        body.app-revealed .example-chips .chip:nth-child(6) { animation-delay: 0.60s; }
+
+        @keyframes appleKeyPop {
+            0% {
+                opacity: 0;
+                transform: translateY(22px) scale(0.86);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        @keyframes appleChipIn {
+            0% {
+                opacity: 0;
+                transform: translateY(18px) scale(0.9);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* Message Bubble Entrance Animation */
+        .message-row {
+            animation: messageSpringEnter 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+            will-change: transform, opacity;
+        }
+
+        @keyframes messageSpringEnter {
+            0% {
+                opacity: 0;
+                transform: translateY(22px) scale(0.95);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
         }
 
         /* Header Navigation */
@@ -2172,6 +2346,12 @@
                 </div>
                 <div class="liquid-status-text" id="statusText">Initializing 3D Liquid Refraction Engine...</div>
             </div>
+
+            <!-- Apple Home Indicator Swipe Up Prompt -->
+            <div class="apple-swipe-hint" id="swipeUpPrompt">
+                <div class="swipe-bar"></div>
+                <span>Swipe up or tap to enter</span>
+            </div>
         </div>
     </div>
 
@@ -2553,25 +2733,104 @@
     <!-- JAVASCRIPT LOGIC ENGINE -->
     <script>
         /* --------------------------------------------------------------------------
-           1. IPHONE DUO DYNAMIC ISLAND LIQUID GLASS SPLASH SCREEN MANAGER
+           1. APPLE iOS SWIPE-UP REVEAL & DYNAMIC ISLAND SPLASH SCREEN
            -------------------------------------------------------------------------- */
+        let audioCtx = null;
+        function getAudioContext() {
+            try {
+                if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                if (audioCtx.state === 'suspended') audioCtx.resume();
+                return audioCtx;
+            } catch (e) {
+                return null;
+            }
+        }
+
         const liquidLoader = document.getElementById('liquidLoader');
         const progressFill = document.getElementById('progressFill');
         const statusText = document.getElementById('statusText');
 
         const loadingSteps = [
-            { pct: 25, text: "Initializing 3D Liquid Particle Physics..." },
-            { pct: 55, text: "Connecting to Gemini 2.5 Flash Cloud AI..." },
-            { pct: 85, text: "Refracting Liquid Glass Shaders..." },
-            { pct: 100, text: "Ready! I Can Solve Anything." }
+            { pct: 25, text: "Initializing 3D Interstellar Physics..." },
+            { pct: 55, text: "Connecting to Gemini 2.5 Flash Quantum AI..." },
+            { pct: 85, text: "Refracting Liquid Glass Prisms..." },
+            { pct: 100, text: "Ready! Swipe up or tap to enter." }
         ];
 
-        function startLiquidLoadingAnimation() {
+        let introCompleted = false;
+
+        function playUnlockChime() {
+            const ctx = getAudioContext();
+            if (!ctx) return;
+            const soundToggle = document.getElementById('modalSoundToggle');
+            if (soundToggle && !soundToggle.checked) return;
+            try {
+                const now = ctx.currentTime;
+                // Harmonic Apple iOS unlock chord (C5 -> C6 + E5 -> E6)
+                const osc1 = ctx.createOscillator();
+                const osc2 = ctx.createOscillator();
+                const gain = ctx.createGain();
+
+                osc1.type = 'sine';
+                osc1.frequency.setValueAtTime(523.25, now);
+                osc1.frequency.exponentialRampToValueAtTime(1046.50, now + 0.32);
+
+                osc2.type = 'triangle';
+                osc2.frequency.setValueAtTime(659.25, now);
+                osc2.frequency.exponentialRampToValueAtTime(1318.51, now + 0.32);
+
+                gain.gain.setValueAtTime(0.001, now);
+                gain.gain.linearRampToValueAtTime(0.14, now + 0.04);
+                gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.75);
+
+                osc1.connect(gain);
+                osc2.connect(gain);
+                gain.connect(ctx.destination);
+
+                osc1.start(now);
+                osc2.start(now);
+                osc1.stop(now + 0.75);
+                osc2.stop(now + 0.75);
+            } catch (e) {
+                // AudioContext fallback
+            }
+        }
+
+        function completeIntroAndRevealApp() {
+            if (introCompleted) return;
+            introCompleted = true;
+
+            // Trigger physical swipe-up exit on lock screen
+            liquidLoader.classList.add('swipe-up-exit');
             liquidLoader.classList.remove('fade-out');
+
+            // Play Apple unlock harmonic chime
+            playUnlockChime();
+
+            // Trigger Staggered App Reveal Cascade on all UI elements
+            document.body.classList.add('app-revealed');
+
+            // Hide loader from view after transition completes
+            setTimeout(() => {
+                liquidLoader.style.display = 'none';
+            }, 900);
+        }
+
+        function startLiquidLoadingAnimation() {
+            introCompleted = false;
+            liquidLoader.style.display = 'flex';
+            liquidLoader.classList.remove('swipe-up-exit');
+            liquidLoader.classList.remove('fade-out');
+            liquidLoader.style.transform = '';
+            document.body.classList.remove('app-revealed');
             progressFill.style.width = '0%';
             
             let idx = 0;
             const interval = setInterval(() => {
+                if (introCompleted) {
+                    clearInterval(interval);
+                    return;
+                }
                 if (idx < loadingSteps.length) {
                     const step = loadingSteps[idx];
                     progressFill.style.width = step.pct + '%';
@@ -2581,12 +2840,65 @@
                 } else {
                     clearInterval(interval);
                     setTimeout(() => {
-                        liquidLoader.classList.add('fade-out');
-                        playClickSound(950, 'triangle');
-                    }, 650);
+                        completeIntroAndRevealApp();
+                    }, 480);
                 }
-            }, 500);
+            }, 420);
         }
+
+        // Apple iOS Swipe-up gesture tracking on liquidLoader
+        let touchStartY = 0;
+        let touchCurrentY = 0;
+        let isTouching = false;
+
+        liquidLoader.addEventListener('touchstart', (e) => {
+            if (e.touches.length === 1) {
+                touchStartY = e.touches[0].clientY;
+                isTouching = true;
+            }
+        }, { passive: true });
+
+        liquidLoader.addEventListener('touchmove', (e) => {
+            if (!isTouching || e.touches.length !== 1 || introCompleted) return;
+            touchCurrentY = e.touches[0].clientY;
+            const deltaY = touchStartY - touchCurrentY;
+            if (deltaY > 10) {
+                // Physical touch resistance
+                const offset = Math.min(deltaY * 0.85, 140);
+                liquidLoader.style.transform = `translateY(-${offset}px) scale(${1 - offset * 0.0005})`;
+            }
+        }, { passive: true });
+
+        liquidLoader.addEventListener('touchend', (e) => {
+            if (!isTouching || introCompleted) return;
+            isTouching = false;
+            const deltaY = touchStartY - touchCurrentY;
+            if (deltaY > 38) {
+                liquidLoader.style.transform = '';
+                completeIntroAndRevealApp();
+            } else {
+                // Spring bounce back down
+                liquidLoader.style.transition = 'transform 0.4s var(--apple-spring)';
+                liquidLoader.style.transform = 'translateY(0) scale(1)';
+                setTimeout(() => {
+                    liquidLoader.style.transition = '';
+                }, 400);
+            }
+        });
+
+        // Click or tap to instantly reveal
+        liquidLoader.addEventListener('click', () => {
+            if (!introCompleted) {
+                completeIntroAndRevealApp();
+            }
+        });
+
+        // Keyboard Enter or Space to reveal
+        window.addEventListener('keydown', (e) => {
+            if (!introCompleted && (e.key === 'Enter' || e.key === ' ' || e.key === 'Escape')) {
+                completeIntroAndRevealApp();
+            }
+        });
 
         // Run Loading animation on page start
         window.addEventListener('DOMContentLoaded', () => {
@@ -3111,7 +3423,6 @@
         /* --------------------------------------------------------------------------
            6. AUDIO SYNTHESIZER FOR KEYPAD CLICK FEEDBACK
            -------------------------------------------------------------------------- */
-        let audioCtx = null;
         function playClickSound(freq = 600, type = 'sine') {
             if (!document.getElementById('modalSoundToggle').checked) return;
             try {
