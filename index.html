@@ -2331,7 +2331,7 @@
         <div class="dynamic-island-duo">
             <div class="duo-camera"></div>
             <div class="duo-sensor"></div>
-            <div class="duo-label">Gemini 2.5 Flash Quantum AI</div>
+            <div class="duo-label">Gemini 3.5 Flash Quantum AI</div>
         </div>
 
         <!-- Refraction Liquid Glass Container -->
@@ -2370,7 +2370,7 @@
             <div class="header-controls">
                 <div class="status-pill">
                     <span class="status-dot" id="statusDot"></span>
-                    <span id="backendStatus">Gemini 2.5 Flash</span>
+                    <span id="backendStatus">Gemini 3.5 Flash</span>
                 </div>
 
                 <!-- AI Engine Start / Stop Control Button -->
@@ -2458,7 +2458,7 @@
                         <div class="brand-icon" style="margin: 0 auto; width: 50px; height: 50px; font-size: 24px; animation: celestial-float 4s ease-in-out infinite;">f(x)</div>
                         <h2 class="welcome-title">✨ Celestial AI Mathematical Oracle</h2>
                         <p style="font-size: 13.5px; color: var(--text-secondary); line-height: 1.6; max-width: 520px; margin: 0 auto;">
-                            Powered by Gemini 2.5 Flash Cloud AI with 3D Ancient Space Physics. Compute complex calculus, astrophysics, linear algebra, voice calculations, or matrix determinants with natural speech.
+                            Powered by Gemini 3.5 Flash Cloud AI with 3D Ancient Space Physics. Compute complex calculus, astrophysics, linear algebra, voice calculations, or matrix determinants with natural speech.
                         </p>
                         <div class="example-chips">
                             <button class="chip" onclick="setInput('Calculate the integral of x^2 * sin(x)')">∫ x² sin(x) dx</button>
@@ -2677,7 +2677,7 @@
             <div class="setting-group">
                 <div class="section-title">
                     <span>✨ Google Gemini Cloud AI</span>
-                    <span class="setting-val-badge" style="font-size: 11px; text-transform: uppercase;">gemini-2.5-flash</span>
+                    <span class="setting-val-badge" style="font-size: 11px; text-transform: uppercase;">gemini-3.5-flash</span>
                 </div>
 
                 <div class="toggle-switch-row">
@@ -2804,7 +2804,7 @@
 
         const loadingSteps = [
             { pct: 25, text: "Initializing 3D Interstellar Physics..." },
-            { pct: 55, text: "Connecting to Gemini 2.5 Flash Quantum AI..." },
+            { pct: 55, text: "Connecting to Gemini 3.5 Flash Quantum AI..." },
             { pct: 85, text: "Refracting Liquid Glass Prisms..." },
             { pct: 100, text: "Ready! Swipe up or tap to enter." }
         ];
@@ -3563,7 +3563,7 @@
                 aiIcon.textContent = '🤖';
                 aiLabel.textContent = 'Stop AI';
                 aiToggleBtn.classList.remove('ai-stopped');
-                backendStatus.textContent = 'Gemini 2.5 Flash Online';
+                backendStatus.textContent = 'Gemini 3.5 Flash Online';
                 statusDot.style.background = 'var(--accent-primary)';
                 statusDot.style.boxShadow = '0 0 10px var(--accent-primary)';
             } else {
@@ -3851,7 +3851,8 @@
         const SETTINGS_KEY = 'ai_calculator_settings_v7';
         const GEMINI_API_KEY_STORAGE = 'gemini_api_key_v1';
         const DEFAULT_GEMINI_KEY = atob("QVEuQWI4Uk42SXVPQ1hwY2Zxb012T1N3b0FBZjBsRGpmR1g1ZWl2bGFVajA3Vl84Uk4tdkE=");
-        const GEMINI_MODEL = 'gemini-2.5-flash';
+        const GEMINI_MODEL = 'gemini-3.5-flash-lite';
+        const GEMINI_MODELS = ['gemini-3.5-flash-lite', 'gemini-3.1-flash-lite', 'gemini-2.5-flash', 'gemini-flash-latest'];
 
         function getGeminiApiKey() {
             const stored = localStorage.getItem(GEMINI_API_KEY_STORAGE);
@@ -4048,7 +4049,7 @@
                                 apiKeyStatusBadge.style.color = '#10b981';
                             }
                             if (apiKeyFeedback) {
-                                apiKeyFeedback.innerHTML = '<span style="color: #10b981;">✓ Gemini 2.5 Flash connected and verified successfully!</span>';
+                                apiKeyFeedback.innerHTML = '<span style="color: #10b981;">✓ Gemini 3.5 Flash connected and verified successfully!</span>';
                             }
                             playClickSound(950);
                         } else {
@@ -4179,8 +4180,24 @@
            12. CLIENT-SIDE FALLBACK CALCULATOR ENGINE
            -------------------------------------------------------------------------- */
         function evaluateLocalMath(query) {
+            const cleanQ = query.trim().toLowerCase();
+
+            // Conversational Greetings, Identity & Help Queries
+            if (/^(hi|hello|hey|greetings|hola|howdy|what's up|sup)\b/i.test(cleanQ) || cleanQ.includes('who are you') || cleanQ.includes('who r u') || cleanQ.includes('what are you')) {
+                return "Hello! I am your 3D Voice AI Calculator, powered by Google Gemini and 3D liquid particle physics. I can solve calculus, algebra, trigonometry, matrices, unit conversions, and physics equations. What would you like to calculate?";
+            }
+            if (cleanQ.includes('what can you do') || cleanQ.includes('help me') || cleanQ.includes('features') || cleanQ === 'help') {
+                return "I can solve complex equations, calculus integrals and derivatives, algebraic systems, trigonometry, matrix determinants, and natural voice math. Try asking 'integrate x^2 from 0 to 5' or 'sqrt(144) * 8'!";
+            }
+            if (cleanQ.includes('who created you') || cleanQ.includes('who made you') || cleanQ.includes('developer')) {
+                return "I was created as an ultra-premium 3D Celestial Voice AI Calculator integrating Google Gemini intelligence with Apple fluid interface physics.";
+            }
+            if (cleanQ.includes('how are you') || cleanQ.includes('how r u')) {
+                return "I'm functioning at full capacity! My 3D particle physics and Gemini neural engines are ready. What math problem can I solve for you?";
+            }
+
             try {
-                let expr = query.toLowerCase()
+                let expr = cleanQ
                     .replace(/what is|calculate|solve|the value of|equals|\?/g, '')
                     .replace(/times/g, '*')
                     .replace(/divided by/g, '/')
@@ -4208,7 +4225,7 @@
                 // Fallthrough to standard text response
             }
 
-            return `The result for '${query}' is calculated based on mathematical logic.`;
+            return `I couldn't evaluate '${query}' mathematically. Try asking an equation (e.g. '25 * 4 + sqrt(81)' or 'integrate x^2 from 0 to 5') or check your Gemini AI connection in Settings ⚙️.`;
         }
 
         function cleanForSpeech(text) {
@@ -4234,53 +4251,69 @@
 
 
         /* --------------------------------------------------------------------------
-           13. GOOGLE GEMINI CLOUD AI REASONING ENGINE
+           13. GOOGLE GEMINI CLOUD AI REASONING ENGINE (MULTI-MODEL CASCADE)
            -------------------------------------------------------------------------- */
         async function askGeminiAI(question) {
             const apiKey = getGeminiApiKey();
-            const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent?key=${encodeURIComponent(apiKey.trim())}`;
-
             const systemPrompt = 
                 "You are an intelligent 3D Voice AI Calculator. " +
-                "1. Solve mathematical problems, arithmetic, algebra, trigonometry, calculus, equations, unit conversions, and word problems accurately. " +
-                "2. Keep answers direct, concise, and clear. Format output so it sounds natural when spoken by Text-to-Speech (TTS). " +
-                "3. Do NOT use LaTeX tags or Markdown asterisks (no **, no \\frac, no \\sqrt). Express formulas in plain English (e.g., '12 divided by 4' or 'square root of 16'). " +
+                "1. Answer math calculations, arithmetic, algebra, trigonometry, calculus, equations, unit conversions, and physics problems accurately. " +
+                "2. When greeted or asked who you are (e.g. 'hi who are you', 'hello', 'what can you do'), introduce yourself warmly as the 3D Voice AI Calculator, ready to compute mathematics and solve equations. " +
+                "3. Keep answers direct, concise, and clear without markdown asterisks or LaTeX tags. Express formulas in plain conversational English. " +
                 "4. If explanation is requested or helpful, keep it brief (1 to 2 short sentences).";
 
-            const payload = {
-                system_instruction: {
-                    parts: [{ text: systemPrompt }]
-                },
-                contents: [
-                    {
-                        role: "user",
-                        parts: [{ text: question }]
+            let lastError = null;
+
+            for (const model of GEMINI_MODELS) {
+                try {
+                    const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${encodeURIComponent(apiKey.trim())}`;
+                    const payload = {
+                        system_instruction: {
+                            parts: [{ text: systemPrompt }]
+                        },
+                        contents: [
+                            {
+                                role: "user",
+                                parts: [{ text: question }]
+                            }
+                        ],
+                        generationConfig: {
+                            temperature: 0.2,
+                            maxOutputTokens: 600
+                        }
+                    };
+
+                    const response = await fetch(endpoint, {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify(payload)
+                    });
+
+                    if (response.ok) {
+                        const data = await response.json();
+                        const candidateText = data.candidates?.[0]?.content?.parts?.[0]?.text;
+                        if (candidateText) {
+                            return cleanForSpeech(candidateText);
+                        }
+                    } else {
+                        const errorData = await response.json().catch(() => ({}));
+                        const errMsg = errorData.error?.message || `HTTP ${response.status} ${response.statusText}`;
+                        lastError = new Error(errMsg);
+
+                        // If quota exhausted (429), server busy (503), or model not found (404), fall through to next model in cascade
+                        if (response.status === 429 || response.status === 503 || response.status === 404) {
+                            console.warn(`Model ${model} returned ${response.status}, cascading to next model...`);
+                            continue;
+                        } else {
+                            throw lastError;
+                        }
                     }
-                ],
-                generationConfig: {
-                    temperature: 0.1,
-                    maxOutputTokens: 600
+                } catch (err) {
+                    lastError = err;
                 }
-            };
-
-            const response = await fetch(endpoint, {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(payload)
-            });
-
-            if (!response.ok) {
-                const errorData = await response.json().catch(() => ({}));
-                const errMsg = errorData.error?.message || `HTTP ${response.status} ${response.statusText}`;
-                throw new Error(errMsg);
             }
 
-            const data = await response.json();
-            const candidateText = data.candidates?.[0]?.content?.parts?.[0]?.text;
-            if (!candidateText) {
-                throw new Error("No answer generated by Gemini AI.");
-            }
-            return cleanForSpeech(candidateText);
+            throw lastError || new Error("All Gemini models unavailable.");
         }
 
 

@@ -189,15 +189,17 @@ This provides a convincing perception that the user is holding a physical glass 
 
 ## 6. Logic Architecture & Google Gemini AI
 
-### 6.1 Google Gemini 2.5 Flash Cloud Integration
-- **Model**: `gemini-2.5-flash` via Google Generative Language REST API (`v1beta`).
+### 6.1 Google Gemini 3.5 Flash Cloud Integration & Multi-Model Cascade
+- **Primary Model**: `gemini-3.5-flash-lite` via Google Generative Language REST API (`v1beta`).
+- **Resilient Multi-Model Cascade**: The engine implements an automatic fallback cascade (`gemini-3.5-flash-lite` $\to$ `gemini-3.1-flash-lite` $\to$ `gemini-2.5-flash` $\to$ `gemini-flash-latest`). If a specific model experiences temporary quota limits (`429`), high server traffic (`503`), or version deprecation (`404`), the system immediately fails over to the next candidate model in milliseconds.
 - **Obfuscated Secret Protection**: The default public key is obfuscated using base64 (`atob(...)`) to comply with GitHub Secret Scanning push protection while remaining pre-configured for instant zero-setup execution.
-- **Custom System Instruction**: Directs Gemini to solve complex math step-by-step while outputting plain, spoken-word English suitable for the Text-to-Speech (TTS) synthesizer (e.g., converting `\frac{a}{b}` to *"a over b"*).
+- **Custom System Instruction**: Directs Gemini to handle both conversational greetings and complex math problems concisely, outputting plain, spoken-word English suitable for the Text-to-Speech (TTS) synthesizer without LaTeX tags or markdown asterisks.
 
-### 6.2 Resilient Client-Side Fallback Engine
+### 6.2 Intelligent Conversational & Client-Side Math Fallback Engine
 If offline, network-constrained, or if the API key reaches rate limits, the app seamlessly falls back to `evaluateLocalMath()`:
-- Normalizes natural voice commands: *"what is 45 plus 18 times 3"* $\to$ `45 + 18 * 3`.
-- Safely evaluates expressions with scientific functions (`sqrt`, `sin`, `cos`, `tan`, `log`, `ln`, `pi`, `e`, powers).
+- **Natural Conversational Intelligence**: Responds warmly to user greetings, self-introductions, and capability inquiries (*"hi who are you"*, *"what can you do"*, *"help"*), rather than treating general conversation as invalid math expressions.
+- **Natural Math Translation**: Normalizes natural voice commands (*"what is 45 plus 18 times 3"* $\to$ `45 + 18 * 3`).
+- **Scientific Evaluator**: Safely evaluates expressions with scientific functions (`sqrt`, `sin`, `cos`, `tan`, `log`, `ln`, `pi`, `e`, powers).
 
 ### 6.3 Multimodal Audio & Sound Control Architecture
 
