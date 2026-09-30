@@ -30,4 +30,4 @@ User-agent: Bytespider
 Allow: /
 
 # Sitemap Location
-Sitemap: https://calculater.vercel.app/sitemap.xml
+Sitemap: https://calculater-two-sooty.vercel.app/sitemap.xml
