@@ -130,6 +130,11 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,900;1,400;1,600&display=swap" rel="stylesheet">
 
+    <!-- KaTeX: Editorial Mathematical Typography -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+
     <style>
         /* ==========================================================================
            ATELIER MATHEMATICAL INSTRUMENT • EDITORIAL DESIGN SYSTEM
@@ -1301,6 +1306,60 @@
             color: var(--ai-bubble-text);
             border-color: var(--ai-bubble-border);
             box-shadow: var(--shadow-subtle);
+            font-size: 14px;
+            line-height: 1.68;
+        }
+
+        .bubble-content {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .bubble-content p {
+            margin: 0;
+            line-height: 1.65;
+        }
+
+        .bubble-content strong {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        .bubble-content .msg-list {
+            margin: 4px 0 6px 18px;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .bubble-content .msg-list li {
+            margin: 0;
+            line-height: 1.55;
+        }
+
+        .bubble-content .katex-display {
+            margin: 8px 0;
+            padding: 4px 0;
+            overflow-x: auto;
+            overflow-y: hidden;
+        }
+
+        .bubble-content .katex {
+            font-size: 1.08em;
+            color: var(--text-primary);
+        }
+
+        .math-fallback-formula {
+            font-family: 'JetBrains Mono', 'Playfair Display', Georgia, monospace;
+            font-style: italic;
+            background: var(--surface-subtle);
+            padding: 2px 6px;
+            border-radius: 4px;
+            border: 1px solid var(--border-hairline);
+            color: var(--accent-sage);
+            display: inline-block;
         }
 
         .bubble-meta {
@@ -2963,18 +3022,109 @@
             }
         });
 
-        // 9. Speech Synthesis (TTS)
+        // 9. Speech Synthesis (TTS) with Natural Math Phonetics & Concise Audio
+        function cleanTextForSpeech(rawText) {
+            if (!rawText) return '';
+
+            // 1. Strip repetitive self-introduction or welcome boilerplate
+            let clean = rawText.trim();
+            clean = clean.replace(/^welcome[.,!]?\s*/i, '');
+            clean = clean.replace(/^i am (the )?atelier[^\n.!?]*[.\n!?]\s*/i, '');
+            clean = clean.replace(/^as (the )?atelier[^\n.!?]*[.\n!?]\s*/i, '');
+            clean = clean.replace(/^hello[.,!]?\s*/i, '');
+
+            // 2. Translate common fractions
+            clean = clean.replace(/\\frac\{1\}\{2\}/g, 'one half');
+            clean = clean.replace(/\\frac\{1\}\{3\}/g, 'one third');
+            clean = clean.replace(/\\frac\{1\}\{4\}/g, 'one quarter');
+            clean = clean.replace(/\\frac\{d\}\{dt\}/g, 'd over d t');
+            clean = clean.replace(/\\frac\{\\partial\s*([^{}]+)\}\{\\partial\s*([^{}]+)\}/g, 'partial $1 over partial $2');
+            for (let i = 0; i < 3; i++) {
+                clean = clean.replace(/\\frac\{([^{}]+)\}\{([^{}]+)\}/g, '$1 over $2');
+            }
+
+            // 3. Derivatives & dots
+            clean = clean.replace(/\\ddot\{\\theta\}/g, 'theta double dot');
+            clean = clean.replace(/\\dot\{\\theta\}/g, 'theta dot');
+            clean = clean.replace(/\\ddot\{([a-zA-Z])\}/g, '$1 double dot');
+            clean = clean.replace(/\\dot\{([a-zA-Z])\}/g, '$1 dot');
+
+            // 4. Greek letters
+            const greek = {
+                theta: 'theta', alpha: 'alpha', beta: 'beta', gamma: 'gamma',
+                delta: 'delta', epsilon: 'epsilon', lambda: 'lambda', mu: 'mu',
+                pi: 'pi', rho: 'rho', sigma: 'sigma', tau: 'tau', phi: 'phi',
+                omega: 'omega'
+            };
+            for (const [k, v] of Object.entries(greek)) {
+                clean = clean.replace(new RegExp('\\\\' + k + '\\b', 'g'), v);
+            }
+
+            // 5. Functions & mathematical operators
+            clean = clean.replace(/\\sin\b/g, 'sine');
+            clean = clean.replace(/\\cos\b/g, 'cosine');
+            clean = clean.replace(/\\tan\b/g, 'tangent');
+            clean = clean.replace(/\\partial\b/g, 'partial');
+            clean = clean.replace(/\\sqrt\{([^{}]+)\}/g, 'square root of $1');
+            clean = clean.replace(/\\sqrt\b/g, 'square root');
+            clean = clean.replace(/\\times\b/g, ' times ');
+            clean = clean.replace(/\\cdot\b/g, ' times ');
+            clean = clean.replace(/\\approx\b/g, ' is approximately ');
+            clean = clean.replace(/\\pm\b/g, ' plus or minus ');
+            clean = clean.replace(/\\le\b/g, ' is less than or equal to ');
+            clean = clean.replace(/\\ge\b/g, ' is greater than or equal to ');
+            clean = clean.replace(/\\ne\b/g, ' is not equal to ');
+            clean = clean.replace(/\\left[([{|]/g, ' ');
+            clean = clean.replace(/\\right[)\]}|]/g, ' ');
+
+            // 6. Exponents & Powers
+            clean = clean.replace(/\^2\b/g, ' squared ');
+            clean = clean.replace(/\^3\b/g, ' cubed ');
+            clean = clean.replace(/\^\{([^{}]+)\}/g, ' to the power of $1 ');
+            clean = clean.replace(/\^([0-9a-zA-Z])/g, ' to the power of $1 ');
+
+            // 7. Strip leftover LaTeX commands
+            clean = clean.replace(/\\(?:text|mathbf|mathrm|mathit)\{([^{}]+)\}/g, '$1');
+            clean = clean.replace(/\\[a-zA-Z]+/g, ' ');
+
+            // 8. Strip markdown symbols, dollar signs, braces, and slashes
+            clean = clean.replace(/\*\*/g, '');
+            clean = clean.replace(/[*#`_~]/g, '');
+            clean = clean.replace(/\$/g, '');
+            clean = clean.replace(/[{}\\]/g, ' ');
+
+            // 9. Normalize whitespace
+            clean = clean.replace(/\s+/g, ' ').trim();
+
+            // 10. Keep speech concise: speak the essential conclusion or summary
+            const sentences = clean.split(/(?<=[.!?])\s+/);
+            if (sentences.length > 3) {
+                clean = sentences[0] + ' ' + (sentences[1] || '') + ' ' + sentences[sentences.length - 1];
+            }
+            if (clean.length > 340) {
+                const truncated = clean.substring(0, 340);
+                const lastSpace = truncated.lastIndexOf(' ');
+                clean = (lastSpace > 220 ? truncated.substring(0, lastSpace) : truncated) + '.';
+            }
+
+            return clean;
+        }
+
         function speakText(text) {
             const ttsEnabled = document.getElementById('modalTtsToggle')?.checked;
             if (!ttsEnabled || !('speechSynthesis' in window)) return;
 
             window.speechSynthesis.cancel();
-            const utterance = new SpeechSynthesisUtterance(text);
-            utterance.rate = 1.0;
+
+            const spokenText = cleanTextForSpeech(text);
+            if (!spokenText) return;
+
+            const utterance = new SpeechSynthesisUtterance(spokenText);
+            utterance.rate = 1.05;
             utterance.pitch = 1.0;
 
             const voices = window.speechSynthesis.getVoices();
-            const preferred = voices.find(v => v.lang.includes('en') && (v.name.includes('Natural') || v.name.includes('Google')));
+            const preferred = voices.find(v => v.lang.includes('en') && (v.name.includes('Natural') || v.name.includes('Google') || v.name.includes('Samantha')));
             if (preferred) utterance.voice = preferred;
 
             window.speechSynthesis.speak(utterance);
@@ -3042,11 +3192,13 @@
         async function askGeminiAI(question) {
             const apiKey = getGeminiApiKey();
             const systemPrompt = 
-                "You are the Atelier of Mathematical Inquiry, an ultra-premium computational intelligence. " +
-                "1. Compute mathematics, arithmetic, algebra, trigonometry, calculus, matrix algebra, and physics problems with absolute precision. " +
-                "2. When greeted or asked who you are (e.g. 'hi who are you', 'hello', 'what can you do'), introduce yourself warmly as the Atelier Mathematical Instrument, ready to assist with calculation, calculus, physics, and symbolic reasoning. " +
-                "3. Keep answers elegant, concise, and clear without unnecessary markdown asterisks or raw LaTeX delimiters. " +
-                "4. If explanation is requested or helpful, keep it brief and mathematically insightful.";
+                "You are an exact, concise mathematical calculation instrument.\n" +
+                "CRITICAL INSTRUCTIONS:\n" +
+                "1. NEVER give introductory greetings, welcome messages, or announce who you are (e.g., NEVER say 'Welcome', 'I am the Atelier...', or 'I am ready to assist'). Jump directly to the mathematical solution.\n" +
+                "2. BE EXTREMELY CONCISE. State the primary formula or numerical solution first. Limit explanations to 2-3 brief, compact bullet steps only if needed. Avoid wordy filler or discursive text.\n" +
+                "3. MATHEMATICAL FORMAT: Use clean LaTeX ($...$ for inline, $$...$$ for standalone formulas) so equations render with mathematical beauty. Do not output raw unformatted text.\n" +
+                "4. When asked for a derivation or proof, state the final equation first, followed by compact essential steps.\n" +
+                "5. Only describe your identity if the user explicitly asks 'Who are you?' or 'What are you?'.";
 
             let lastError = null;
 
@@ -3056,7 +3208,7 @@
                     const payload = {
                         system_instruction: { parts: [{ text: systemPrompt }] },
                         contents: [{ role: "user", parts: [{ text: question }] }],
-                        generationConfig: { temperature: 0.15, maxOutputTokens: 600 }
+                        generationConfig: { temperature: 0.1, maxOutputTokens: 450 }
                     };
 
                     const response = await fetch(endpoint, {
@@ -3218,6 +3370,92 @@
             chatMessages.scrollTop = chatMessages.scrollHeight;
         }
 
+        // 13. Mathematical Formatting & Message Rendering
+        function formatMessageHTML(rawText) {
+            if (!rawText) return '';
+
+            // Strip any self-introduction or welcome boilerplate
+            let text = rawText.trim()
+                .replace(/^welcome[.,!]?\s*/i, '')
+                .replace(/^i am (the )?atelier[^\n.!?]*[.\n!?]\s*/i, '')
+                .replace(/^as (the )?atelier[^\n.!?]*[.\n!?]\s*/i, '')
+                .replace(/^hello[.,!]?\s*/i, '')
+                .trim();
+
+            // Split into paragraphs by double newlines
+            const paragraphs = text.split(/\n\s*\n/);
+            return paragraphs.map(p => {
+                const lines = p.trim().split('\n').map(line => {
+                    let l = line.trim();
+                    // Format **bold**
+                    l = l.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+                    // Format list items
+                    if (/^[-*]\s+/.test(l)) {
+                        return `<li class="bullet-item">${l.replace(/^[-*]\s+/, '')}</li>`;
+                    }
+                    if (/^\d+\.\s+/.test(l)) {
+                        return `<li class="numbered-item">${l.replace(/^\d+\.\s+/, '')}</li>`;
+                    }
+                    return l;
+                });
+
+                // Wrap list items
+                if (lines.some(l => l.startsWith('<li'))) {
+                    return `<ul class="msg-list">${lines.join('')}</ul>`;
+                }
+                return `<p>${lines.join('<br>')}</p>`;
+            }).join('');
+        }
+
+        function cleanMathFallback(formula) {
+            return formula
+                .replace(/\\ddot\{\\theta\}/g, 'θ̈')
+                .replace(/\\dot\{\\theta\}/g, 'θ̇')
+                .replace(/\\ddot\{([a-zA-Z])\}/g, '$1̈')
+                .replace(/\\dot\{([a-zA-Z])\}/g, '$1̇')
+                .replace(/\\theta/g, 'θ')
+                .replace(/\\alpha/g, 'α')
+                .replace(/\\beta/g, 'β')
+                .replace(/\\gamma/g, 'γ')
+                .replace(/\\pi/g, 'π')
+                .replace(/\\partial/g, '∂')
+                .replace(/\\sin/g, 'sin')
+                .replace(/\\cos/g, 'cos')
+                .replace(/\\tan/g, 'tan')
+                .replace(/\\frac\{([^{}]+)\}\{([^{}]+)\}/g, '($1 / $2)')
+                .replace(/\^2/g, '²')
+                .replace(/\^3/g, '³')
+                .replace(/\\left[()\[\]]/g, '')
+                .replace(/\\right[()\[\]]/g, '')
+                .replace(/[{}\\]/g, '');
+        }
+
+        function renderMathInBubble(bubbleEl) {
+            if (window.renderMathInElement) {
+                try {
+                    window.renderMathInElement(bubbleEl, {
+                        delimiters: [
+                            { left: '$$', right: '$$', display: true },
+                            { left: '$', right: '$', display: false },
+                            { left: '\\[', right: '\\]', display: true },
+                            { left: '\\(', right: '\\)', display: false }
+                        ],
+                        throwOnError: false
+                    });
+                    return;
+                } catch (e) {
+                    console.warn('KaTeX render warning:', e);
+                }
+            }
+
+            // Fallback: parse LaTeX into clean styled Unicode if KaTeX is not loaded
+            bubbleEl.innerHTML = bubbleEl.innerHTML.replace(/\$\$([\s\S]*?)\$\$/g, (m, formula) => {
+                return `<div class="katex-display"><span class="math-fallback-formula">${cleanMathFallback(formula)}</span></div>`;
+            }).replace(/\$([^\$\n]+?)\$/g, (m, formula) => {
+                return `<span class="math-fallback-formula">${cleanMathFallback(formula)}</span>`;
+            });
+        }
+
         function appendAIMessage(text) {
             const timeStr = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
             const row = document.createElement('div');
@@ -3225,14 +3463,25 @@
             row.innerHTML = `
                 <div class="avatar">f(x)</div>
                 <div class="bubble">
-                    ${escapeHtml(text)}
+                    <div class="bubble-content">${formatMessageHTML(text)}</div>
                     <div class="bubble-meta">
                         <span>${timeStr}</span>
-                        <button class="action-icon-btn" onclick="speakText('${escapeHtml(text).replace(/'/g, "\\'")}')" title="Listen Spoken Voice">🔊</button>
+                        <button class="action-icon-btn speak-action-btn" title="Listen Spoken Voice">🔊</button>
                     </div>
                 </div>
             `;
             chatMessages.appendChild(row);
+
+            const bubbleContent = row.querySelector('.bubble-content');
+            renderMathInBubble(bubbleContent);
+
+            const speakBtn = row.querySelector('.speak-action-btn');
+            if (speakBtn) {
+                speakBtn.addEventListener('click', () => {
+                    speakText(text);
+                });
+            }
+
             chatMessages.scrollTop = chatMessages.scrollHeight;
         }
 
