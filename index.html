@@ -14,6 +14,16 @@
     <meta name="google-site-verification" content="google3e03f8662a84158e">
     <link rel="canonical" href="https://calculater-two-sooty.vercel.app/">
 
+    <!-- Favicon & Brand Identity (Optimized for Google Search snippet favicon, Apple, Android PWA) -->
+    <link rel="icon" href="/favicon.ico" sizes="48x48">
+    <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="manifest" href="/site.webmanifest">
+
     <!-- Open Graph / Facebook / LinkedIn / WhatsApp -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://calculater-two-sooty.vercel.app/">
@@ -21,12 +31,17 @@
     <meta property="og:description" content="An editorial, human-designed computational instrument combining Google Gemini intelligence, natural speech dialogue, and exact symbolic mathematics.">
     <meta property="og:site_name" content="Atelier Mathematical Instrument">
     <meta property="og:locale" content="en_US">
+    <meta property="og:image" content="https://calculater-two-sooty.vercel.app/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Atelier Mathematical Instrument f(x) Logo">
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:url" content="https://calculater-two-sooty.vercel.app/">
     <meta name="twitter:title" content="Atelier • Precision Voice AI Mathematical Instrument">
     <meta name="twitter:description" content="Voice-enabled AI computational instrument combining Google Gemini intelligence, speech recognition, and exact symbolic mathematics.">
+    <meta name="twitter:image" content="https://calculater-two-sooty.vercel.app/og-image.png">
 
     <!-- LLMs & AI Search Engine Resource Discovery -->
     <link rel="help" type="text/plain" href="/llms.txt" title="LLM Information Architecture">
@@ -49,6 +64,14 @@
             "priceCurrency": "USD"
           },
           "description": "An editorial, human-designed computational instrument combining Google Gemini intelligence, natural speech dialogue, and exact symbolic mathematics.",
+          "image": "https://calculater-two-sooty.vercel.app/icon-512.png",
+          "screenshot": "https://calculater-two-sooty.vercel.app/og-image.png",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://calculater-two-sooty.vercel.app/icon-512.png",
+            "width": 512,
+            "height": 512
+          },
           "featureList": [
             "Natural voice speech recognition for hands-free mathematical calculations",
             "Google Gemini AI multi-model reasoning cascade for algebra, calculus, and word problems",
@@ -61,6 +84,12 @@
             "@type": "Person",
             "name": "Satyajeet Lakra"
           }
+        },
+        {
+          "@type": "Organization",
+          "name": "Atelier",
+          "url": "https://calculater-two-sooty.vercel.app/",
+          "logo": "https://calculater-two-sooty.vercel.app/icon-512.png"
         },
         {
           "@type": "FAQPage",
@@ -699,19 +728,57 @@
         }
 
         .brand-monogram {
-            font-family: 'Playfair Display', Georgia, serif;
-            font-style: italic;
-            font-size: 18px;
-            font-weight: 700;
-            width: 34px;
-            height: 34px;
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
             border: 1px solid var(--border-medium);
-            background: var(--surface-subtle);
+            background: #222222;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: var(--text-primary);
+            overflow: hidden;
             flex-shrink: 0;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+            transition: transform 0.2s var(--apple-ease), box-shadow 0.2s var(--apple-ease);
+        }
+
+        .brand-monogram:hover {
+            transform: scale(1.06);
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.35);
+        }
+
+        .brand-monogram img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .intro-logo-badge {
+            width: 68px;
+            height: 68px;
+            border-radius: 16px;
+            border: 1px solid var(--border-medium);
+            background: #222222;
+            overflow: hidden;
+            margin: 0 auto 18px auto;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: badgeFloat 4s ease-in-out infinite alternate;
+        }
+
+        @keyframes badgeFloat {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-3px); }
+        }
+
+        .intro-logo-badge img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
         }
 
         .brand-text-block {
@@ -1928,6 +1995,9 @@
     <!-- 1. EDITORIAL SPLASH SCREEN / ATELIER OVERTURE -->
     <div class="liquid-loader-screen" id="liquidLoader">
         <div class="intro-masthead-card">
+            <div class="intro-logo-badge">
+                <img src="/icon-192.png" alt="Atelier f(x) Logo" width="68" height="68">
+            </div>
             <span class="intro-edition-mark">Edition No. 04 • Computational Atelier</span>
             <h1 class="intro-title">Atelier of <em>Mathematical Inquiry</em></h1>
             <p class="intro-subtitle">
@@ -1954,7 +2024,9 @@
         <!-- Editorial Masthead Header -->
         <header class="app-header">
             <div class="brand-container">
-                <div class="brand-monogram">f(x)</div>
+                <div class="brand-monogram" title="Atelier f(x) Mathematical Instrument">
+                    <img src="/favicon-96x96.png" alt="f(x) Atelier Logo" width="36" height="36">
+                </div>
                 <div class="brand-text-block">
                     <h1 class="brand-title">Atelier <em>de Calcul</em></h1>
                     <span class="brand-edition-sub">No. 04 • Voice AI Mathematical Instrument</span>
