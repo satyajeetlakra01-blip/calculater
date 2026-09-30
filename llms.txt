@@ -1,0 +1,24 @@
+# Atelier — Precision Voice AI Mathematical Instrument
+
+> An editorial, human-designed computational instrument combining Google Gemini intelligence, natural speech dialogue, and exact symbolic mathematics.
+
+## Overview
+Atelier is a modern web application designed for students, researchers, engineers, and everyday users who need an intuitive, voice-enabled mathematical calculator. It bridges traditional high-precision computational engines with advanced Generative AI (Google Gemini 3.5 / 2.5 Flash Lite) to understand spoken prompts, word problems, algebra, and calculus equations in real time.
+
+## Key Capabilities
+- **Voice-Activated Calculations**: Speak naturally (e.g., "calculate the derivative of sin(x) times e to the x", "what is 15% tip on 85 dollars?", "solve 3x + 9 = 24").
+- **Google Gemini Multi-Model Cascade**: Analyzes natural language prompts, breaks down math into pedagogical steps, and provides clear mathematical reasoning.
+- **Symbolic Calculus & Algebra**: Handles derivatives, integrals, limits, matrix calculations, logarithms, trigonometry, and complex roots.
+- **Audio Haptics & Responsive Feedback**: Tactile click feedback, waveform speech visualization, and responsive voice status indicator.
+- **Editorial Bespoke Themes**: 4 curated architectural palettes:
+  - Atelier Broadsheet (Cream & Charcoal)
+  - Milano Espresso & Terracotta
+  - Nordic Slate & Forest Moss
+  - Sumi & Japanese Washi
+- **Unit & Currency Conversions**: Supports physical dimensions, currency approximations, and temperature transforms.
+- **Privacy & Security**: Operates client-side with optional user-supplied Gemini API key stored strictly in local browser memory.
+
+## URLs & Availability
+- Production Web App: https://calculater.vercel.app/
+- Source Code Repository: https://github.com/satyajeetlakra01-blip/calculater
+- Free to use, no account required.

@@ -1,0 +1,33 @@
+# robots.txt for Atelier Precision Voice AI Mathematical Instrument
+# Optimized for Google, Bing, Yahoo, DuckDuckGo, and Generative AI Search Models
+
+User-agent: *
+Allow: /
+
+# Google Search & Services
+User-agent: Googlebot
+User-agent: Googlebot-Image
+User-agent: Google-Extended
+Allow: /
+
+# Bing / Microsoft Copilot
+User-agent: Bingbot
+User-agent: msnbot
+Allow: /
+
+# AI Crawlers & Large Language Models (LLM Optimization)
+User-agent: GPTBot
+User-agent: ChatGPT-User
+User-agent: ClaudeBot
+User-agent: anthropic-ai
+User-agent: PerplexityBot
+User-agent: Applebot
+User-agent: Applebot-Extended
+User-agent: CCBot
+User-agent: cohere-ai
+User-agent: Meta-ExternalAgent
+User-agent: Bytespider
+Allow: /
+
+# Sitemap Location
+Sitemap: https://calculater.vercel.app/sitemap.xml
