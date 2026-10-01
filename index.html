@@ -733,41 +733,47 @@
         }
 
         .brand-monogram {
-            width: 36px;
-            height: 36px;
-            border-radius: 8px;
+            width: 38px;
+            height: 38px;
+            border-radius: 9px;
             border: 1px solid var(--border-medium);
-            background: #222222;
+            background: linear-gradient(145deg, rgba(36, 38, 36, 0.98), rgba(16, 17, 16, 0.98));
             display: flex;
             align-items: center;
             justify-content: center;
             overflow: hidden;
             flex-shrink: 0;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
-            transition: transform 0.2s var(--apple-ease), box-shadow 0.2s var(--apple-ease);
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            transition: transform 0.2s var(--apple-ease), box-shadow 0.2s var(--apple-ease), border-color 0.2s ease;
+            cursor: pointer;
         }
 
         .brand-monogram:hover {
             transform: scale(1.06);
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.35);
+            border-color: var(--accent-sage);
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35), 0 0 12px var(--accent-sage-tint);
         }
 
+        .brand-monogram:active {
+            transform: scale(0.96);
+        }
+
+        .brand-monogram svg,
         .brand-monogram img {
             width: 100%;
             height: 100%;
-            object-fit: cover;
             display: block;
         }
 
         .intro-logo-badge {
-            width: 68px;
-            height: 68px;
-            border-radius: 16px;
+            width: 72px;
+            height: 72px;
+            border-radius: 18px;
             border: 1px solid var(--border-medium);
-            background: #222222;
+            background: linear-gradient(145deg, rgba(40, 44, 40, 0.98), rgba(16, 18, 16, 0.98));
             overflow: hidden;
             margin: 0 auto 18px auto;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45), inset 0 1px 1px rgba(255, 255, 255, 0.15);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -779,10 +785,10 @@
             100% { transform: translateY(-3px); }
         }
 
+        .intro-logo-badge svg,
         .intro-logo-badge img {
             width: 100%;
             height: 100%;
-            object-fit: cover;
             display: block;
         }
 
@@ -854,7 +860,7 @@
             display: flex;
             align-items: center;
             gap: 7px;
-            transition: all 0.2s var(--apple-ease);
+            transition: background 0.2s, border-color 0.2s, color 0.2s, transform 0.15s var(--apple-ease);
             white-space: nowrap;
         }
 
@@ -872,6 +878,29 @@
             border-color: #C08246;
             color: #C08246;
             background: rgba(192, 130, 70, 0.08);
+        }
+
+        .header-icon-box {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 16px;
+            height: 16px;
+            flex-shrink: 0;
+        }
+
+        .header-svg {
+            width: 15px;
+            height: 15px;
+            stroke: currentColor;
+            display: inline-block;
+            vertical-align: middle;
+            flex-shrink: 0;
+            transition: transform 0.2s var(--apple-ease);
+        }
+
+        .header-btn:hover .header-svg {
+            transform: scale(1.1);
         }
 
         /* Mobile Tab Navigation Bar */
@@ -1466,33 +1495,109 @@
 
         .mic-btn {
             position: absolute;
-            right: 8px;
-            width: 32px;
-            height: 32px;
-            border: none;
+            right: 7px;
+            width: 34px;
+            height: 34px;
+            border: 1px solid transparent;
+            border-radius: 8px;
             background: transparent;
             cursor: pointer;
-            font-size: 15px;
             display: flex;
             align-items: center;
             justify-content: center;
             color: var(--text-muted);
-            transition: color 0.2s, transform 0.15s;
+            transition: color 0.15s, background 0.15s, border-color 0.15s, transform 0.15s var(--apple-ease), box-shadow 0.2s;
         }
 
         .mic-btn:hover {
             color: var(--accent-sage);
-            transform: scale(1.1);
+            background: var(--surface-subtle);
+            border-color: var(--border-hairline);
+            transform: scale(1.06);
+        }
+
+        .mic-btn:active {
+            transform: scale(0.94);
+        }
+
+        .mic-icon-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+        }
+
+        .mic-svg {
+            width: 17px;
+            height: 17px;
+            stroke: currentColor;
+            display: block;
+            transition: transform 0.2s var(--apple-ease);
+        }
+
+        .mic-live-eq {
+            display: none;
+            align-items: center;
+            justify-content: center;
+            gap: 2.5px;
+            height: 16px;
+        }
+
+        .eq-bar {
+            width: 2.5px;
+            height: 13px;
+            background: currentColor;
+            border-radius: 2px;
+            transform-origin: bottom;
         }
 
         .mic-btn.recording {
-            color: #D9483B;
-            animation: pulse-mic 1.2s infinite alternate;
+            color: #E24A3D;
+            background: rgba(226, 74, 61, 0.12);
+            border-color: rgba(226, 74, 61, 0.4);
+            box-shadow: 0 0 0 3px rgba(226, 74, 61, 0.2), 0 0 16px rgba(226, 74, 61, 0.35);
+            animation: pulse-mic-ring 1.3s infinite alternate ease-in-out;
         }
 
-        @keyframes pulse-mic {
-            from { transform: scale(1); opacity: 0.7; }
-            to { transform: scale(1.22); opacity: 1; }
+        .mic-btn.recording .mic-svg {
+            display: none;
+        }
+
+        .mic-btn.recording .mic-live-eq {
+            display: flex;
+        }
+
+        .mic-btn.recording .eq-bar:nth-child(1) {
+            animation: soundWave 0.75s infinite ease-in-out 0.05s alternate;
+        }
+
+        .mic-btn.recording .eq-bar:nth-child(2) {
+            animation: soundWave 0.95s infinite ease-in-out 0.2s alternate;
+        }
+
+        .mic-btn.recording .eq-bar:nth-child(3) {
+            animation: soundWave 0.65s infinite ease-in-out 0.12s alternate;
+        }
+
+        .mic-btn.recording .eq-bar:nth-child(4) {
+            animation: soundWave 0.85s infinite ease-in-out 0.28s alternate;
+        }
+
+        @keyframes soundWave {
+            0% { transform: scaleY(0.2); }
+            100% { transform: scaleY(1); }
+        }
+
+        @keyframes pulse-mic-ring {
+            0% {
+                transform: scale(1);
+                box-shadow: 0 0 0 2px rgba(226, 74, 61, 0.25), 0 0 8px rgba(226, 74, 61, 0.2);
+            }
+            100% {
+                transform: scale(1.08);
+                box-shadow: 0 0 0 5px rgba(226, 74, 61, 0.4), 0 0 18px rgba(226, 74, 61, 0.45);
+            }
         }
 
         .send-btn {
@@ -1505,18 +1610,25 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 17px;
             flex-shrink: 0;
-            transition: background 0.2s, transform 0.15s var(--apple-ease);
+            transition: background 0.2s, transform 0.15s var(--apple-ease), box-shadow 0.2s;
         }
 
         .send-btn:hover {
             background: var(--accent-sage);
             color: #FFFFFF;
+            box-shadow: 0 4px 12px var(--accent-sage-tint);
         }
 
         .send-btn:active {
-            transform: scale(0.95);
+            transform: scale(0.94);
+        }
+
+        .send-svg {
+            width: 18px;
+            height: 18px;
+            stroke: currentColor;
+            display: block;
         }
 
         /* ==========================================================================
@@ -2054,8 +2166,20 @@
     <!-- 1. EDITORIAL SPLASH SCREEN / ATELIER OVERTURE -->
     <div class="liquid-loader-screen" id="liquidLoader">
         <div class="intro-masthead-card">
-            <div class="intro-logo-badge">
-                <img src="/icon-192.png" alt="Atelier f(x) Logo" width="68" height="68">
+            <div class="intro-logo-badge" title="Atelier f(x) Mathematical Instrument">
+                <svg class="intro-brand-svg" viewBox="0 0 68 68" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Atelier f(x) Emblem">
+                    <defs>
+                        <linearGradient id="introGold" x1="10" y1="10" x2="58" y2="58" gradientUnits="userSpaceOnUse">
+                            <stop offset="0%" stop-color="#F5E4BE" />
+                            <stop offset="50%" stop-color="#D4BD86" />
+                            <stop offset="100%" stop-color="#A58B54" />
+                        </linearGradient>
+                    </defs>
+                    <rect width="68" height="68" rx="17" fill="#1C1E1C" stroke="rgba(255,255,255,0.14)" stroke-width="1.2" />
+                    <path d="M24 16.5C20.5 16.5 18 19 18 23.5V29H14V34H18V51H24V34H30V29H24V23C24 21.4 24.8 20.6 26.3 20.6C27.5 20.6 28.6 21 29.6 21.6L31.4 17.2C29.4 16.6 26.8 16.5 24 16.5Z" fill="url(#introGold)" />
+                    <path d="M35 30.5C33.2 34.8 33.2 45.2 35 49.5M54 30.5C55.8 34.8 55.8 45.2 54 49.5" stroke="url(#introGold)" stroke-width="2.2" stroke-linecap="round" />
+                    <path d="M39.5 34L49.5 46M49.5 34L39.5 46" stroke="url(#introGold)" stroke-width="2.4" stroke-linecap="round" />
+                </svg>
             </div>
             <span class="intro-edition-mark">Edition No. 04 • Computational Atelier</span>
             <h1 class="intro-title">Atelier of <em>Mathematical Inquiry</em></h1>
@@ -2084,7 +2208,19 @@
         <header class="app-header">
             <div class="brand-container">
                 <div class="brand-monogram" title="Atelier f(x) Mathematical Instrument">
-                    <img src="/favicon-96x96.png" alt="f(x) Atelier Logo" width="36" height="36">
+                    <svg class="brand-monogram-svg" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Atelier f(x) Monogram">
+                        <defs>
+                            <linearGradient id="headerGold" x1="4" y1="4" x2="34" y2="34" gradientUnits="userSpaceOnUse">
+                                <stop offset="0%" stop-color="#F2DFB3" />
+                                <stop offset="50%" stop-color="#CEB67F" />
+                                <stop offset="100%" stop-color="#9C834D" />
+                            </linearGradient>
+                        </defs>
+                        <rect width="38" height="38" rx="8.5" fill="#1C1E1C" stroke="rgba(255,255,255,0.12)" stroke-width="1" />
+                        <path d="M13.2 9C11.3 9 9.8 10.4 9.8 13V16H7.8V18.6H9.8V28.2H12.8V18.6H16.2V16H12.8V12.8C12.8 11.9 13.3 11.4 14.1 11.4C14.8 11.4 15.4 11.6 16 11.9L16.9 9.5C15.8 9.1 14.5 9 13.2 9Z" fill="url(#headerGold)" />
+                        <path d="M19.5 17C18.5 19.3 18.5 25.2 19.5 27.5M30.2 17C31.2 19.3 31.2 25.2 30.2 27.5" stroke="url(#headerGold)" stroke-width="1.3" stroke-linecap="round" />
+                        <path d="M22 19L27.6 25.5M27.6 19L22 25.5" stroke="url(#headerGold)" stroke-width="1.4" stroke-linecap="round" />
+                    </svg>
                 </div>
                 <div class="brand-text-block">
                     <h1 class="brand-title">Atelier <em>de Calcul</em></h1>
@@ -2100,37 +2236,73 @@
 
                 <!-- AI Start/Stop -->
                 <button class="header-btn" id="aiToggleBtn" title="Start or Stop AI Engine">
-                    <span id="aiIcon">🤖</span>
+                    <span id="aiIcon" class="header-icon-box">
+                        <svg class="header-svg" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <path d="M10 2L12.2 7.8L18 10L12.2 12.2L10 18L7.8 12.2L2 10L7.8 7.8L10 2Z" fill="currentColor" fill-opacity="0.18"></path>
+                            <circle cx="15.5" cy="4.5" r="1" fill="currentColor"></circle>
+                        </svg>
+                    </span>
                     <span id="aiLabel">Stop AI</span>
                 </button>
 
                 <!-- Atmosphere / Stardust Toggle -->
                 <button class="header-btn" id="animToggleBtn" title="Toggle Background Stardust">
-                    <span id="animIcon">⏸️</span>
+                    <span id="animIcon" class="header-icon-box">
+                        <svg class="header-svg" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <circle cx="10" cy="10" r="3.2"></circle>
+                            <path d="M10 2v3M10 15v3M2 10h3M15 10h3"></path>
+                            <circle cx="4.5" cy="4.5" r="0.8" fill="currentColor"></circle>
+                            <circle cx="15.5" cy="15.5" r="0.8" fill="currentColor"></circle>
+                        </svg>
+                    </span>
                     <span id="animLabel">Stardust</span>
                 </button>
 
                 <!-- Replay Intro -->
                 <button class="header-btn" id="replayIntroHeaderBtn" title="Replay Atelier Entrance">
-                    <span>🎬</span>
+                    <span class="header-icon-box">
+                        <svg class="header-svg" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <path d="M3.5 10a6.5 6.5 0 1 0 1.9-4.6L2.5 8"></path>
+                            <path d="M2.5 3.5V8H7"></path>
+                        </svg>
+                    </span>
                     <span>Replay</span>
                 </button>
 
                 <!-- Quick Palette Cycle Button -->
                 <button class="header-btn" id="paletteCycleBtn" title="Cycle Bespoke Palettes (Atelier, Milano, Nordic, Sumi)">
-                    <span>🎨</span>
+                    <span class="header-icon-box">
+                        <svg class="header-svg" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <circle cx="10" cy="10" r="7.5"></circle>
+                            <circle cx="7" cy="7" r="1.3" fill="currentColor"></circle>
+                            <circle cx="13" cy="7" r="1.3" fill="currentColor"></circle>
+                            <circle cx="8" cy="13" r="1.3" fill="currentColor"></circle>
+                            <circle cx="12" cy="13" r="1.3" fill="currentColor"></circle>
+                        </svg>
+                    </span>
                     <span id="paletteLabel">Atelier</span>
                 </button>
 
                 <!-- Dark / Light Theme Toggle -->
                 <button class="header-btn" id="themeToggleBtn" title="Toggle Dark/Light Palette">
-                    <span id="themeIcon">🌙</span>
+                    <span id="themeIcon" class="header-icon-box">
+                        <svg class="header-svg" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <path d="M17.3 12.3A8 8 0 1 1 7.7 2.7 6.5 6.5 0 0 0 17.3 12.3z"></path>
+                        </svg>
+                    </span>
                     <span id="themeLabel">Parchment / Ink</span>
                 </button>
 
                 <!-- Settings Studio -->
                 <button class="header-btn" id="openSettingsBtn" title="Open Customization Studio">
-                    <span>⚙️</span>
+                    <span class="header-icon-box">
+                        <svg class="header-svg" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <line x1="3" y1="6" x2="17" y2="6"></line>
+                            <circle cx="7" cy="6" r="2.2" fill="var(--surface-bg)"></circle>
+                            <line x1="3" y1="14" x2="17" y2="14"></line>
+                            <circle cx="13" cy="14" r="2.2" fill="var(--surface-bg)"></circle>
+                        </svg>
+                    </span>
                     <span>Studio</span>
                 </button>
             </div>
@@ -2139,15 +2311,29 @@
         <!-- Mobile View Navigation Tabs -->
         <nav class="mobile-nav-bar" id="mobileNavBar">
             <button class="mobile-nav-btn active" id="tabBtnChat" data-tab="chat" onclick="setMobileView('chat')">
-                <span>💬</span>
+                <svg class="header-svg" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M17 10c0 3.3-3.1 6-7 6-1.1 0-2.2-.2-3.1-.7L3 16l.8-3.1C3.3 12 3 11 3 10c0-3.3 3.1-6 7-6s7 2.7 7 6z"></path>
+                </svg>
                 <span>Atelier</span>
             </button>
             <button class="mobile-nav-btn" id="tabBtnKeypad" data-tab="keypad" onclick="setMobileView('keypad')">
-                <span>🧮</span>
+                <svg class="header-svg" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <rect x="3" y="3" width="14" height="14" rx="2.5"></rect>
+                    <circle cx="7" cy="7" r="0.8" fill="currentColor"></circle>
+                    <circle cx="10" cy="7" r="0.8" fill="currentColor"></circle>
+                    <circle cx="13" cy="7" r="0.8" fill="currentColor"></circle>
+                    <circle cx="7" cy="10" r="0.8" fill="currentColor"></circle>
+                    <circle cx="10" cy="10" r="0.8" fill="currentColor"></circle>
+                    <circle cx="13" cy="10" r="0.8" fill="currentColor"></circle>
+                    <line x1="7" y1="13.5" x2="13" y2="13.5"></line>
+                </svg>
                 <span>Instrument</span>
             </button>
             <button class="mobile-nav-btn" id="tabBtnHistory" data-tab="history" onclick="setMobileView('history')">
-                <span>📜</span>
+                <svg class="header-svg" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M4 4.5A2.5 2.5 0 0 1 6.5 2H16v14.5A2.5 2.5 0 0 1 13.5 19H6.5A2.5 2.5 0 0 1 4 16.5V4.5z"></path>
+                    <path d="M7 6h6M7 10h6M7 14h4"></path>
+                </svg>
                 <span>Ledger</span>
                 <span class="mobile-history-badge" id="mobileHistoryBadge">0</span>
             </button>
@@ -2209,12 +2395,42 @@
 
                 <!-- Input Controls -->
                 <div class="chat-input-container">
-                    <button class="mobile-toggle-dock-btn" id="mobileDockToggleBtn" onclick="toggleMobileKeypad()" title="Open Math Instrument">🧮</button>
+                    <button class="mobile-toggle-dock-btn" id="mobileDockToggleBtn" onclick="toggleMobileKeypad()" title="Open Math Instrument" aria-label="Open Keypad Instrument">
+                        <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="width: 17px; height: 17px; display: block; margin: auto;">
+                            <rect x="3" y="3" width="14" height="14" rx="2.5"></rect>
+                            <circle cx="7" cy="7" r="0.8" fill="currentColor"></circle>
+                            <circle cx="10" cy="7" r="0.8" fill="currentColor"></circle>
+                            <circle cx="13" cy="7" r="0.8" fill="currentColor"></circle>
+                            <circle cx="7" cy="10" r="0.8" fill="currentColor"></circle>
+                            <circle cx="10" cy="10" r="0.8" fill="currentColor"></circle>
+                            <circle cx="13" cy="10" r="0.8" fill="currentColor"></circle>
+                            <line x1="7" y1="13.5" x2="13" y2="13.5"></line>
+                        </svg>
+                    </button>
                     <div class="input-wrapper">
                         <input type="text" id="chatInput" class="chat-input" placeholder="Inquire or dictate an equation e.g. 45 * 18 + sqrt(144)..." autocomplete="off">
-                        <button class="mic-btn" id="micBtn" title="Speak Inquiries">🎙️</button>
+                        <button class="mic-btn" id="micBtn" title="Speak Inquiries" aria-label="Microphone Voice Dictation">
+                            <div class="mic-icon-wrapper">
+                                <svg class="mic-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                    <rect x="9" y="2.5" width="6" height="11" rx="3"></rect>
+                                    <path d="M5 10a7 7 0 0 0 14 0"></path>
+                                    <line x1="12" y1="17" x2="12" y2="21.5"></line>
+                                    <line x1="8" y1="21.5" x2="16" y2="21.5"></line>
+                                </svg>
+                                <div class="mic-live-eq" aria-hidden="true">
+                                    <span class="eq-bar"></span>
+                                    <span class="eq-bar"></span>
+                                    <span class="eq-bar"></span>
+                                    <span class="eq-bar"></span>
+                                </div>
+                            </div>
+                        </button>
                     </div>
-                    <button class="send-btn" id="sendBtn" title="Evaluate">➔</button>
+                    <button class="send-btn" id="sendBtn" title="Evaluate" aria-label="Evaluate Expression">
+                        <svg class="send-svg" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <path d="M4 10h12M11 5l5 5-5 5"></path>
+                        </svg>
+                    </button>
                 </div>
             </section>
 
@@ -2272,7 +2488,7 @@
                     <button class="key-btn key-op" onclick="pressKey('DEL')">⌫</button>
                     <button class="key-btn key-op" onclick="pressKey('^')">xʸ</button>
 
-                    <button class="key-btn key-eval" onclick="handleSend()">Evaluate Inquiries ➔</button>
+                    <button class="key-btn key-eval" onclick="handleSend()">Evaluate Inquiries <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 14px; height: 14px; margin-left: 5px; display: inline-block; vertical-align: middle;"><path d="M4 10h12M11 5l5 5-5 5"></path></svg></button>
                     <button class="key-btn key-op" style="grid-column: span 2;" onclick="pressKey('%')">% Modulo</button>
                 </div>
 
@@ -2298,7 +2514,7 @@
                     <button class="key-btn" onclick="pressKey('^2')">x²</button>
                     <button class="key-btn key-op" onclick="pressKey('!')">n!</button>
 
-                    <button class="key-btn key-eval" style="grid-column: span 4;" onclick="handleSend()">Compute Expression ➔</button>
+                    <button class="key-btn key-eval" style="grid-column: span 4;" onclick="handleSend()">Compute Expression <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 14px; height: 14px; margin-left: 5px; display: inline-block; vertical-align: middle;"><path d="M4 10h12M11 5l5 5-5 5"></path></svg></button>
                 </div>
 
                 <!-- 3. Calculus & Constants Matrix -->
@@ -2318,7 +2534,7 @@
                     <button class="key-btn" onclick="setInput('h = 6.626e-34')">ℏ</button>
                     <button class="key-btn" onclick="setInput('k = 1.38e-23')">k_B</button>
 
-                    <button class="key-btn key-eval" style="grid-column: span 4;" onclick="handleSend()">Evaluate Mathematical Opus ➔</button>
+                    <button class="key-btn key-eval" style="grid-column: span 4;" onclick="handleSend()">Evaluate Mathematical Opus <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 14px; height: 14px; margin-left: 5px; display: inline-block; vertical-align: middle;"><path d="M4 10h12M11 5l5 5-5 5"></path></svg></button>
                 </div>
             </aside>
 
@@ -2477,7 +2693,12 @@
                         </div>
                         <div class="api-key-box">
                             <input type="password" id="modalGeminiKeyInput" class="api-key-input" placeholder="AIzaSy...">
-                            <button class="api-btn" id="toggleKeyVisibilityBtn" title="Toggle Visibility">👁️</button>
+                            <button class="api-btn" id="toggleKeyVisibilityBtn" title="Toggle Visibility" aria-label="Toggle Key Visibility">
+                                <svg class="header-svg" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                    <path d="M1 10s3.5-6 9-6 9 6 9 6-3.5 6-9 6-9-6-9-6z"></path>
+                                    <circle cx="10" cy="10" r="3"></circle>
+                                </svg>
+                            </button>
                             <button class="api-btn" id="saveKeyBtn">Save</button>
                             <button class="api-btn" id="resetKeyBtn">Reset</button>
                             <button class="api-btn" id="testKeyBtn">Test</button>
@@ -2495,11 +2716,28 @@
                         Review the complete architectural whitepaper and engineering design rationale for this mathematical instrument.
                     </p>
                     <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-                        <button class="api-btn" id="viewDocsModalBtn">📖 Read Architecture Guide</button>
-                        <a href="ARCHITECTURE_AND_CODE_EXPLANATION.pdf" download="Atelier_Mathematical_Instrument_Architecture.pdf" class="api-btn" style="text-decoration: none; display: inline-flex; align-items: center;" id="downloadPdfBtn">
-                            📄 Download PDF Document
+                        <button class="api-btn" id="viewDocsModalBtn" style="display: inline-flex; align-items: center; gap: 7px;">
+                            <svg class="header-svg" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                                <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+                            </svg>
+                            Read Architecture Guide
+                        </button>
+                        <a href="ARCHITECTURE_AND_CODE_EXPLANATION.pdf" download="Atelier_Mathematical_Instrument_Architecture.pdf" class="api-btn" style="text-decoration: none; display: inline-flex; align-items: center; gap: 7px;" id="downloadPdfBtn">
+                            <svg class="header-svg" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2z"></path>
+                                <polyline points="14 2 14 8 20 8"></polyline>
+                                <path d="M12 11l-2 2-2-2M10 7v6"></path>
+                            </svg>
+                            Download PDF Document
                         </a>
-                        <button class="api-btn" id="replayIntroModalBtn">🎬 Replay Atelier Overture</button>
+                        <button class="api-btn" id="replayIntroModalBtn" style="display: inline-flex; align-items: center; gap: 7px;">
+                            <svg class="header-svg" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <path d="M3.5 10a6.5 6.5 0 1 0 1.9-4.6L2.5 8"></path>
+                                <path d="M2.5 3.5V8H7"></path>
+                            </svg>
+                            Replay Atelier Overture
+                        </button>
                     </div>
                 </div>
 
@@ -2773,14 +3011,23 @@
         const animIcon = document.getElementById('animIcon');
         const animLabel = document.getElementById('animLabel');
 
+        function updateAnimIcon(isRunning) {
+            if (!animIcon) return;
+            if (isRunning) {
+                animIcon.innerHTML = `<svg class="header-svg" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="10" cy="10" r="3.2"></circle><path d="M10 2v3M10 15v3M2 10h3M15 10h3"></path><circle cx="4.5" cy="4.5" r="0.8" fill="currentColor"></circle><circle cx="15.5" cy="15.5" r="0.8" fill="currentColor"></circle></svg>`;
+            } else {
+                animIcon.innerHTML = `<svg class="header-svg" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="7 5 15 10 7 15 7 5" fill="currentColor" fill-opacity="0.2"></polygon></svg>`;
+            }
+        }
+
         animToggleBtn.addEventListener('click', () => {
             isAnimationRunning = !isAnimationRunning;
             if (isAnimationRunning) {
-                animIcon.textContent = '⏸️';
+                updateAnimIcon(true);
                 animLabel.textContent = 'Stardust';
                 animateStardust();
             } else {
-                animIcon.textContent = '▶️';
+                updateAnimIcon(false);
                 animLabel.textContent = 'Paused';
                 if (animationFrameId) cancelAnimationFrame(animationFrameId);
             }
@@ -2904,13 +3151,21 @@
         const themeIcon = document.getElementById('themeIcon');
         const themeLabel = document.getElementById('themeLabel');
 
+        function updateThemeIcon(theme) {
+            if (!themeIcon) return;
+            if (theme === 'light') {
+                themeIcon.innerHTML = `<svg class="header-svg" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="10" cy="10" r="4"></circle><path d="M10 1v2M10 17v2M1 10h2M17 10h2M3.6 3.6l1.4 1.4M15 15l1.4 1.4M3.6 16.4l1.4-1.4M15 5l1.4-1.4"></path></svg>`;
+            } else {
+                themeIcon.innerHTML = `<svg class="header-svg" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17.3 12.3A8 8 0 1 1 7.7 2.7 6.5 6.5 0 0 0 17.3 12.3z"></path></svg>`;
+            }
+        }
+
         function setTheme(theme) {
             document.documentElement.setAttribute('data-theme', theme);
+            updateThemeIcon(theme);
             if (theme === 'light') {
-                themeIcon.textContent = '☀️';
                 themeLabel.textContent = 'Parchment';
             } else {
-                themeIcon.textContent = '🌙';
                 themeLabel.textContent = 'Charcoal';
             }
         }
@@ -3139,19 +3394,27 @@
         const statusDot = document.getElementById('statusDot');
         const modalAiToggle = document.getElementById('modalAiToggle');
 
+        function updateAiIcon(active) {
+            if (!aiIcon) return;
+            if (active) {
+                aiIcon.innerHTML = `<svg class="header-svg" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 2L12.2 7.8L18 10L12.2 12.2L10 18L7.8 12.2L2 10L7.8 7.8L10 2Z" fill="currentColor" fill-opacity="0.18"></path><circle cx="15.5" cy="4.5" r="1" fill="currentColor"></circle></svg>`;
+            } else {
+                aiIcon.innerHTML = `<svg class="header-svg" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="10" cy="10" r="7"></circle><line x1="4" y1="4" x2="16" y2="16"></line></svg>`;
+            }
+        }
+
         function setAiEngineState(active) {
             isAiEngineActive = active;
             if (modalAiToggle) modalAiToggle.checked = active;
 
+            updateAiIcon(active);
             if (active) {
-                aiIcon.textContent = '🤖';
                 aiLabel.textContent = 'Stop AI';
                 aiToggleBtn.classList.remove('ai-stopped');
                 backendStatus.textContent = 'Gemini 3.5 Flash';
                 statusDot.style.background = 'var(--accent-sage)';
                 statusDot.style.boxShadow = '0 0 6px var(--accent-sage)';
             } else {
-                aiIcon.textContent = '⚡';
                 aiLabel.textContent = 'Start AI';
                 aiToggleBtn.classList.add('ai-stopped');
                 backendStatus.textContent = 'Local Solver';
@@ -3576,7 +3839,12 @@
                     <div class="bubble-content">${formatMessageHTML(text)}</div>
                     <div class="bubble-meta">
                         <span>${timeStr}</span>
-                        <button class="action-icon-btn speak-action-btn" title="Listen Spoken Voice">🔊</button>
+                        <button class="action-icon-btn speak-action-btn" title="Listen Spoken Voice" aria-label="Listen Spoken Voice">
+                            <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="width: 14px; height: 14px; display: block;">
+                                <polygon points="8 4 4 7 1 7 1 13 4 13 8 16 8 4"></polygon>
+                                <path d="M13 6c1.3 1.1 2 2.5 2 4s-.7 2.9-2 4M15.5 3.5c2.2 1.8 3.5 4.1 3.5 6.5s-1.3 4.7-3.5 6.5"></path>
+                            </svg>
+                        </button>
                     </div>
                 </div>
             `;
@@ -3681,7 +3949,13 @@
                         <span class="history-meta">${item.timestamp}</span>
                         <div>
                             <button class="history-btn-small" onclick="directReCalculate('${escapeHtml(item.question).replace(/'/g, "\\'")}')">▶ Compute</button>
-                            <button class="history-btn-small" onclick="deleteHistoryItem('${item.id}')">🗑️</button>
+                            <button class="history-btn-small" onclick="deleteHistoryItem('${item.id}')" title="Delete record" aria-label="Delete record">
+                                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="width: 12px; height: 12px; vertical-align: middle;">
+                                    <path d="M3 5h14M8 5V3h4v2M5 5l1 12a2 2 0 0 0 2 2h4a2 2 0 0 0 2-2l1-12"></path>
+                                    <line x1="8" y1="9" x2="8" y2="15"></line>
+                                    <line x1="12" y1="9" x2="12" y2="15"></line>
+                                </svg>
+                            </button>
                         </div>
                     </div>
                 `;
@@ -3805,7 +4079,7 @@
                     if (s.sidebarRightWidth) document.documentElement.style.setProperty('--sidebar-right-width', s.sidebarRightWidth);
                     if (s.animRunning !== undefined && !s.animRunning) {
                         isAnimationRunning = false;
-                        animIcon.textContent = '▶️';
+                        updateAnimIcon(false);
                         animLabel.textContent = 'Paused';
                     }
                     if (s.aiActive !== undefined) setAiEngineState(s.aiActive);
@@ -3831,9 +4105,18 @@
             if (!keyInput) return;
             keyInput.value = getGeminiApiKey();
 
+            function updateKeyVisibilityIcon(isPassword) {
+                if (!toggleBtn) return;
+                if (isPassword) {
+                    toggleBtn.innerHTML = `<svg class="header-svg" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 10s3.5-6 9-6 9 6 9 6-3.5 6-9 6-9-6-9-6z"></path><circle cx="10" cy="10" r="3"></circle></svg>`;
+                } else {
+                    toggleBtn.innerHTML = `<svg class="header-svg" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.1 14.1C12.9 15 11.5 15.5 10 15.5c-5.5 0-9-5.5-9-5.5s1.4-2.4 3.7-4M7.9 7.9A3 3 0 0 0 12.1 12.1M1 1l18 18M19 10s-1.4 2.5-3.8 4.1M8.1 4.3C8.7 4.1 9.3 4 10 4c5.5 0 9 6 9 6s-.9 1.6-2.2 2.9"></path></svg>`;
+                }
+            }
+
             toggleBtn.onclick = () => {
                 keyInput.type = keyInput.type === 'password' ? 'text' : 'password';
-                toggleBtn.textContent = keyInput.type === 'password' ? '👁️' : '🔒';
+                updateKeyVisibilityIcon(keyInput.type === 'password');
             };
 
             saveBtn.onclick = () => {
@@ -3934,8 +4217,9 @@
                         <div style="font-weight: 600; color: var(--text-primary); font-size: 13px;">Official Printable Architecture Document (PDF)</div>
                         <div style="font-size: 11.5px; color: var(--text-muted);">4-page publication-quality vector specification</div>
                     </div>
-                    <a href="ARCHITECTURE_AND_CODE_EXPLANATION.pdf" download="Atelier_Mathematical_Instrument_Architecture.pdf" class="api-btn" style="text-decoration: none; font-weight: 600; background: var(--text-primary); color: var(--canvas-bg);">
-                        📄 Download PDF Guide
+                    <a href="ARCHITECTURE_AND_CODE_EXPLANATION.pdf" download="Atelier_Mathematical_Instrument_Architecture.pdf" class="api-btn" style="text-decoration: none; font-weight: 600; background: var(--text-primary); color: var(--canvas-bg); display: inline-flex; align-items: center; gap: 6px;">
+                        <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="width: 14px; height: 14px;"><path d="M14 2H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2z"></path><polyline points="14 2 14 8 20 8"></polyline><path d="M12 11l-2 2-2-2M10 7v6"></path></svg>
+                        Download PDF Guide
                     </a>
                 </div>
             `;
