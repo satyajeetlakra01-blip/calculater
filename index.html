@@ -3535,6 +3535,8 @@
         function toggleMobileKeypad() {
             setMobileView(currentMobileView === 'keypad' ? 'chat' : 'keypad');
         }
+        window.setMobileView = setMobileView;
+        window.toggleMobileKeypad = toggleMobileKeypad;
 
         // 6. Bespoke Palette & Theme Management
         const PALETTES = {
@@ -3578,6 +3580,7 @@
                 playClickSound(650, 'triangle');
             }
         }
+        window.selectPalette = selectPalette;
 
         const paletteCycleBtn = document.getElementById('paletteCycleBtn');
         if (paletteCycleBtn) {
@@ -3659,6 +3662,9 @@
                 headerMenuBtn.setAttribute('aria-expanded', 'false');
             }
         }
+        window.closeHeaderMenu = closeHeaderMenu;
+        window.openHeaderMenu = openHeaderMenu;
+        window.toggleHeaderMenu = toggleHeaderMenu;
 
         if (headerMenuBtn) {
             headerMenuBtn.addEventListener('click', (e) => {
@@ -3682,32 +3688,35 @@
         });
 
         const menuThemeToggleBtn = document.getElementById('menuThemeToggleBtn');
-        if (menuThemeToggleBtn && themeToggleBtn) {
+        if (menuThemeToggleBtn) {
             menuThemeToggleBtn.addEventListener('click', () => {
-                themeToggleBtn.click();
+                const btn = document.getElementById('themeToggleBtn');
+                if (btn) btn.click();
             });
         }
 
         const menuAiToggleBtn = document.getElementById('menuAiToggleBtn');
-        if (menuAiToggleBtn && aiToggleBtn) {
+        if (menuAiToggleBtn) {
             menuAiToggleBtn.addEventListener('click', () => {
-                aiToggleBtn.click();
+                const btn = document.getElementById('aiToggleBtn');
+                if (btn) btn.click();
             });
         }
 
         const menuAnimToggleBtn = document.getElementById('menuAnimToggleBtn');
-        if (menuAnimToggleBtn && animToggleBtn) {
+        if (menuAnimToggleBtn) {
             menuAnimToggleBtn.addEventListener('click', () => {
-                animToggleBtn.click();
+                const btn = document.getElementById('animToggleBtn');
+                if (btn) btn.click();
             });
         }
 
         const menuReplayBtn = document.getElementById('menuReplayBtn');
-        const replayIntroHeaderBtn = document.getElementById('replayIntroHeaderBtn');
-        if (menuReplayBtn && replayIntroHeaderBtn) {
+        if (menuReplayBtn) {
             menuReplayBtn.addEventListener('click', () => {
                 closeHeaderMenu();
-                replayIntroHeaderBtn.click();
+                const btn = document.getElementById('replayIntroHeaderBtn');
+                if (btn) btn.click();
             });
         }
 
@@ -3733,6 +3742,7 @@
                 playClickSound(520, 'triangle');
             }
         }
+        window.dismissWelcomeCard = dismissWelcomeCard;
 
         if (dismissWelcomeBtn) {
             dismissWelcomeBtn.addEventListener('click', dismissWelcomeCard);
@@ -3789,6 +3799,9 @@
             document.getElementById('funcKeypad').style.display = tab === 'func' ? 'grid' : 'none';
             playClickSound(480);
         }
+        window.setInput = setInput;
+        window.pressKey = pressKey;
+        window.switchKeypadTab = switchKeypadTab;
 
         // 8. Speech Recognition (STT)
         const micBtn = document.getElementById('micBtn');
@@ -4301,6 +4314,7 @@
                 timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
             });
         }
+        window.handleSend = handleSend;
 
         function appendUserMessage(text) {
             const timeStr = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
@@ -4488,6 +4502,7 @@
             renderHistoryUI();
             playClickSound(360);
         }
+        window.deleteHistoryItem = deleteHistoryItem;
 
         function renderHistoryUI() {
             const historyList = document.getElementById('historyList');
@@ -4546,6 +4561,7 @@
             setInput(q);
             handleSend();
         }
+        window.directReCalculate = directReCalculate;
 
         document.getElementById('historySearch').addEventListener('input', renderHistoryUI);
 
