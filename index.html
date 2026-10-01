@@ -903,6 +903,225 @@
             transform: scale(1.1);
         }
 
+        /* Header Dropdown Menu Popover */
+        .header-menu-container {
+            position: relative;
+            display: inline-block;
+        }
+
+        .header-menu-btn {
+            position: relative;
+            z-index: 10;
+        }
+
+        .header-chevron-svg {
+            width: 10px;
+            height: 10px;
+            stroke: currentColor;
+            transition: transform 0.2s var(--apple-ease);
+            display: inline-block;
+            margin-left: 2px;
+        }
+
+        .header-menu-btn.active .header-chevron-svg {
+            transform: rotate(180deg);
+        }
+
+        .header-dropdown-menu {
+            position: absolute;
+            top: calc(100% + 8px);
+            right: 0;
+            width: 295px;
+            background: var(--surface-bg);
+            border: 1px solid var(--border-medium);
+            border-radius: 10px;
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45), 0 2px 10px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            padding: 12px;
+            z-index: 1000;
+            opacity: 0;
+            transform: scale(0.96) translateY(-6px);
+            pointer-events: none;
+            transition: opacity 0.18s cubic-bezier(0.16, 1, 0.3, 1), transform 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .header-dropdown-menu.open {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+            pointer-events: auto;
+        }
+
+        .dropdown-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 8px;
+            margin-bottom: 8px;
+            border-bottom: 1px solid var(--border-hairline);
+        }
+
+        .dropdown-header-title {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 13.5px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .dropdown-status-badge {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 10px;
+            background: var(--accent-sage-tint);
+            color: var(--accent-sage);
+            border: 1px solid var(--accent-sage-border);
+            padding: 1px 6px;
+            border-radius: 4px;
+        }
+
+        .dropdown-section-label {
+            display: block;
+            font-family: 'Inter', sans-serif;
+            font-size: 10px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+        }
+
+        .dropdown-palette-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6px;
+            margin-bottom: 10px;
+        }
+
+        .dropdown-palette-pill {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            padding: 6px 10px;
+            background: var(--surface-subtle);
+            border: 1px solid var(--border-hairline);
+            border-radius: 6px;
+            color: var(--text-secondary);
+            font-family: 'Inter', sans-serif;
+            font-size: 11.5px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            text-align: left;
+        }
+
+        .dropdown-palette-pill:hover {
+            border-color: var(--border-medium);
+            background: var(--surface-elevated);
+            color: var(--text-primary);
+        }
+
+        .dropdown-palette-pill.active {
+            border-color: var(--accent-sage);
+            background: var(--accent-sage-tint);
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        .swatch-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .dropdown-divider {
+            height: 1px;
+            background: var(--border-hairline);
+            margin: 8px 0;
+        }
+
+        .dropdown-items-list {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .dropdown-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            padding: 8px 10px;
+            background: transparent;
+            border: 1px solid transparent;
+            border-radius: 6px;
+            cursor: pointer;
+            color: var(--text-primary);
+            transition: all 0.15s ease;
+            text-align: left;
+        }
+
+        .dropdown-item:hover {
+            background: var(--surface-subtle);
+            border-color: var(--border-hairline);
+        }
+
+        .dropdown-item:active {
+            transform: scale(0.98);
+        }
+
+        .dropdown-item-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .dropdown-icon-box {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 22px;
+            height: 22px;
+            border-radius: 5px;
+            background: var(--surface-subtle);
+            border: 1px solid var(--border-hairline);
+            color: var(--text-secondary);
+            flex-shrink: 0;
+        }
+
+        .dropdown-item-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .dropdown-item-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        .dropdown-item-sub {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 9.5px;
+            color: var(--text-muted);
+        }
+
+        .dropdown-toggle-pill {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 9.5px;
+            padding: 2px 7px;
+            border-radius: 4px;
+            background: var(--surface-subtle);
+            border: 1px solid var(--border-hairline);
+            color: var(--text-secondary);
+        }
+
+        .dropdown-toggle-pill.active {
+            background: var(--accent-sage-tint);
+            border-color: var(--accent-sage-border);
+            color: var(--accent-sage);
+        }
+
         /* Mobile Tab Navigation Bar */
         .mobile-nav-bar {
             display: none;
@@ -1175,20 +1394,44 @@
         .welcome-card {
             background: var(--surface-subtle);
             border: 1px solid var(--border-hairline);
-            padding: 36px 36px 32px 36px;
+            padding: 26px 30px 22px 30px;
             margin-bottom: 12px;
             position: relative;
+            transition: opacity 0.25s ease, max-height 0.25s ease;
         }
 
-        .welcome-card::after {
-            content: "OPUS NO. 04";
+        .welcome-card.dismissed {
+            display: none !important;
+        }
+
+        .welcome-dismiss-btn {
             position: absolute;
-            top: 16px;
-            right: 20px;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 10px;
-            letter-spacing: 0.14em;
-            color: var(--accent-sage);
+            top: 14px;
+            right: 14px;
+            width: 24px;
+            height: 24px;
+            border: 1px solid var(--border-hairline);
+            background: var(--surface-bg);
+            color: var(--text-muted);
+            border-radius: 6px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+            line-height: 1;
+            transition: all 0.15s ease;
+            z-index: 2;
+        }
+
+        .welcome-dismiss-btn:hover {
+            color: var(--text-primary);
+            border-color: var(--border-medium);
+            background: var(--surface-elevated);
+        }
+
+        .welcome-dismiss-btn:active {
+            transform: scale(0.92);
         }
 
         .welcome-edition-badge {
@@ -1197,19 +1440,19 @@
             letter-spacing: 0.12em;
             text-transform: uppercase;
             color: var(--accent-sage);
-            margin-bottom: 12px;
+            margin-bottom: 8px;
             display: block;
         }
 
         .welcome-title {
             font-family: 'Playfair Display', Georgia, serif;
-            font-size: 28px;
+            font-size: 24px;
             font-weight: 600;
             line-height: 1.25;
             letter-spacing: -0.01em;
             color: var(--text-primary);
-            margin-bottom: 14px;
-            max-width: 620px;
+            margin-bottom: 8px;
+            max-width: 580px;
         }
 
         .welcome-title em {
@@ -1219,21 +1462,21 @@
         }
 
         .welcome-prose {
-            font-size: 13.5px;
+            font-size: 13px;
             color: var(--text-secondary);
-            line-height: 1.65;
-            max-width: 580px;
-            margin-bottom: 24px;
+            line-height: 1.55;
+            max-width: 540px;
+            margin-bottom: 16px;
         }
 
         .inquiry-label {
             font-family: 'Inter', sans-serif;
-            font-size: 11px;
+            font-size: 10.5px;
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 0.08em;
             color: var(--text-muted);
-            margin-bottom: 12px;
+            margin-bottom: 10px;
             display: block;
         }
 
@@ -2060,25 +2303,50 @@
            ========================================================================== */
         @media (max-width: 1024px) {
             .app-wrapper {
-                padding: max(10px, env(safe-area-inset-top)) max(10px, env(safe-area-inset-right)) max(10px, env(safe-area-inset-bottom)) max(10px, env(safe-area-inset-left));
-                gap: 10px;
+                padding: max(8px, env(safe-area-inset-top)) max(8px, env(safe-area-inset-right)) max(8px, env(safe-area-inset-bottom)) max(8px, env(safe-area-inset-left));
+                gap: 8px;
             }
 
             .app-header {
-                padding: 10px 14px;
+                padding: 8px 12px;
+                position: relative;
             }
 
             .brand-title {
-                font-size: 16px;
+                font-size: 15px;
+            }
+
+            .brand-edition-sub {
+                display: none;
             }
 
             .header-controls {
-                overflow-x: auto;
-                -webkit-overflow-scrolling: touch;
+                overflow: visible;
+                gap: 6px;
             }
 
-            .header-btn span:nth-child(2) {
+            .desktop-only {
+                display: none !important;
+            }
+
+            .status-pill {
+                padding: 5px 8px;
+                font-size: 10px;
+            }
+
+            .status-pill span:not(.status-dot) {
                 display: none;
+            }
+
+            .header-btn {
+                padding: 6px 10px;
+                font-size: 11.5px;
+            }
+
+            .header-dropdown-menu {
+                width: 275px;
+                max-width: calc(100vw - 20px);
+                right: 0;
             }
 
             .mobile-nav-bar {
@@ -2141,15 +2409,55 @@
             }
 
             .chat-messages {
-                padding: 18px 16px;
+                padding: 12px 10px;
             }
 
             .welcome-card {
-                padding: 24px 20px;
+                padding: 14px 14px 12px 14px;
+                margin-bottom: 8px;
+            }
+
+            .welcome-card::after {
+                display: none;
+            }
+
+            .welcome-edition-badge {
+                display: none;
             }
 
             .welcome-title {
-                font-size: 22px;
+                font-size: 16px;
+                margin-bottom: 4px;
+            }
+
+            .welcome-prose {
+                font-size: 12px;
+                line-height: 1.42;
+                margin-bottom: 10px;
+            }
+
+            .inquiry-label {
+                font-size: 9.5px;
+                margin-bottom: 6px;
+            }
+
+            .example-chips.example-chips-rail {
+                flex-wrap: nowrap;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: none;
+                padding-bottom: 4px;
+            }
+
+            .example-chips.example-chips-rail::-webkit-scrollbar {
+                display: none;
+            }
+
+            .chip {
+                white-space: nowrap;
+                flex-shrink: 0;
+                font-size: 11px;
+                padding: 6px 11px;
             }
 
             .message-row {
@@ -2234,8 +2542,8 @@
                     <span id="backendStatus">Gemini 3.5 Flash</span>
                 </div>
 
-                <!-- AI Start/Stop -->
-                <button class="header-btn" id="aiToggleBtn" title="Start or Stop AI Engine">
+                <!-- AI Start/Stop (Desktop direct shortcut) -->
+                <button class="header-btn desktop-only" id="aiToggleBtn" title="Start or Stop AI Engine">
                     <span id="aiIcon" class="header-icon-box">
                         <svg class="header-svg" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                             <path d="M10 2L12.2 7.8L18 10L12.2 12.2L10 18L7.8 12.2L2 10L7.8 7.8L10 2Z" fill="currentColor" fill-opacity="0.18"></path>
@@ -2245,8 +2553,8 @@
                     <span id="aiLabel">Stop AI</span>
                 </button>
 
-                <!-- Atmosphere / Stardust Toggle -->
-                <button class="header-btn" id="animToggleBtn" title="Toggle Background Stardust">
+                <!-- Atmosphere / Stardust Toggle (Desktop shortcut) -->
+                <button class="header-btn desktop-only" id="animToggleBtn" title="Toggle Background Stardust">
                     <span id="animIcon" class="header-icon-box">
                         <svg class="header-svg" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                             <circle cx="10" cy="10" r="3.2"></circle>
@@ -2258,8 +2566,8 @@
                     <span id="animLabel">Stardust</span>
                 </button>
 
-                <!-- Replay Intro -->
-                <button class="header-btn" id="replayIntroHeaderBtn" title="Replay Atelier Entrance">
+                <!-- Replay Intro (Desktop shortcut) -->
+                <button class="header-btn desktop-only" id="replayIntroHeaderBtn" title="Replay Atelier Entrance">
                     <span class="header-icon-box">
                         <svg class="header-svg" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                             <path d="M3.5 10a6.5 6.5 0 1 0 1.9-4.6L2.5 8"></path>
@@ -2269,8 +2577,8 @@
                     <span>Replay</span>
                 </button>
 
-                <!-- Quick Palette Cycle Button -->
-                <button class="header-btn" id="paletteCycleBtn" title="Cycle Bespoke Palettes (Atelier, Milano, Nordic, Sumi)">
+                <!-- Quick Palette Cycle Button (Desktop shortcut) -->
+                <button class="header-btn desktop-only" id="paletteCycleBtn" title="Cycle Bespoke Palettes (Atelier, Milano, Nordic, Sumi)">
                     <span class="header-icon-box">
                         <svg class="header-svg" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                             <circle cx="10" cy="10" r="7.5"></circle>
@@ -2284,7 +2592,7 @@
                 </button>
 
                 <!-- Dark / Light Theme Toggle -->
-                <button class="header-btn" id="themeToggleBtn" title="Toggle Dark/Light Palette">
+                <button class="header-btn desktop-only" id="themeToggleBtn" title="Toggle Dark/Light Palette">
                     <span id="themeIcon" class="header-icon-box">
                         <svg class="header-svg" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                             <path d="M17.3 12.3A8 8 0 1 1 7.7 2.7 6.5 6.5 0 0 0 17.3 12.3z"></path>
@@ -2293,8 +2601,8 @@
                     <span id="themeLabel">Parchment / Ink</span>
                 </button>
 
-                <!-- Settings Studio -->
-                <button class="header-btn" id="openSettingsBtn" title="Open Customization Studio">
+                <!-- Settings Studio (Desktop shortcut) -->
+                <button class="header-btn desktop-only" id="openSettingsBtn" title="Open Customization Studio">
                     <span class="header-icon-box">
                         <svg class="header-svg" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                             <line x1="3" y1="6" x2="17" y2="6"></line>
@@ -2305,6 +2613,133 @@
                     </span>
                     <span>Studio</span>
                 </button>
+
+                <!-- Consolidated Dropdown Menu Button -->
+                <div class="header-menu-container">
+                    <button class="header-btn header-menu-btn" id="headerMenuBtn" aria-expanded="false" aria-haspopup="true" title="Open Atelier Options & Controls">
+                        <span class="header-icon-box">
+                            <svg class="header-svg" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <circle cx="10" cy="4" r="1.5" fill="currentColor"></circle>
+                                <circle cx="10" cy="10" r="1.5" fill="currentColor"></circle>
+                                <circle cx="10" cy="16" r="1.5" fill="currentColor"></circle>
+                            </svg>
+                        </span>
+                        <span>Menu</span>
+                        <svg class="header-chevron-svg" viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <path d="M1 1L5 5L9 1" />
+                        </svg>
+                    </button>
+
+                    <div class="header-dropdown-menu" id="headerDropdownMenu" role="menu" aria-label="Controls and Customization">
+                        <div class="dropdown-header">
+                            <span class="dropdown-header-title">Atelier Controls</span>
+                            <span class="dropdown-status-badge" id="dropdownEngineBadge">Active</span>
+                        </div>
+                        
+                        <span class="dropdown-section-label">Color Palettes</span>
+                        <div class="dropdown-palette-grid">
+                            <button class="dropdown-palette-pill active" data-theme="atelier" onclick="selectPalette('atelier'); closeHeaderMenu();">
+                                <span class="swatch-dot" style="background: #2D5A46;"></span>
+                                <span>Atelier</span>
+                            </button>
+                            <button class="dropdown-palette-pill" data-theme="milano" onclick="selectPalette('milano'); closeHeaderMenu();">
+                                <span class="swatch-dot" style="background: #8E5D3D;"></span>
+                                <span>Milano</span>
+                            </button>
+                            <button class="dropdown-palette-pill" data-theme="nordic" onclick="selectPalette('nordic'); closeHeaderMenu();">
+                                <span class="swatch-dot" style="background: #3B6064;"></span>
+                                <span>Nordic</span>
+                            </button>
+                            <button class="dropdown-palette-pill" data-theme="sumi" onclick="selectPalette('sumi'); closeHeaderMenu();">
+                                <span class="swatch-dot" style="background: #6C5B7B;"></span>
+                                <span>Sumi</span>
+                            </button>
+                        </div>
+
+                        <div class="dropdown-divider"></div>
+
+                        <div class="dropdown-items-list">
+                            <button class="dropdown-item" id="menuThemeToggleBtn">
+                                <div class="dropdown-item-left">
+                                    <span class="dropdown-icon-box">
+                                        <svg class="header-svg" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M17.3 12.3A8 8 0 1 1 7.7 2.7 6.5 6.5 0 0 0 17.3 12.3z"></path>
+                                        </svg>
+                                    </span>
+                                    <div class="dropdown-item-text">
+                                        <span class="dropdown-item-title">Appearance Mode</span>
+                                        <span class="dropdown-item-sub" id="menuThemeSub">Parchment / Ink</span>
+                                    </div>
+                                </div>
+                                <span class="dropdown-toggle-pill" id="menuThemeModePill">Charcoal</span>
+                            </button>
+
+                            <button class="dropdown-item" id="menuAiToggleBtn">
+                                <div class="dropdown-item-left">
+                                    <span class="dropdown-icon-box">
+                                        <svg class="header-svg" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M10 2L12.2 7.8L18 10L12.2 12.2L10 18L7.8 12.2L2 10L7.8 7.8L10 2Z" fill="currentColor" fill-opacity="0.18"></path>
+                                            <circle cx="15.5" cy="4.5" r="1" fill="currentColor"></circle>
+                                        </svg>
+                                    </span>
+                                    <div class="dropdown-item-text">
+                                        <span class="dropdown-item-title">AI Engine</span>
+                                        <span class="dropdown-item-sub">Gemini 3.5 Flash</span>
+                                    </div>
+                                </div>
+                                <span class="dropdown-toggle-pill active" id="menuAiTogglePill">On</span>
+                            </button>
+
+                            <button class="dropdown-item" id="menuAnimToggleBtn">
+                                <div class="dropdown-item-left">
+                                    <span class="dropdown-icon-box">
+                                        <svg class="header-svg" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                            <circle cx="10" cy="10" r="3.2"></circle>
+                                            <path d="M10 2v3M10 15v3M2 10h3M15 10h3"></path>
+                                        </svg>
+                                    </span>
+                                    <div class="dropdown-item-text">
+                                        <span class="dropdown-item-title">Atmosphere</span>
+                                        <span class="dropdown-item-sub">Ambient Particle Stardust</span>
+                                    </div>
+                                </div>
+                                <span class="dropdown-toggle-pill active" id="menuAnimTogglePill">On</span>
+                            </button>
+
+                            <button class="dropdown-item" id="menuReplayBtn">
+                                <div class="dropdown-item-left">
+                                    <span class="dropdown-icon-box">
+                                        <svg class="header-svg" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M3.5 10a6.5 6.5 0 1 0 1.9-4.6L2.5 8"></path>
+                                            <path d="M2.5 3.5V8H7"></path>
+                                        </svg>
+                                    </span>
+                                    <div class="dropdown-item-text">
+                                        <span class="dropdown-item-title">Replay Entrance</span>
+                                        <span class="dropdown-item-sub">Atelier Overture Animation</span>
+                                    </div>
+                                </div>
+                            </button>
+
+                            <button class="dropdown-item" id="menuStudioBtn">
+                                <div class="dropdown-item-left">
+                                    <span class="dropdown-icon-box">
+                                        <svg class="header-svg" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                                            <line x1="3" y1="6" x2="17" y2="6"></line>
+                                            <circle cx="7" cy="6" r="2.2"></circle>
+                                            <line x1="3" y1="14" x2="17" y2="14"></line>
+                                            <circle cx="13" cy="14" r="2.2"></circle>
+                                        </svg>
+                                    </span>
+                                    <div class="dropdown-item-text">
+                                        <span class="dropdown-item-title">Studio Preferences</span>
+                                        <span class="dropdown-item-sub">API Keys, Voices & Layout</span>
+                                    </div>
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </header>
 
@@ -2374,14 +2809,13 @@
                     
                     <!-- Asymmetric Editorial Welcome Hero -->
                     <div class="welcome-card" id="welcomeCard">
-                        <span class="welcome-edition-badge">Artisanal Computational Atelier • High-Precision Inquiry</span>
-                        <h2 class="welcome-title">The Art & Practice of <em>Exact Mathematics</em></h2>
+                        <button class="welcome-dismiss-btn" id="dismissWelcomeBtn" aria-label="Dismiss greeting" title="Dismiss introduction">✕</button>
+                        <h2 class="welcome-title">Computational Atelier</h2>
                         <p class="welcome-prose">
-                            Designed for rigorous symbolic analysis, physics, algebra, and natural spoken dialogue. Inquire in conversational English or exact notation — from Riemann integrals to multi-variable orbital dynamics.
+                            Dictate or enter equations for symbolic calculus, physics, and mathematical inquiry.
                         </p>
 
-                        <span class="inquiry-label">Curated Inquiries for Exploration</span>
-                        <div class="example-chips">
+                        <div class="example-chips example-chips-rail">
                             <button class="chip" onclick="setInput('Calculate the integral of x^2 * sin(x) from 0 to pi')">∫₀^π x² sin(x) dx</button>
                             <button class="chip" onclick="setInput('Solve the system: 3x + 2y = 12 and 5x - y = 7')">System: 3x+2y=12, 5x-y=7</button>
                             <button class="chip" onclick="setInput('Derive the Euler-Lagrange equation for a simple pendulum')">Euler-Lagrange Pendulum</button>
@@ -3131,6 +3565,14 @@
                 }
             });
 
+            document.querySelectorAll('.dropdown-palette-pill').forEach(pill => {
+                if (pill.getAttribute('data-theme') === paletteId) {
+                    pill.classList.add('active');
+                } else {
+                    pill.classList.remove('active');
+                }
+            });
+
             if (save) {
                 saveSettingsToStorage();
                 playClickSound(650, 'triangle');
@@ -3164,19 +3606,143 @@
             document.documentElement.setAttribute('data-theme', theme);
             updateThemeIcon(theme);
             if (theme === 'light') {
-                themeLabel.textContent = 'Parchment';
+                if (themeLabel) themeLabel.textContent = 'Parchment';
             } else {
-                themeLabel.textContent = 'Charcoal';
+                if (themeLabel) themeLabel.textContent = 'Charcoal';
+            }
+
+            const menuThemeModePill = document.getElementById('menuThemeModePill');
+            if (menuThemeModePill) {
+                menuThemeModePill.textContent = theme === 'light' ? 'Parchment' : 'Charcoal';
             }
         }
 
-        themeToggleBtn.addEventListener('click', () => {
-            const current = document.documentElement.getAttribute('data-theme');
-            const next = current === 'dark' ? 'light' : 'dark';
-            setTheme(next);
-            saveSettingsToStorage();
-            playClickSound(640, 'triangle');
+        if (themeToggleBtn) {
+            themeToggleBtn.addEventListener('click', () => {
+                const current = document.documentElement.getAttribute('data-theme');
+                const next = current === 'dark' ? 'light' : 'dark';
+                setTheme(next);
+                saveSettingsToStorage();
+                playClickSound(640, 'triangle');
+            });
+        }
+
+        // Dropdown Menu Popover Controller
+        const headerMenuBtn = document.getElementById('headerMenuBtn');
+        const headerDropdownMenu = document.getElementById('headerDropdownMenu');
+
+        function toggleHeaderMenu() {
+            if (!headerDropdownMenu) return;
+            const isOpen = headerDropdownMenu.classList.contains('open');
+            if (isOpen) {
+                closeHeaderMenu();
+            } else {
+                openHeaderMenu();
+            }
+        }
+
+        function openHeaderMenu() {
+            if (!headerDropdownMenu) return;
+            headerDropdownMenu.classList.add('open');
+            if (headerMenuBtn) {
+                headerMenuBtn.classList.add('active');
+                headerMenuBtn.setAttribute('aria-expanded', 'true');
+            }
+            playClickSound(680);
+        }
+
+        function closeHeaderMenu() {
+            if (!headerDropdownMenu) return;
+            headerDropdownMenu.classList.remove('open');
+            if (headerMenuBtn) {
+                headerMenuBtn.classList.remove('active');
+                headerMenuBtn.setAttribute('aria-expanded', 'false');
+            }
+        }
+
+        if (headerMenuBtn) {
+            headerMenuBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                toggleHeaderMenu();
+            });
+        }
+
+        document.addEventListener('click', (e) => {
+            if (headerDropdownMenu && headerDropdownMenu.classList.contains('open')) {
+                if (!headerDropdownMenu.contains(e.target) && !headerMenuBtn.contains(e.target)) {
+                    closeHeaderMenu();
+                }
+            }
         });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && headerDropdownMenu && headerDropdownMenu.classList.contains('open')) {
+                closeHeaderMenu();
+            }
+        });
+
+        const menuThemeToggleBtn = document.getElementById('menuThemeToggleBtn');
+        if (menuThemeToggleBtn && themeToggleBtn) {
+            menuThemeToggleBtn.addEventListener('click', () => {
+                themeToggleBtn.click();
+            });
+        }
+
+        const menuAiToggleBtn = document.getElementById('menuAiToggleBtn');
+        if (menuAiToggleBtn && aiToggleBtn) {
+            menuAiToggleBtn.addEventListener('click', () => {
+                aiToggleBtn.click();
+            });
+        }
+
+        const menuAnimToggleBtn = document.getElementById('menuAnimToggleBtn');
+        if (menuAnimToggleBtn && animToggleBtn) {
+            menuAnimToggleBtn.addEventListener('click', () => {
+                animToggleBtn.click();
+            });
+        }
+
+        const menuReplayBtn = document.getElementById('menuReplayBtn');
+        const replayIntroHeaderBtn = document.getElementById('replayIntroHeaderBtn');
+        if (menuReplayBtn && replayIntroHeaderBtn) {
+            menuReplayBtn.addEventListener('click', () => {
+                closeHeaderMenu();
+                replayIntroHeaderBtn.click();
+            });
+        }
+
+        const menuStudioBtn = document.getElementById('menuStudioBtn');
+        if (menuStudioBtn) {
+            menuStudioBtn.addEventListener('click', () => {
+                closeHeaderMenu();
+                const btn = document.getElementById('openSettingsBtn');
+                if (btn) btn.click();
+            });
+        }
+
+        // Welcome Card Dismissal & Persistence
+        const dismissWelcomeBtn = document.getElementById('dismissWelcomeBtn');
+        const welcomeCard = document.getElementById('welcomeCard');
+
+        function dismissWelcomeCard() {
+            if (welcomeCard) {
+                welcomeCard.classList.add('dismissed');
+                try {
+                    localStorage.setItem('atelier_welcome_dismissed', 'true');
+                } catch(e) {}
+                playClickSound(520, 'triangle');
+            }
+        }
+
+        if (dismissWelcomeBtn) {
+            dismissWelcomeBtn.addEventListener('click', dismissWelcomeCard);
+        }
+
+        try {
+            if (localStorage.getItem('atelier_welcome_dismissed') === 'true') {
+                if (welcomeCard) welcomeCard.classList.add('dismissed');
+            }
+        } catch(e) {}
 
         // 7. Input & Keypad Handlers
         const chatInput = document.getElementById('chatInput');
@@ -3408,18 +3974,31 @@
             if (modalAiToggle) modalAiToggle.checked = active;
 
             updateAiIcon(active);
+            const menuAiTogglePill = document.getElementById('menuAiTogglePill');
+            const dropdownEngineBadge = document.getElementById('dropdownEngineBadge');
+
             if (active) {
                 aiLabel.textContent = 'Stop AI';
                 aiToggleBtn.classList.remove('ai-stopped');
                 backendStatus.textContent = 'Gemini 3.5 Flash';
                 statusDot.style.background = 'var(--accent-sage)';
                 statusDot.style.boxShadow = '0 0 6px var(--accent-sage)';
+                if (menuAiTogglePill) {
+                    menuAiTogglePill.textContent = 'On';
+                    menuAiTogglePill.classList.add('active');
+                }
+                if (dropdownEngineBadge) dropdownEngineBadge.textContent = 'Active';
             } else {
                 aiLabel.textContent = 'Start AI';
                 aiToggleBtn.classList.add('ai-stopped');
                 backendStatus.textContent = 'Local Solver';
                 statusDot.style.background = '#C08246';
                 statusDot.style.boxShadow = '0 0 6px #C08246';
+                if (menuAiTogglePill) {
+                    menuAiTogglePill.textContent = 'Off';
+                    menuAiTogglePill.classList.remove('active');
+                }
+                if (dropdownEngineBadge) dropdownEngineBadge.textContent = 'Local';
             }
         }
 
